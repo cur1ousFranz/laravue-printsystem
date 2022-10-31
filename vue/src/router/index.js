@@ -10,7 +10,9 @@ import RegisterOwner from '../views/auth/RegisterOwner.vue'
 import Home from '../views/customer/Home.vue'
 // owner
 import Store from '../views/owner/Store.vue'
+import StoreApplication from '../views/owner/StoreApplication.vue'
 import Queues from '../views/owner/Queues.vue'
+import StoreView from '../views/owner/StoreView.vue'
 // admin
 import Dashboard from '../views/admin/Dashboard.vue'
 import StoreList from '../views/admin/StoreList.vue'
@@ -33,15 +35,17 @@ const routes = [
   },
   {
     path: '/owner',
-    redirect: '/business',
+    redirect: '/shop',
     component : BusinessOwnerLayout,
     meta : {
       requiresAuth : true,
       auth : 'businessowner',
     },
     children: [
-      { path: '/store', name: 'Store' , component: Store },
-      { path: '/queues', name: 'Queues' , component: Queues },
+      { path: '/shop', name: 'Store' , component: Store },
+      { path: '/queue', name: 'Queues' , component: Queues },
+      { path: '/shop/application', name: 'StoreApplication' , component: StoreApplication },
+      { path: '/shop/:id', name: 'StoreView' , component: StoreView },
     ]
   },
   {

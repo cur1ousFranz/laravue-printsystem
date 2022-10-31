@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        BusinessOwner::factory()->create();
+        // BusinessOwner::factory()->create();
         Admin::factory()->create();
     }
 }

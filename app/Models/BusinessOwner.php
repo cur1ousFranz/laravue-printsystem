@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Application;
+use App\Models\Shop;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -28,5 +29,10 @@ class BusinessOwner extends Model
     public function applications()
     {
         return $this->hasMany(Application::class);
+    }
+
+    public function shops()
+    {
+        return $this->hasMany(Shop::class);
     }
 }

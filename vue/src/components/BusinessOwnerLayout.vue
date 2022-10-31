@@ -99,8 +99,9 @@ const router = useRouter()
 const user = {}
 
   const navigation = [
-    { name: 'Store', to : { name : 'Store'}},
+    { name: 'Shop', to : { name : 'Store'}},
     { name: 'Queues', to : { name : 'Queues'}},
+    { name: 'Shop Application', to : { name : 'StoreApplication'}},
   ]
 
   function logout(){

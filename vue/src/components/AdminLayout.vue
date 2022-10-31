@@ -81,7 +81,7 @@
       </Disclosure>
 
       <main>
-        <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        <div class="max-w-7xl py-6 sm:px-6 lg:px-8">
           <router-view></router-view>
         </div>
       </main>
@@ -106,7 +106,7 @@ const user = {
   const navigation = [
     { name: 'Dashboard', to : { name : 'Dashboard'}},
     { name: 'Store List', to : { name : 'StoreList'}},
-    { name: 'Application', to : { name : 'Application'}},
+    { name: 'Application List', to : { name : 'Application'}},
   ]
 
   function logout(){

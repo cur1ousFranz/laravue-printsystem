@@ -7,10 +7,81 @@ const store = createStore({
       role: sessionStorage.getItem('ROLE'),
       token: sessionStorage.getItem('TOKEN')
     },
+    applicationDetails : {
+      loading :false,
+      data : {}
+    },
+    allApplication : {
+      loading : false,
+      data : []
+    },
+    ownerApplication : {
+      loading : false,
+      data : []
+    },
+    ownerShops : {
+      loading : false,
+      data : []
+    },
+    shopDetails : {
+      loading : false,
+      data : []
+    }
 
   },
   getters: {},
   actions: {
+    getShopDetails({commit}, id) {
+      commit('setOwnerShopLoading', true)
+      return axiosClient.get(`/shop/${id}`)
+        .then((res) => {
+          commit('setOwnerShopLoading', false)
+          commit('setOwnerShop', res.data)
+          return res
+        })
+    },
+    getOwnerStores({commit}) {
+      commit('setOwnerShopsLoading', true)
+      return axiosClient.get('/shop')
+        .then((res) => {
+          commit('setOwnerShopsLoading', false)
+          commit('setOwnerShops', res.data)
+          return res
+        })
+    },
+    approveApplication({}, id) {
+      return axiosClient.put(`/application/${id}`)
+        .then((res) => {
+          return res
+        })
+    },
+    getApplicationDetails({commit}, id) {
+      commit('setApplicationDetailsLoading', true)
+      return axiosClient.get(`/application/${id}`)
+        .then((res) => {
+          commit('setApplicationDetailsLoading', false)
+          commit('setApplicationDetails', res.data)
+          return res
+        })
+    },
+    getAllApplications({commit}) {
+      commit('setAllApplicationLoading', true)
+      return axiosClient.get('/application')
+        .then((res) => {
+          commit('setAllApplicationLoading', false)
+          commit('setAllApplication', res.data)
+          return res
+        })
+    },
+    getOwnerApplications({commit}) {
+      commit('setStoreOwnerApplicationLoading', true)
+      return axiosClient.get('/shop/application')
+        .then((res) => {
+          commit('setStoreOwnerApplicationLoading', false)
+          commit('setStoreOwnerApplication', res.data)
+          return res
+        })
+    },
     registerOwner({commit}, data) {
       return axiosClient.post('/register/owner', data)
       .then(({data}) => {
@@ -42,6 +113,36 @@ const store = createStore({
 
   },
   mutations: {
+    setOwnerShopLoading : (state, loading) => {
+      state.shopDetails.loading = loading
+    },
+    setOwnerShop : (state, shop) => {
+      state.shopDetails.data = shop.data
+    },
+    setOwnerShopsLoading : (state, loading) => {
+      state.ownerShops.loading = loading
+    },
+    setOwnerShops : (state, shops) => {
+      state.ownerShops.data = shops.data
+    },
+    setApplicationDetailsLoading : (state, loading) =>  {
+      state.applicationDetails.loading = loading
+    },
+    setApplicationDetails : (state, application) => {
+      state.applicationDetails.data = application.data
+    },
+    setAllApplicationLoading : (state, loading) =>  {
+      state.allApplication.loading = loading
+    },
+    setAllApplication : (state, applications) => {
+      state.allApplication.data = applications.data
+    },
+    setStoreOwnerApplicationLoading : (state, loading) => {
+      state.ownerApplication.loading = loading
+    },
+    setStoreOwnerApplication : (state, application) => {
+      state.ownerApplication.data = application.data
+    },
     setUser : (state, userData) => {
       state.user.token = userData.token
       state.user.role = userData.user.role
