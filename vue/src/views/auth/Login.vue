@@ -26,7 +26,11 @@
           </label>
       </div>
       <div class="flex justify-end">
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+        <button type="submit" :class="[ loadStatus ? 'text-white bg-blue-400 focus:outline-none  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:hover:bg-blue-700 '
+        : 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700']">
+          Login
+          <span v-if="loadStatus">...</span>
+        </button>
       </div>
     </form>
   </div>
@@ -35,6 +39,7 @@
 <script>
 import store from '../../store'
 import { useRouter } from 'vue-router'
+import { computed, ref } from '@vue/runtime-core'
 export default {
   setup() {
 
@@ -45,7 +50,10 @@ export default {
       remember : false,
     }
 
+    let loadStatus = ref(false)
+
     function login(){
+      loadStatus.value = computed(() => store.state.user.loading)
       store.dispatch('login', model)
         .then((res) => {
 
@@ -65,9 +73,12 @@ export default {
           }
 
         })
+        .catch(() => {
+          loadStatus.value = false
+        })
     }
 
-    return { model, login }
+    return { model, loadStatus, login }
   }
 }
 </script>

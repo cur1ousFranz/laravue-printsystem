@@ -99,8 +99,8 @@ const router = useRouter()
 const user = {}
 
   const navigation = [
-    { name: 'Shop', to : { name : 'Store'}},
-    { name: 'Queues', to : { name : 'Queues'}},
+    { name: 'Shop', to : { name : 'Shop'}},
+    { name: 'Queue', to : { name : 'Queues'}},
     { name: 'Shop Application', to : { name : 'StoreApplication'}},
   ]
 

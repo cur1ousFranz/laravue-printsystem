@@ -9,7 +9,7 @@ import RegisterOwner from '../views/auth/RegisterOwner.vue'
 // customer
 import Home from '../views/customer/Home.vue'
 // owner
-import Store from '../views/owner/Store.vue'
+import Shop from '../views/owner/Shop.vue'
 import StoreApplication from '../views/owner/StoreApplication.vue'
 import Queues from '../views/owner/Queues.vue'
 import StoreView from '../views/owner/StoreView.vue'
@@ -42,7 +42,7 @@ const routes = [
       auth : 'businessowner',
     },
     children: [
-      { path: '/shop', name: 'Store' , component: Store },
+      { path: '/shop', name: 'Shop' , component: Shop },
       { path: '/queue', name: 'Queues' , component: Queues },
       { path: '/shop/application', name: 'StoreApplication' , component: StoreApplication },
       { path: '/shop/:id', name: 'StoreView' , component: StoreView },
@@ -58,8 +58,8 @@ const routes = [
     },
     children: [
       { path: '/dashboard', name: 'Dashboard' , component: Dashboard },
-      { path: '/store/list', name: 'StoreList' , component: StoreList },
-      { path: '/store/create', name: 'StoreCreate' , component: StoreCreate },
+      { path: '/shop/list', name: 'StoreList' , component: StoreList },
+      { path: '/shop/create', name: 'StoreCreate' , component: StoreCreate },
       { path: '/application', name: 'Application' , component: Application },
     ]
   },
@@ -91,12 +91,12 @@ router.beforeEach((to, from, next) => {
     next({ name : "Login" })
 
   }else if((store.state.user.token && to.meta.auth === 'guest' && store.state.user.role === 'customer')
-  || (to.meta.auth === 'businessowner' && store.state.user.role === 'customer')){
+  || ((to.meta.auth === 'businessowner' || to.meta.auth === 'admin') && store.state.user.role === 'customer')){
     next({ name : "Home" })
 
   }else if((store.state.user.token && to.meta.auth === 'guest' && store.state.user.role === 'businessowner')
-  || (to.meta.auth === 'customer' && store.state.user.role === 'businessowner')){
-    next({ name : "Store" })
+  || ((to.meta.auth === 'customer' || to.meta.auth === 'admin') && store.state.user.role === 'businessowner')){
+    next({ name : "Shop" })
 
   }else if((store.state.user.token && to.meta.auth === 'guest' && store.state.user.role === 'admin')
   || ((to.meta.auth === 'customer' || to.meta.auth === 'businessowner') && store.state.user.role === 'admin')){

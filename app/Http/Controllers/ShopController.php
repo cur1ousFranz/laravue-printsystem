@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BusinessOwner;
 use App\Models\Shop;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
@@ -22,7 +23,21 @@ class ShopController extends Controller
         }
 
         return response([
-            'data' => $shop->with('application')->first()
+            'data' => [
+                $shop->with('application')->first(),
+                $shop->services()->first()
+            ]
         ]);
+    }
+
+    public function update(Shop $shop, Request $request)
+    {
+        $shop->update([
+            'status' => $request->status
+        ]);
+
+        return response([
+            'success' => 'Update Success'
+        ], 204);
     }
 }

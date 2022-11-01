@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BusinessOwnerController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ShopController;
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -17,7 +18,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Business Owner
     Route::get('/shop/application', [BusinessOwnerController::class, 'index']);
     Route::get('/shop/{shop}', [ShopController::class, 'show']);
+    Route::put('/shop/{shop}', [ShopController::class, 'update']);
     Route::get('/shop', [BusinessOwnerController::class, 'show']);
+    Route::put('/service/{service}', [ServiceController::class, 'update']);
 
     // Admin
     Route::get('/application', [ApplicationController::class, 'index']);

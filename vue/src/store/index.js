@@ -4,8 +4,9 @@ import axiosClient from '../axios'
 const store = createStore({
   state: {
     user: {
+      loading : false,
       role: sessionStorage.getItem('ROLE'),
-      token: sessionStorage.getItem('TOKEN')
+      token: sessionStorage.getItem('TOKEN'),
     },
     applicationDetails : {
       loading :false,
@@ -25,12 +26,28 @@ const store = createStore({
     },
     shopDetails : {
       loading : false,
+      service : {
+        price : {}
+      },
       data : []
     }
 
   },
   getters: {},
   actions: {
+    setToggleShop({}, shop) {
+      return axiosClient.put(`/shop/${shop.id}`, shop)
+        .then((res) => {
+          return res
+        })
+    },
+    setShopService({commit}, service) {
+      return axiosClient.put(`/service/${service.id}`, service)
+      .then((res) => {
+        commit('setCurrentService', res.data)
+          return res
+        })
+    },
     getShopDetails({commit}, id) {
       commit('setOwnerShopLoading', true)
       return axiosClient.get(`/shop/${id}`)
@@ -90,8 +107,10 @@ const store = createStore({
       })
     },
     login({commit}, user) {
+      commit('setUserLoading', true)
       return axiosClient.post('/login', user)
         .then(({data}) => {
+          commit('setUserLoading', false)
           commit('setUser', data)
           return data
         })
@@ -113,11 +132,17 @@ const store = createStore({
 
   },
   mutations: {
+    setCurrentService : (state, service) => {
+      state.shopDetails.service = service.data
+    },
     setOwnerShopLoading : (state, loading) => {
       state.shopDetails.loading = loading
     },
     setOwnerShop : (state, shop) => {
-      state.shopDetails.data = shop.data
+      // Get the 2 elements inside the data array,
+      // because I also passed the related service of shop in response
+      state.shopDetails.data = shop.data[0]
+      state.shopDetails.service = shop.data[1]
     },
     setOwnerShopsLoading : (state, loading) => {
       state.ownerShops.loading = loading
@@ -142,6 +167,9 @@ const store = createStore({
     },
     setStoreOwnerApplication : (state, application) => {
       state.ownerApplication.data = application.data
+    },
+    setUserLoading : (state, loading) => {
+      state.user.loading = loading
     },
     setUser : (state, userData) => {
       state.user.token = userData.token

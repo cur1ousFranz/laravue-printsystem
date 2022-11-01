@@ -74,7 +74,6 @@
       <div v-else class="container text-2xl font-bold mx-auto py-44 w-full text-center text-gray-400 shadow-sm bg-gray-100">
         No applications yet.
       </div>
-
     </div>
 </template>
 
@@ -118,8 +117,11 @@ export default {
       .then((res) => {
         // Get the id of latest application and fetch its details
         const value = Object.values(res.data.data)[0]
-        store.dispatch('getApplicationDetails', value.id)
-    })
+
+        if(value){
+          store.dispatch('getApplicationDetails', value.id)
+        }
+      })
 
     function applicationDetails(id){
       store.dispatch('getApplicationDetails', id)

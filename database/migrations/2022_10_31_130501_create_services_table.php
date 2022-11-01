@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->foreignId('shop_id')->constrained()->cascadeOnDelete();
-            $table->string('service_name');
+            $table->string('service_name')->nullable();
+            $table->string('price', 1000)->nullable();
             $table->timestamps();
         });
     }
