@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Shop;
+use App\Models\ServicePrice;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -11,14 +12,20 @@ class Service extends Model
     use HasFactory;
 
     protected $fillable = [
-        'printing_shop_id',
+        'shop_id',
         'service_name',
-        'price'
     ];
 
-    public function servie()
+    protected $with = ['servicePrice'];
+
+    public function shop()
     {
-        $this->belongsTo(Shop::class);
+        return $this->belongsTo(Shop::class);
+    }
+
+    public function servicePrice()
+    {
+        return $this->hasOne(ServicePrice::class);
     }
 
 }

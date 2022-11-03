@@ -115,7 +115,7 @@ export default {
     function register(){
       store.dispatch('registerOwner', model)
         .then((res) => {
-          router.push({ name : 'Store'})
+          router.push({ name : 'Shop'})
         })
     }
 

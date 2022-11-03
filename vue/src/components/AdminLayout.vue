@@ -81,7 +81,7 @@
       </Disclosure>
 
       <main>
-        <div class="max-w-7xl py-6 sm:px-6 lg:px-8">
+        <div class="py-6 sm:px-6 lg:px-8">
           <router-view></router-view>
         </div>
       </main>
@@ -105,7 +105,7 @@ const user = {
 
   const navigation = [
     { name: 'Dashboard', to : { name : 'Dashboard'}},
-    { name: 'Store List', to : { name : 'StoreList'}},
+    { name: 'Shop List', to : { name : 'ShopList'}},
     { name: 'Application List', to : { name : 'Application'}},
   ]
 

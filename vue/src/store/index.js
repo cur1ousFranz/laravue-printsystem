@@ -16,6 +16,14 @@ const store = createStore({
       loading : false,
       data : []
     },
+    allShops : {
+      loading : false,
+      data : []
+    },
+    customerShopDetails : {
+      loading : false,
+      data : []
+    },
     ownerApplication : {
       loading : false,
       data : []
@@ -24,36 +32,64 @@ const store = createStore({
       loading : false,
       data : []
     },
-    shopDetails : {
+    ownerShopDetails : {
       loading : false,
-      service : {
-        price : {}
-      },
       data : []
     }
 
   },
   getters: {},
   actions: {
+    removeShopPrintDocsService({commit}, shop){
+      return axiosClient.delete(`/shop/documents/${shop.id}`)
+      .then((res) => {
+        commit('deleteShopPrintDocsServiceDetails', res.data)
+      })
+    },
+    setShopPrintDocsService({commit}, shop) {
+      return axiosClient.put(`/shop/documents/${shop.id}`)
+        .then((res) => {
+          commit('setShopPrintDocsServiceDetails', res.data)
+          return res
+        })
+    },
+    getCustomerShopDetails({commit}, id){
+      commit('setCustomerShopDetailsLoading', true)
+      return axiosClient.get(`/customer/shop/${id}`)
+        .then((res) => {
+          commit('setCustomerShopDetailsLoading', false)
+          commit('setCustomerShopDetails', res.data)
+          return res
+        })
+    },
+    getAllShops({commit}){
+      commit('setAllShopsLoading', true)
+      return axiosClient.get('/customer/shop')
+        .then((res) => {
+          commit('setAllShopsLoading', false)
+          commit('setAllShops', res.data)
+          return res
+        })
+    },
     setToggleShop({}, shop) {
       return axiosClient.put(`/shop/${shop.id}`, shop)
         .then((res) => {
           return res
         })
     },
-    setShopService({commit}, service) {
-      return axiosClient.put(`/service/${service.id}`, service)
+    setPrintDocsServicePrice({commit}, shop) {
+      return axiosClient.put(`/shop/service/document/price/${shop.id}`, shop)
       .then((res) => {
-        commit('setCurrentService', res.data)
+        commit('setPrintDocsServicePriceDetails', res.data)
           return res
         })
     },
     getShopDetails({commit}, id) {
-      commit('setOwnerShopLoading', true)
+      commit('setOwnerShopDetailsLoading', true)
       return axiosClient.get(`/shop/${id}`)
         .then((res) => {
-          commit('setOwnerShopLoading', false)
-          commit('setOwnerShop', res.data)
+          commit('setOwnerShopDetailsLoading', false)
+          commit('setOwnerShopDetails', res.data)
           return res
         })
     },
@@ -132,17 +168,32 @@ const store = createStore({
 
   },
   mutations: {
-    setCurrentService : (state, service) => {
-      state.shopDetails.service = service.data
+    deleteShopPrintDocsServiceDetails : (state, shop) => {
+      state.ownerShopDetails.data = shop.data
     },
-    setOwnerShopLoading : (state, loading) => {
-      state.shopDetails.loading = loading
+    setShopPrintDocsServiceDetails : (state, shop) => {
+      state.ownerShopDetails.data = shop.data
     },
-    setOwnerShop : (state, shop) => {
-      // Get the 2 elements inside the data array,
-      // because I also passed the related service of shop in response
-      state.shopDetails.data = shop.data[0]
-      state.shopDetails.service = shop.data[1]
+    setCustomerShopDetails : (state, shop) => {
+      state.customerShopDetails.data = shop.data
+    },
+    setCustomerShopDetailsLoading : (state, loading) => {
+      state.customerShopDetails.loading = loading
+    },
+    setAllShops : (state, shops) => {
+      state.allShops.data = shops.data
+    },
+    setAllShopsLoading : (state, loading) => {
+      state.allShops.loading = loading
+    },
+    setPrintDocsServicePriceDetails : (state, service) => {
+      state.ownerShopDetails.service = service.data
+    },
+    setOwnerShopDetailsLoading : (state, loading) => {
+      state.ownerShopDetails.loading = loading
+    },
+    setOwnerShopDetails : (state, shop) => {
+      state.ownerShopDetails.data = shop.data
     },
     setOwnerShopsLoading : (state, loading) => {
       state.ownerShops.loading = loading

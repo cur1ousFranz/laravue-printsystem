@@ -47,13 +47,11 @@ class ApplicationController extends Controller
             'status' => 'approved'
         ]);
 
-        $shop = Shop::create([
+        Shop::create([
             'business_owner_id' => $application->businessOwner->id,
             'application_id' => $application->id,
             'status' => 'close'
         ]);
-
-        $shop->services()->create();
 
         return response([
             'success' => 'Application updated'

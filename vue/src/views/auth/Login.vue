@@ -64,7 +64,7 @@ export default {
 
           if(store.state.user.role === 'businessowner'){
 
-            router.push({ name : 'Store'})
+            router.push({ name : 'Shop'})
           }
 
           if(store.state.user.role === 'admin'){

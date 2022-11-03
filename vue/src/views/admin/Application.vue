@@ -38,7 +38,7 @@
                           {{ capitalizeFirstLetter(application.status) }}
                         </span>
                       </td>
-                      <td @click="application.staus !== 'approved' ? approveApplication(application.id) : ''" class="py-4 px-6 text-green-500 hover:text-green-700 hover:text-bold">
+                      <td @click="application.status !== 'approved' ? approveApplication(application.id) : ''" class="py-4 px-6 text-green-500 hover:text-green-700 hover:text-bold">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
@@ -71,7 +71,7 @@
           </div>
         </div>
       </div>
-      <div v-else class="container text-2xl font-bold mx-auto py-44 w-full text-center text-gray-400 shadow-sm bg-gray-100">
+      <div v-else class="text-2xl font-bold mx-auto py-44 w-full text-center text-gray-400 shadow-sm bg-gray-100">
         No applications yet.
       </div>
     </div>
@@ -80,6 +80,7 @@
 <script>
 import { computed, onMounted, ref, watch } from '@vue/runtime-core'
 import store from '../../store'
+import { alert } from '../../alert'
 export default {
   setup(){
 
@@ -131,16 +132,13 @@ export default {
     function approveApplication(id){
       store.dispatch('approveApplication', id)
         .then(() => {
-
           store.dispatch('getAllApplications')
             .then((res) => {
-              // Get the id of latest application and fetch its details
-              const value = id
               store.dispatch('getApplicationDetails', id)
-          })
+            })
 
+          alert('Approved application!')
         })
-
     }
 
     function formatDateUS(date) {

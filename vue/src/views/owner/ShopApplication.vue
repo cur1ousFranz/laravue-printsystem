@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import { ref } from '@vue/reactivity'
+
 import { computed, onMounted } from '@vue/runtime-core'
 import store from '../../store'
 export default {

@@ -101,7 +101,7 @@ const user = {}
   const navigation = [
     { name: 'Shop', to : { name : 'Shop'}},
     { name: 'Queue', to : { name : 'Queues'}},
-    { name: 'Shop Application', to : { name : 'StoreApplication'}},
+    { name: 'Shop Application', to : { name : 'ShopApplication'}},
   ]
 
   function logout(){

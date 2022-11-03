@@ -8,15 +8,16 @@ import Register from '../views/auth/Register.vue'
 import RegisterOwner from '../views/auth/RegisterOwner.vue'
 // customer
 import Home from '../views/customer/Home.vue'
+import CustomerShopView from '../views/customer/CustomerShopView.vue'
 // owner
 import Shop from '../views/owner/Shop.vue'
-import StoreApplication from '../views/owner/StoreApplication.vue'
+import ShopApplication from '../views/owner/ShopApplication.vue'
 import Queues from '../views/owner/Queues.vue'
-import StoreView from '../views/owner/StoreView.vue'
+import ShopView from '../views/owner/ShopView.vue'
 // admin
 import Dashboard from '../views/admin/Dashboard.vue'
-import StoreList from '../views/admin/StoreList.vue'
-import StoreCreate from '../views/admin/StoreCreate.vue'
+import ShopList from '../views/admin/ShopList.vue'
+import ShopCreate from '../views/admin/ShopCreate.vue'
 import Application from '../views/admin/Application.vue'
 import store from '../store'
 
@@ -31,6 +32,7 @@ const routes = [
     },
     children: [
       { path: '/home', name: 'Home' , component: Home },
+      { path: '/shop/:id', name: 'CustomerShopView' , component: CustomerShopView },
     ]
   },
   {
@@ -42,10 +44,10 @@ const routes = [
       auth : 'businessowner',
     },
     children: [
-      { path: '/shop', name: 'Shop' , component: Shop },
-      { path: '/queue', name: 'Queues' , component: Queues },
-      { path: '/shop/application', name: 'StoreApplication' , component: StoreApplication },
-      { path: '/shop/:id', name: 'StoreView' , component: StoreView },
+      { path: '/owner/shop', name: 'Shop' , component: Shop },
+      { path: '/owner/queue', name: 'Queues' , component: Queues },
+      { path: '/owner/shop/application', name: 'ShopApplication' , component: ShopApplication },
+      { path: '/owner/shop/:id', name: 'ShopView' , component: ShopView },
     ]
   },
   {
@@ -58,8 +60,8 @@ const routes = [
     },
     children: [
       { path: '/dashboard', name: 'Dashboard' , component: Dashboard },
-      { path: '/shop/list', name: 'StoreList' , component: StoreList },
-      { path: '/shop/create', name: 'StoreCreate' , component: StoreCreate },
+      { path: '/shop/list', name: 'ShopList' , component: ShopList },
+      { path: '/shop/create', name: 'ShopCreate' , component: ShopCreate },
       { path: '/application', name: 'Application' , component: Application },
     ]
   },

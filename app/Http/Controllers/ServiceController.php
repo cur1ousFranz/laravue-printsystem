@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,4 +21,6 @@ class ServiceController extends Controller
             'data' => $service
         ]);
     }
+
+
 }

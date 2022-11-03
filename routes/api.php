@@ -5,7 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BusinessOwnerController;
+use App\Http\Controllers\CustomerShopController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServicePriceController;
 use App\Http\Controllers\ShopController;
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -15,12 +17,19 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    // Customer
+    Route::get('/customer/shop', [CustomerShopController::class, 'index']);
+    Route::get('/customer/shop/{shop}', [CustomerShopController::class, 'show']);
+
     // Business Owner
     Route::get('/shop/application', [BusinessOwnerController::class, 'index']);
     Route::get('/shop/{shop}', [ShopController::class, 'show']);
     Route::put('/shop/{shop}', [ShopController::class, 'update']);
     Route::get('/shop', [BusinessOwnerController::class, 'show']);
     Route::put('/service/{service}', [ServiceController::class, 'update']);
+    Route::put('/shop/documents/{shop}', [ShopController::class, 'storeDocuments']);
+    Route::delete('/shop/documents/{shop}', [ShopController::class, 'deleteDocuments']);
+    Route::put('/shop/service/document/price/{shop}', [ServicePriceController::class, 'setDocumentsPrice']);
 
     // Admin
     Route::get('/application', [ApplicationController::class, 'index']);

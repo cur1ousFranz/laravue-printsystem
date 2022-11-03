@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BusinessOwner;
 use App\Models\Shop;
+use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Models\BusinessOwner;
 use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
@@ -22,11 +23,10 @@ class ShopController extends Controller
             ], 403);
         }
 
-        return response([
-            'data' => [
-                $shop->with('application')->first(),
-                $shop->services()->first()
-            ]
+        $currentShop = Shop::with('application', 'services')->where('id', $shop->id)->first();
+
+        return response()->json([
+            'data' => $currentShop
         ]);
     }
 
@@ -39,5 +39,31 @@ class ShopController extends Controller
         return response([
             'success' => 'Update Success'
         ], 204);
+    }
+
+    public function storeDocuments(Shop $shop)
+    {
+        $service = Service::create([
+            'shop_id' => $shop->id,
+            'service_name' => 'documents'
+        ]);
+
+        $service->servicePrice()->create();
+
+        $currentShop = Shop::with('application', 'services')->where('id', $shop->id)->first();
+
+        return response()->json([
+            'data' => $currentShop
+        ]);
+    }
+
+    public function deleteDocuments(Shop $shop)
+    {
+
+        $shop->services()->delete();
+        $currentShop = Shop::with('application', 'services')->where('id', $shop->id)->first();
+        return response()->json([
+            'data' => $currentShop
+        ]);
     }
 }
