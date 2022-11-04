@@ -3,19 +3,38 @@ import axiosClient from '../axios'
 
 const store = createStore({
   state: {
+    /** AUTHENTICATION */
     user: {
       loading : false,
       role: sessionStorage.getItem('ROLE'),
       token: sessionStorage.getItem('TOKEN'),
     },
-    applicationDetails : {
-      loading :false,
-      data : {}
-    },
+
+    /** ADMIN */
     allApplication : {
       loading : false,
       data : []
     },
+    applicationDetails : {
+      loading :false,
+      data : {}
+    },
+
+    /** BUSINESS OWNER */
+    ownerShops : {
+      loading : false,
+      data : []
+    },
+    ownerShopDetails : {
+      loading : false,
+      data : []
+    },
+    ownerApplication : {
+      loading : false,
+      data : []
+    },
+
+    /** CUSTOMER */
     allShops : {
       loading : false,
       data : []
@@ -24,32 +43,15 @@ const store = createStore({
       loading : false,
       data : []
     },
-    ownerApplication : {
-      loading : false,
-      data : []
-    },
-    ownerShops : {
-      loading : false,
-      data : []
-    },
-    ownerShopDetails : {
-      loading : false,
-      data : []
-    }
+
 
   },
   getters: {},
   actions: {
-    removeShopPrintDocsService({commit}, shop){
-      return axiosClient.delete(`/shop/documents/${shop.id}`)
-      .then((res) => {
-        commit('deleteShopPrintDocsServiceDetails', res.data)
-      })
-    },
-    setShopPrintDocsService({commit}, shop) {
-      return axiosClient.put(`/shop/documents/${shop.id}`)
+    /** CUSTOMER */
+    customerUploadFile({commit}, data){
+      return axiosClient.post('/upload', data)
         .then((res) => {
-          commit('setShopPrintDocsServiceDetails', res.data)
           return res
         })
     },
@@ -71,6 +73,17 @@ const store = createStore({
           return res
         })
     },
+
+    /** BUSINESS OWNER */
+    getShopOwnerApplications({commit}) {
+      commit('setShopOwnerApplicationLoading', true)
+      return axiosClient.get('/shop/application')
+      .then((res) => {
+        commit('setShopOwnerApplicationLoading', false)
+        commit('setShopOwnerApplication', res.data)
+        return res
+      })
+    },
     setToggleShop({}, shop) {
       return axiosClient.put(`/shop/${shop.id}`, shop)
         .then((res) => {
@@ -84,6 +97,19 @@ const store = createStore({
           return res
         })
     },
+    removeShopPrintDocsService({commit}, shop){
+      return axiosClient.delete(`/shop/documents/${shop.id}`)
+      .then((res) => {
+        commit('deleteShopPrintDocsServiceDetails', res.data)
+      })
+    },
+    setShopPrintDocsService({commit}, shop) {
+      return axiosClient.put(`/shop/documents/${shop.id}`)
+        .then((res) => {
+          commit('setShopPrintDocsServiceDetails', res.data)
+          return res
+        })
+    },
     getShopDetails({commit}, id) {
       commit('setOwnerShopDetailsLoading', true)
       return axiosClient.get(`/shop/${id}`)
@@ -93,7 +119,7 @@ const store = createStore({
           return res
         })
     },
-    getOwnerStores({commit}) {
+    getOwnerShops({commit}) {
       commit('setOwnerShopsLoading', true)
       return axiosClient.get('/shop')
         .then((res) => {
@@ -102,6 +128,8 @@ const store = createStore({
           return res
         })
     },
+
+    /** ADMIN */
     approveApplication({}, id) {
       return axiosClient.put(`/application/${id}`)
         .then((res) => {
@@ -126,15 +154,8 @@ const store = createStore({
           return res
         })
     },
-    getOwnerApplications({commit}) {
-      commit('setStoreOwnerApplicationLoading', true)
-      return axiosClient.get('/shop/application')
-        .then((res) => {
-          commit('setStoreOwnerApplicationLoading', false)
-          commit('setStoreOwnerApplication', res.data)
-          return res
-        })
-    },
+
+    /** AUTHENTCATION */
     registerOwner({commit}, data) {
       return axiosClient.post('/register/owner', data)
       .then(({data}) => {
@@ -168,12 +189,7 @@ const store = createStore({
 
   },
   mutations: {
-    deleteShopPrintDocsServiceDetails : (state, shop) => {
-      state.ownerShopDetails.data = shop.data
-    },
-    setShopPrintDocsServiceDetails : (state, shop) => {
-      state.ownerShopDetails.data = shop.data
-    },
+    /** CUSTOMER */
     setCustomerShopDetails : (state, shop) => {
       state.customerShopDetails.data = shop.data
     },
@@ -185,6 +201,20 @@ const store = createStore({
     },
     setAllShopsLoading : (state, loading) => {
       state.allShops.loading = loading
+    },
+
+    /** BUSINESS OWNER */
+    setShopOwnerApplication : (state, application) => {
+      state.ownerApplication.data = application.data
+    },
+    setShopOwnerApplicationLoading : (state, loading) => {
+      state.ownerApplication.loading = loading
+    },
+    setShopPrintDocsServiceDetails : (state, shop) => {
+      state.ownerShopDetails.data = shop.data
+    },
+    deleteShopPrintDocsServiceDetails : (state, shop) => {
+      state.ownerShopDetails.data = shop.data
     },
     setPrintDocsServicePriceDetails : (state, service) => {
       state.ownerShopDetails.service = service.data
@@ -201,6 +231,8 @@ const store = createStore({
     setOwnerShops : (state, shops) => {
       state.ownerShops.data = shops.data
     },
+
+    /** ADMIN */
     setApplicationDetailsLoading : (state, loading) =>  {
       state.applicationDetails.loading = loading
     },
@@ -213,12 +245,8 @@ const store = createStore({
     setAllApplication : (state, applications) => {
       state.allApplication.data = applications.data
     },
-    setStoreOwnerApplicationLoading : (state, loading) => {
-      state.ownerApplication.loading = loading
-    },
-    setStoreOwnerApplication : (state, application) => {
-      state.ownerApplication.data = application.data
-    },
+
+    /** AUTHENTCATION */
     setUserLoading : (state, loading) => {
       state.user.loading = loading
     },
@@ -227,7 +255,6 @@ const store = createStore({
       state.user.role = userData.user.role
       sessionStorage.setItem('ROLE', userData.user.role)
       sessionStorage.setItem('TOKEN', userData.token)
-
     },
     logoutUser : (state) => {
       state.user.token = null

@@ -26,8 +26,18 @@ class CustomerShopController extends Controller
 
     public function show(Shop $shop)
     {
-        // return response([
-        //     'data' => $shop->with('application', 'services')->first()
-        // ]);
+
+        $currentShop = Shop::with('application', 'services')->where('id', $shop->id)->first();
+
+        return response()->json([
+            'data' => $currentShop
+        ]);
+    }
+
+    public function upload(Request $request)
+    {
+        return response([
+            'data' => $request['pdf']
+        ]);
     }
 }

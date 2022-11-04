@@ -18,8 +18,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // Customer
-    Route::get('/customer/shop', [CustomerShopController::class, 'index']);
+    Route::post('/upload', [CustomerShopController::class, 'upload']);
     Route::get('/customer/shop/{shop}', [CustomerShopController::class, 'show']);
+    Route::get('/customer/shop', [CustomerShopController::class, 'index']);
 
     // Business Owner
     Route::get('/shop/application', [BusinessOwnerController::class, 'index']);

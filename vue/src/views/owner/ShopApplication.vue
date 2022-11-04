@@ -48,7 +48,7 @@ export default {
 
     const loadStatus = computed(() => store.state.ownerApplication.loading)
     const applications = computed(() => store.state.ownerApplication.data)
-    store.dispatch('getOwnerApplications')
+    store.dispatch('getShopOwnerApplications')
 
   function formatDateUS(date) {
       const options = { year: 'numeric', month: 'numeric', day: 'numeric' }

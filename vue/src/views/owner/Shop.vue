@@ -14,10 +14,11 @@
                 </a>
                 <div class="px-4 py-3">
                   <div class="flex justify-between">
-                    <p class="mb-3 text-lg font-semibold text-gray-900" style="letter-spacing: 1px">
+                    <p class="my-2 text-lg font-semibold text-gray-900" style="letter-spacing: 1px">
                       {{ shop.application.shop_name }}
                     </p>
-                    <p class="mb-3 text-sm text-red-500 border-2 border-red-500 px-2 py-1 rounded-md">
+                    <p :class="[shop.status === 'close' ? 'my-1 text-sm font-bold text-red-500 px-2 py-1 rounded-md' :
+              'my-1 text-sm font-bold text-green-500 px-2 py-1 rounded-md']">
                       {{ capitalizeFirstLetter(shop.status) }}
                     </p>
                   </div>
@@ -46,7 +47,7 @@ import store from '../../store'
 export default {
   setup() {
 
-    store.dispatch('getOwnerStores')
+    store.dispatch('getOwnerShops')
 
     const shops = computed(() => store.state.ownerShops.data)
     const loadStatus = computed(() => store.state.ownerShops.loading)

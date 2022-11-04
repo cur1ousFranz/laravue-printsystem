@@ -9,7 +9,14 @@
               </div>
               <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-4">
-                  <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+                  <router-link v-for="item in navigation"
+                  :key="item.name" :to="item.to"
+                  :class="[this.$route.name === item.to.name ? 'bg-gray-900 text-white' :
+                  'text-gray-300 hover:bg-gray-700 hover:text-white',
+                  'px-3 py-2 rounded-md text-sm font-medium']"
+                  :aria-current="item.current ? 'page' :
+                  undefined">{{ item.name }}
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -97,8 +104,7 @@ const user = {
   }
 
   const navigation = [
-    { name: 'Home', to : { name : 'Home'}, current: true },
-    { name: 'Team', href: '#', current: false },
+    { name: 'Home', to : { name : 'Home'}},
   ]
 
   function logout(){
