@@ -1,7 +1,10 @@
 <template>
 
-  <div class="mx-auto max-w-7xl sm:px-6 lg:px-4">
-      <div class="w-6/12 mx-auto px-3 py-4 space-y-4 rounded-md shadow-md bg-gray-100">
+  <div class="mx-auto max-w-7xl sm:px-6 lg:px-4 flex">
+      <div class="w-8/12 bg-slate-200">
+          <pre>{{ model.prices }}</pre>
+      </div>
+      <div class="w-4/12 px-3 py-4 space-y-4 rounded-md shadow-md bg-gray-100">
         <!-- <form @submit.prevent="submit" enctype="multipart/form-data">
           <input @change="onFileChoose" type="file">
           <button class="bg-green-500 px-2 py-3 text-white rounded-md" type="submit">Submit PDF</button>
@@ -21,39 +24,51 @@
             </label>
           </div>
         </div>
-        <form class="py-6 space-y-3">
+        <form @submit.prevent="submit" class="py-6 space-y-3" enctype="multipart/form-data">
           <div class="flex align-items-center">
-            <label for="file" class="cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 px-2 py-2 border-2 rounded-md border-gray-700">
+            <label for="file" class="cursor-pointer flex">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 py-2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
               </svg>
             </label>
             <input @change="onFileChoose" type="file" id="file" class="py-2 border rounded-md" style="display: none">
-            <h1 class="py-2 px-2 underline">{{ model.pdfName }}</h1>
+            <h1 class="py-2 underline">{{ model.pdfName }}</h1>
           </div>
 
-          <h1 class="text-gray-800">Number of Pages: <span class="font-bold text-base" style="letter-spacing: 1px">{{ model.pageCount }}</span></h1>
+          <h1 class="text-gray-800">Number of Pages:
+            <span class="font-bold text-base" style="letter-spacing: 1px">
+              {{ model.pageCount }}
+            </span>
+          </h1>
           <div class="mb-3 flex">
-            <div class="w-6/12">
+            <div class="w-full">
               <label for="select-size">Select Size</label>
-              <select class="mt-1 form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ase-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="select-size">
-                  <option value="1">A4</option>
-                  <option value="2">Long</option>
-                  <option value="3">Short</option>
+              <select @change="select" v-model="model.size" class="mt-1 form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300  rounded-full transition ase-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="select-size">
+                  <option value="a4">A4</option>
+                  <option value="long">Long</option>
+                  <option value="short">Short</option>
               </select>
             </div>
           </div>
 
           <div class="mb-3 flex">
-            <div class="w-6/12">
+            <div class="w-full">
               <label for="select-size">Select Color</label>
-              <select class="mt-1 form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ase-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="select-size">
-                  <option value="1">Black and White</option>
-                  <option value="2">Colored</option>
+              <select @change="select" v-model="model.color" class="mt-1 form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded-full transition ase-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="select-size">
+                  <option value="bnw">Black and White</option>
+                  <option value="colored">Colored</option>
               </select>
             </div>
           </div>
 
+          <div class="py-6 flex justify-between">
+            <div class="mt-4">
+              <h1 class="px-2 font-bold text-2xl">Total: ₱ {{ model.total }}</h1>
+            </div>
+            <div class="mt-4">
+              	<a data-amount="100" data-fee="0" data-expiry="6" data-description="Payment for services rendered" data-href="https://getpaid.gcash.com/paynow" data-public-key="pk_3bdc85a0dbe276bfa74375a1879935b4" onclick="this.href = this.getAttribute('data-href')+'?public_key='+this.getAttribute('data-public-key')+'&amp;amount='+this.getAttribute('data-amount')+'&amp;fee='+this.getAttribute('data-fee')+'&amp;expiry='+this.getAttribute('data-expiry')+'&amp;description='+this.getAttribute('data-description');" href="https://getpaid.gcash.com/paynow?public_key=pk_3bdc85a0dbe276bfa74375a1879935b4&amp;amount=100&amp;fee=0&amp;expiry=6&amp;description=Payment for services rendered" target="_blank" class="x-getpaid-button"><img src="https://getpaid.gcash.com/assets/img/paynow.png"></a>
+            </div>
+          </div>
         </form>
       </div>
   </div>
@@ -62,52 +77,161 @@
 import store from '../../store'
 import { useRoute } from "vue-router";
 import { ref } from '@vue/reactivity';
+import * as pdfjsLib from 'pdfjs-dist';
+import { watch } from '@vue/runtime-dom';
+const pdfjs = await import('pdfjs-dist/build/pdf');
+const pdfjsWorker = await import('pdfjs-dist/build/pdf.worker.entry');
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 export default {
   setup(){
 
-    const route = useRoute()
+  const route = useRoute()
 
-    const model = ref({
-      pdf : null,
-      pageCount : null,
-      pdfName : null
+  const shop = ref({
+    status : null,
+    application : {},
+    services : []
+  })
+
+  const model = ref({
+    file : null,
+    pdfName : 'Upload File',
+    pageCount : null,
+    size : 'a4',
+    color : 'bnw',
+    total : 0,
+    prices : null
+  })
+
+  if(route.params.id){
+    store.dispatch('getCustomerShopDetails', route.params.id)
+      .then((res) => {
+        if(shop.value.services.length){
+          if(inArray(shop.value.services, 'documents')){
+            const service = getService(shop.value.services, 'documents')
+            if(service[0].service_price.price){
+              service[0].service_price.price = JSON.parse(service[0].service_price.price)
+              model.value.prices = service[0].service_price.price
+            }
+          }
+        }
+      return res
     })
+  }
 
-    if(route.params.id){
-      store.dispatch('getCustomerShopDetails', route.params.id)
+  function select(){
+    if(model.value.size === 'a4'){
+      if(model.value.color === 'bnw'){
+        const total = model.value.prices.a4_bnw * model.value.pageCount
+        model.value.total = total
+      }
+      if(model.value.color === 'colored'){
+        const total = model.value.prices.a4_colored * model.value.pageCount
+        model.value.total = total
+      }
     }
 
-    function onFileChoose(ev){
+    if(model.value.size === 'long'){
+      if(model.value.color === 'bnw'){
+        const total = model.value.prices.long_bnw * model.value.pageCount
+        model.value.total = total
+      }
+      if(model.value.color === 'colored'){
+        const total = model.value.prices.long_colored * model.value.pageCount
+        model.value.total = total
+      }
+    }
+
+    if(model.value.size === 'short'){
+      if(model.value.color === 'bnw'){
+        const total = model.value.prices.short_bnw * model.value.pageCount
+        model.value.total = total
+      }
+      if(model.value.color === 'colored'){
+        const total = model.value.prices.short_colored * model.value.pageCount
+        model.value.total = total
+      }
+    }
+  }
+
+  // Get Service according to passed service_name
+  function getService(array, string){
+    return array.filter((service) => service.service_name === string)
+  }
+
+  // Check if the service name is in array of objects
+  function inArray(array, name){
+    const checkServiceName = obj => obj.service_name === name;
+    return array.some(checkServiceName)
+  }
+
+  watch(
+    () => store.state.customerShopDetails.data,
+    (newVal, oldVal) => {
+      shop.value = {
+        ...JSON.parse(JSON.stringify(newVal)),
+      };
+      }
+  );
+
+  function onFileChoose(ev){
 
       const file = ev.target.files[0];
+      model.value.file = file
       model.value.pdfName = file.name
 
+      // Count number of pages in pdf
       const reader = new FileReader()
-        reader.onload = () => {
-          const typedArray = new Uint8Array(reader.result)
-          const task = pdfjsLib.getDocument(typedArray)
-          task.promise.then((pdf) => {
-            model.value.pageCount = pdf.numPages
+      reader.onload = () => {
+        const typedArray = new Uint8Array(reader.result)
+        const task = pdfjsLib.getDocument(typedArray)
+        task.promise.then((pdf) => {
+          model.value.pageCount = pdf.numPages
+          select()
+        })
 
-          })
+      //   pdfjsLib.getDocument('vue/public/1667620443_3mb.pdf').promise
+      //   .then((pdf) => {
+      //     pdf.getPage(1)
+      //       .then((page) => {
+      //         var myCanvas = document.getElementById('my-canvas')
+      //         var context = myCanvas.getContext('2d')
 
-          // display in frontend
-          model.value.pdf = reader.result
-        }
+      //         var viewport = page.getViewport(2, -90)
+      //         myCanvas.width = viewport.width;
+      //         myCanvas.height = viewport.height;
+
+      //         page.render({
+      //           canvasContext : context,
+      //           viewport : viewport
+      //         })
+      //     })
+      // })
+      }
       reader.readAsArrayBuffer(file)
 
-    }
+  }
 
-    function submit(){
-      console.log(model.value);
-      store.dispatch('customerUploadFile', model.value)
-        .then(function (res) {
-            console.log(res);
-        })
-    }
+  function submit(){
 
-      return { model, onFileChoose, submit }
+    const formData = new FormData()
+    formData.append('file', model.value.file)
+
+    // store.dispatch('customerUploadFile', formData)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+
+  }
+
+    return {
+      model,
+      shop,
+      onFileChoose,
+      select,
+      submit
     }
+  }
 }
 </script>
 <style>

@@ -36,8 +36,13 @@ class CustomerShopController extends Controller
 
     public function upload(Request $request)
     {
+        $file = $request->file('file');
+        $originalName =  $file->getClientOriginalName();
+        $newName = time() . '_' . $originalName;
+
+        $filePath = $request->file->storeAs('uploads', $newName);
         return response([
-            'data' => $request['pdf']
+            'data' =>  $filePath
         ]);
     }
 }

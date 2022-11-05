@@ -2,7 +2,7 @@
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-4">
       <h1 class="font-bold text-3xl text-gray-900 px-4 md:px-3">Shop Details</h1>
       <div class="overflow-x-auto relative py-4">
-        <div class="flex flex-col border rounded-md shadow-md py-6 px-8 space-x-6 md:flex-row">
+        <div class="flex flex-col border rounded-md shadow-md py-6 px-8 space-x-6 md:flex-row md:px-4">
           <div class="w-full">
             <img class="w-full rounded-md hover:shadow-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
             <div class="flex justify-between my-2">
@@ -25,7 +25,7 @@
             </p>
           </div>
           <div class="left-1/2 -ml-0.5 w-0.5 bg-gray-400"></div>
-          <div class="w-full">
+          <div class="w-full mx-auto">
             <h1 class="font-bold mb-3 text-2xl">Services</h1>
             <div v-if="loadStatus" class="flex justify-center py-44">
               Loading..
@@ -48,107 +48,92 @@
                 <h1 class="text-2xl font-bold">No services yet.</h1>
               </div>
               <div v-else class="flex">
-                <form v-if="inArray(shop.services, 'documents')" @submit.prevent="savePrintDocsService(getService(shop.services, 'documents')[0])" class="space-y-3 py-3">
+                <form v-if="inArray(shop.services, 'documents')"
+                @submit.prevent="savePrintDocsService(getService(shop.services, 'documents')[0])"
+                class="space-y-3 py-3 w-full">
                   <h1 class="font-bold mb-3 text-gray-700">Set Price</h1>
-                    <!-- A4 SIZE -->
+
+                  <!-- A4 SIZE -->
+                  <div>
+                    <h2 class="font-semibold text-gray-600">A4 SIZE</h2>
                     <div class="flex justify-around space-x-6">
-                      <div class="flex flex-col justify-center space-x-0 md:flex-row md:space-x-3">
-                        <div>
-                          <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
-                            A4 Size
-                          </label>
-                          <input v-model="price.a4" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="₱" maxlength="2"/>
+                      <div class="w-full">
+                        <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
+                          Black and White
+                        </label>
+                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                          <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
+                          <input v-model="price.a4_bnw" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
-                        <div class="hidden mt-8 text-gray-900 md:block">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"  stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                          </svg>
-                        </div>
-                        <div class="flex space-x-2">
-                          <div>
-                            <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
-                              B&W
-                            </label>
-                            <input v-model="price.a4_bnw" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="₱"  maxlength="2"/>
-                          </div>
-                          <div>
-                            <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
-                              Colored
-                            </label>
-                            <input v-model="price.a4_colored" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="₱" maxlength="2"/>
-                          </div>
+                      </div>
+                      <div class="w-full">
+                        <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
+                          Colored
+                        </label>
+                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                          <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
+                          <input v-model="price.a4_colored" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
                       </div>
                     </div>
-                    <!-- END A4 SIZE -->
+                  </div>
+                  <!-- END A4 SIZE -->
 
-                    <!-- LONG SIZE -->
+                  <!-- LONG SIZE -->
+                  <div>
+                    <h2 class="font-semibold text-gray-600">LONG SIZE</h2>
                     <div class="flex justify-around space-x-6">
-                      <div class="flex flex-col justify-center space-x-0 md:flex-row md:space-x-3">
-                        <div>
-                          <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
-                            Long Size
-                          </label>
-                          <input v-model="price.long" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="₱" maxlength="2"/>
+                      <div class="w-full">
+                        <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
+                          Black and White
+                        </label>
+                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                          <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
+                          <input v-model="price.long_bnw" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
-                        <div class="hidden mt-8 text-gray-900 md:block">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"  stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                          </svg>
-                        </div>
-                        <div class="flex space-x-2">
-                          <div>
-                            <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
-                              B&W
-                            </label>
-                            <input v-model="price.long_bnw" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="₱" maxlength="2"/>
-                          </div>
-                          <div>
-                            <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
-                              Colored
-                            </label>
-                            <input v-model="price.long_colored" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="₱" maxlength="2"/>
-                          </div>
+                      </div>
+                      <div class="w-full">
+                        <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
+                          Colored
+                        </label>
+                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                          <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
+                          <input v-model="price.long_colored" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
                       </div>
                     </div>
-                    <!-- END LONG SIZE -->
+                  </div>
+                  <!-- END LONG SIZE -->
 
-                    <!--  SHORT SIZE -->
+                  <!--  SHORT SIZE -->
+                  <div>
+                    <h2 class="font-semibold text-gray-600">SHORT SIZE</h2>
                     <div class="flex justify-around space-x-6">
-                      <div class="flex flex-col justify-center space-x-0 md:flex-row md:space-x-3">
-                        <div>
-                          <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
-                            Short Size
-                          </label>
-                          <input v-model="price.short" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="₱" maxlength="2"/>
+                      <div class="w-full">
+                        <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
+                            Black and White
+                        </label>
+                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                          <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
+                          <input v-model="price.short_bnw" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
-                        <div class="hidden mt-8 text-gray-900 md:block">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"  stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                          </svg>
-                        </div>
-                        <div class="flex space-x-2">
-                          <div>
-                            <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
-                              B&W
-                            </label>
-                            <input v-model="price.short_bnw" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="₱" maxlength="2"/>
-                          </div>
-                          <div>
-                            <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
-                              Colored
-                            </label>
-                            <input v-model="price.short_colored" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="₱" maxlength="2"/>
-                          </div>
+                      </div>
+                      <div class="w-full">
+                        <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
+                          Colored
+                        </label>
+                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                          <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
+                          <input v-model="price.short_colored" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
                       </div>
                     </div>
-                    <!-- END SHORT SIZE -->
+                  </div>
+                  <!-- END SHORT SIZE -->
 
-                    <div class="flex justify-end">
-                      <button type="submit" class="py-2 mt-3 px-3 rounded-md shadow-sm text-sm text-white bg-gray-700 hover:bg-gray-800 ">Save Service</button>
-                    </div>
+                  <div class="flex justify-end">
+                    <button type="submit" class="py-2 mt-3 px-3 rounded-md shadow-sm text-sm text-white bg-gray-700 hover:bg-gray-800 ">Save Service</button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -175,13 +160,10 @@ import store from "../../store";
   })
 
   const price = ref({
-    a4 : null,
     a4_bnw : null,
     a4_colored : null,
-    long : null,
     long_bnw : null,
     long_colored : null,
-    short : null,
     short_bnw : null,
     short_colored : null,
   })
