@@ -105,6 +105,7 @@ const user = {
 
   const navigation = [
     { name: 'Home', to : { name : 'Home'}},
+    { name: 'Transactions', to : { name : 'Transaction'}},
   ]
 
   function logout(){

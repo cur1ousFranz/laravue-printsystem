@@ -9,6 +9,7 @@ import RegisterOwner from '../views/auth/RegisterOwner.vue'
 // customer
 import Home from '../views/customer/Home.vue'
 import CustomerShopView from '../views/customer/CustomerShopView.vue'
+import Transaction from '../views/customer/Transaction.vue'
 // owner
 import Shop from '../views/owner/Shop.vue'
 import ShopApplication from '../views/owner/ShopApplication.vue'
@@ -33,6 +34,7 @@ const routes = [
     children: [
       { path: '/home', name: 'Home' , component: Home },
       { path: '/shop/:id', name: 'CustomerShopView' , component: CustomerShopView },
+      { path: '/customer/transactions', name: 'Transaction' , component: Transaction },
     ]
   },
   {

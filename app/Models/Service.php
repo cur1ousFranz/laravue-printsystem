@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Shop;
+use App\Models\Queue;
 use App\Models\ServicePrice;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +27,11 @@ class Service extends Model
     public function servicePrice()
     {
         return $this->hasOne(ServicePrice::class);
+    }
+
+    public function queues()
+    {
+        return $this->hasMany(Queue::class);
     }
 
 }

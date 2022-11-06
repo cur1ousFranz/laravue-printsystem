@@ -2,13 +2,8 @@
 
   <div class="mx-auto max-w-7xl sm:px-6 lg:px-4 flex">
       <div class="w-8/12 bg-slate-200">
-          <pre>{{ model.prices }}</pre>
       </div>
       <div class="w-4/12 px-3 py-4 space-y-4 rounded-md shadow-md bg-gray-100">
-        <!-- <form @submit.prevent="submit" enctype="multipart/form-data">
-          <input @change="onFileChoose" type="file">
-          <button class="bg-green-500 px-2 py-3 text-white rounded-md" type="submit">Submit PDF</button>
-        </form> -->
         <h1 class="text-2xl font-bold text-gray-800">Choose</h1>
         <div class="flex space-x-3">
           <div class="form-check">
@@ -63,11 +58,13 @@
 
           <div class="py-6 flex justify-between">
             <div class="mt-4">
-              <h1 class="px-2 font-bold text-2xl">Total: ₱ {{ model.total }}</h1>
+              <h1 class="px-2 text-2xl">Total: ₱ {{ model.total }}.00</h1>
             </div>
-            <div class="mt-4">
-              	<a data-amount="100" data-fee="0" data-expiry="6" data-description="Payment for services rendered" data-href="https://getpaid.gcash.com/paynow" data-public-key="pk_3bdc85a0dbe276bfa74375a1879935b4" onclick="this.href = this.getAttribute('data-href')+'?public_key='+this.getAttribute('data-public-key')+'&amp;amount='+this.getAttribute('data-amount')+'&amp;fee='+this.getAttribute('data-fee')+'&amp;expiry='+this.getAttribute('data-expiry')+'&amp;description='+this.getAttribute('data-description');" href="https://getpaid.gcash.com/paynow?public_key=pk_3bdc85a0dbe276bfa74375a1879935b4&amp;amount=100&amp;fee=0&amp;expiry=6&amp;description=Payment for services rendered" target="_blank" class="x-getpaid-button"><img src="https://getpaid.gcash.com/assets/img/paynow.png"></a>
-            </div>
+            <!-- TODO PAYMENT GATEWAY -->
+            <button type="submit" class="mt-3 rounded-full cursor-pointer">
+              <img src="https://getpaid.gcash.com/assets/img/paynow.png">
+            </button>
+            	<!-- <a data-amount="100" data-fee="0" data-expiry="6" data-description="Payment for services rendered" data-href="https://getpaid.gcash.com/paynow" data-public-key="pk_3bdc85a0dbe276bfa74375a1879935b4" onclick="this.href = this.getAttribute('data-href')+'?public_key='+this.getAttribute('data-public-key')+'&amp;amount='+this.getAttribute('data-amount')+'&amp;fee='+this.getAttribute('data-fee')+'&amp;expiry='+this.getAttribute('data-expiry')+'&amp;description='+this.getAttribute('data-description');" href="https://getpaid.gcash.com/paynow?public_key=pk_3bdc85a0dbe276bfa74375a1879935b4&amp;amount=100&amp;fee=0&amp;expiry=6&amp;description=Payment for services rendered" target="_blank" class="x-getpaid-button"><img src="https://getpaid.gcash.com/assets/img/paynow.png"></a> -->
           </div>
         </form>
       </div>
@@ -79,6 +76,7 @@ import { useRoute } from "vue-router";
 import { ref } from '@vue/reactivity';
 import * as pdfjsLib from 'pdfjs-dist';
 import { watch } from '@vue/runtime-dom';
+import { alert } from '../../alert.js'
 const pdfjs = await import('pdfjs-dist/build/pdf');
 const pdfjsWorker = await import('pdfjs-dist/build/pdf.worker.entry');
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
@@ -100,7 +98,7 @@ export default {
     size : 'a4',
     color : 'bnw',
     total : 0,
-    prices : null
+    prices : null,
   })
 
   if(route.params.id){
@@ -122,34 +120,28 @@ export default {
   function select(){
     if(model.value.size === 'a4'){
       if(model.value.color === 'bnw'){
-        const total = model.value.prices.a4_bnw * model.value.pageCount
-        model.value.total = total
+        model.value.total = model.value.prices.a4_bnw * model.value.pageCount
       }
       if(model.value.color === 'colored'){
-        const total = model.value.prices.a4_colored * model.value.pageCount
-        model.value.total = total
+        model.value.total = model.value.prices.a4_colored * model.value.pageCount
       }
     }
 
     if(model.value.size === 'long'){
       if(model.value.color === 'bnw'){
-        const total = model.value.prices.long_bnw * model.value.pageCount
-        model.value.total = total
+        model.value.total = model.value.prices.long_bnw * model.value.pageCount
       }
       if(model.value.color === 'colored'){
-        const total = model.value.prices.long_colored * model.value.pageCount
-        model.value.total = total
+        model.value.total = model.value.prices.long_colored * model.value.pageCount
       }
     }
 
     if(model.value.size === 'short'){
       if(model.value.color === 'bnw'){
-        const total = model.value.prices.short_bnw * model.value.pageCount
-        model.value.total = total
+        model.value.total = model.value.prices.short_bnw * model.value.pageCount
       }
       if(model.value.color === 'colored'){
-        const total = model.value.prices.short_colored * model.value.pageCount
-        model.value.total = total
+        model.value.total = model.value.prices.short_colored * model.value.pageCount
       }
     }
   }
@@ -213,14 +205,23 @@ export default {
   }
 
   function submit(){
-
+    const service = getService(shop.value.services, 'documents')
     const formData = new FormData()
     formData.append('file', model.value.file)
+    formData.append('shop_id', shop.value.id)
+    formData.append('service_id', service[0].id)
+    formData.append('size', model.value.size)
+    formData.append('color', model.value.color)
+    formData.append('pages', model.value.pageCount)
 
-    // store.dispatch('customerUploadFile', formData)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
+    store.dispatch('customerUploadFile', formData)
+      .then((url) => {
+        /** THis is for gcash redirect */
+        // window.open(url.data)
+
+
+         alert('Queue submitted!')
+      })
 
   }
 

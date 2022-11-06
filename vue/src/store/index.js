@@ -52,7 +52,7 @@ const store = createStore({
     customerUploadFile({commit}, data){
       return axiosClient.post('/upload', data)
         .then((res) => {
-          return res
+          return res.data
         })
     },
     getCustomerShopDetails({commit}, id){
