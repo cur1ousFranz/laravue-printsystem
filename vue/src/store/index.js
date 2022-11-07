@@ -21,6 +21,10 @@ const store = createStore({
     },
 
     /** BUSINESS OWNER */
+    ownerQueue : {
+      loading : false,
+      data : []
+    },
     ownerShops : {
       loading : false,
       data : []
@@ -43,12 +47,25 @@ const store = createStore({
       loading : false,
       data : []
     },
+    customerTransactons : {
+      loading : false,
+      data : []
+    }
 
 
   },
   getters: {},
   actions: {
     /** CUSTOMER */
+    customerAllTransaction({commit}){
+      commit('setCustomerTransactionsLoading', true)
+      return axiosClient.get('/customer/transaction')
+        .then((res) => {
+          commit('setCustomerTransactionsLoading', false)
+          commit('setCustomerTransactions', res.data)
+          return res
+        })
+    },
     customerUploadFile({commit}, data){
       return axiosClient.post('/upload', data)
         .then((res) => {
@@ -75,6 +92,15 @@ const store = createStore({
     },
 
     /** BUSINESS OWNER */
+    getOwnerQueue({commit}){
+      commit('setOwnerQueueLoading', true)
+      return axiosClient.get('/shop/queue')
+        .then((res) => {
+          commit('setOwnerQueueLoading', false)
+          commit('setOwnerQueue', res.data)
+          return res
+        })
+    },
     getShopOwnerApplications({commit}) {
       commit('setShopOwnerApplicationLoading', true)
       return axiosClient.get('/shop/application')
@@ -190,6 +216,12 @@ const store = createStore({
   },
   mutations: {
     /** CUSTOMER */
+    setCustomerTransactions : (state, transactions) => {
+      state.customerTransactons.data = transactions.data
+    },
+    setCustomerTransactionsLoading : (state, loading) => {
+      state.customerTransactons.loading = loading
+    },
     setCustomerShopDetails : (state, shop) => {
       state.customerShopDetails.data = shop.data
     },
@@ -204,6 +236,12 @@ const store = createStore({
     },
 
     /** BUSINESS OWNER */
+    setOwnerQueue : (state, data) => {
+      state.ownerQueue.data = data.data
+    },
+    setOwnerQueueLoading : (state, loading) => {
+      state.ownerQueue.loading = loading
+    },
     setShopOwnerApplication : (state, application) => {
       state.ownerApplication.data = application.data
     },

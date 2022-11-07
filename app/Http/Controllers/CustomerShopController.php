@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Queue;
 use App\Models\Shop;
+use App\Models\Queue;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerShopController extends Controller
@@ -66,14 +68,18 @@ class CustomerShopController extends Controller
         //     'data' =>  $redirect
         // ]);
 
+
+
         $file = $request->file('file');
         $originalName =  $file->getClientOriginalName();
         $newName = time() . '_' . $originalName;
-
         $filePath = $request->file->storeAs('uploads', $newName, 'public');
+
+        $customer = Customer::where('user_id', Auth::user()->id)->first();
 
         Queue::create([
             'service_id' => $request->service_id,
+            'customer_id' => $customer->id,
             'document' => $filePath,
             'size' => $request->size,
             'color' => $request->color,

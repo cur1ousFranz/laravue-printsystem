@@ -1,4 +1,5 @@
 <template>
+
   <div class="mx-auto max-w-7xl sm:px-6 lg:px-4">
     <h1 class="font-bold text-3xl text-gray-900 px-4 md:px-3">Shop</h1>
     <div class="px-4 py-4 sm:px-0">
@@ -39,6 +40,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>

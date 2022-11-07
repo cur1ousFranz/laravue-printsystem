@@ -1,8 +1,8 @@
 <template>
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-4">
       <h1 class="font-bold text-3xl text-gray-900 px-4 md:px-3">Shop Details</h1>
-      <div class="overflow-x-auto relative py-4">
-        <div class="flex flex-col border rounded-md shadow-md py-6 px-8 space-x-6 md:flex-row md:px-4">
+      <div class="overflow-x-auto relative py-4 ">
+        <div class="flex flex-col border rounded-md shadow-md py-6 px-8 space-x-6  md:flex-row md:px-4">
           <div class="w-full">
             <img class="w-full rounded-md hover:shadow-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
             <div class="flex justify-between my-2">

@@ -11,6 +11,16 @@ use Illuminate\Support\Facades\Auth;
 class ShopController extends Controller
 {
 
+    public function index()
+    {
+
+        $owner = BusinessOwner::where('user_id', Auth::user()->id)->first();
+        $shops = Shop::with('application', 'services')->where('business_owner_id', $owner->id)->get();
+
+        return response()->json([
+            'data' => $shops
+        ]);
+    }
 
     public function show(Shop $shop)
     {
@@ -23,7 +33,7 @@ class ShopController extends Controller
             ], 403);
         }
 
-        $currentShop = Shop::with('application', 'services')->where('id', $shop->id)->first();
+        $currentShop = Shop::with('application', 'services', 'services.queues')->where('id', $shop->id)->first();
 
         return response()->json([
             'data' => $currentShop
