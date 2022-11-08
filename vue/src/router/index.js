@@ -69,7 +69,7 @@ const routes = [
   },
   {
     path : '/auth',
-    redirect : '/login',
+    redirect : '/',
     name : 'Auth',
     meta : {
       auth : 'guest'

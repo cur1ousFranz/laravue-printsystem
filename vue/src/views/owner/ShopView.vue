@@ -2,19 +2,19 @@
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-4">
       <h1 class="font-bold text-3xl text-gray-900 px-4 md:px-3">Shop Details</h1>
       <div class="overflow-x-auto relative py-4 ">
-        <div class="flex flex-col border rounded-md shadow-md py-6 px-8 space-x-6  md:flex-row md:px-4">
+        <div class="flex flex-col border  shadow-md py-6 px-8 space-x-6  md:flex-row md:px-4">
           <div class="w-full">
-            <img class="w-full rounded-md hover:shadow-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+            <img class="w-full  hover:shadow-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
             <div class="flex justify-between my-2">
-              <p v-if="shop.status" :class="[shop.status === 'close' ? 'my-3 w-fit text-lg font-bold text-red-500 px-2 py-1 rounded-md' :
-              'my-3 w-fit text-lg font-bold text-green-500 px-2 py-1 rounded-md']">
+              <p v-if="shop.status" :class="[shop.status === 'close' ? 'my-3 w-fit text-lg font-bold text-red-500 px-2 py-1 ' :
+              'my-3 w-fit text-lg font-bold text-green-500 px-2 py-1 ']">
                 {{ capitalizeFirstLetter(shop.status)  }}
               </p>
               <div class="my-3">
-                <button @click="toggleShop()" class="px-3 py-3 rounded-full text-sm font-medium bg-gray-800 text-white hover:bg-gray-900">
-                 <p v-if="shop.status === 'close'">Open Shop</p>
-                 <p v-else>Close Shop</p>
-                </button>
+                <Button @click="toggleShop()" class="px-2">
+                  <p v-if="shop.status === 'close'">Open Shop</p>
+                  <p v-else>Close Shop</p>
+                </Button>
               </div>
             </div>
             <p class="my-3 text-lg font-semibold text-gray-900" style="letter-spacing: 1px">
@@ -132,7 +132,9 @@
                   <!-- END SHORT SIZE -->
 
                   <div class="flex justify-end">
-                    <button type="submit" class="py-2 mt-3 px-3 rounded-md shadow-sm text-sm text-white bg-gray-700 hover:bg-gray-800 ">Save Service</button>
+                    <Button>
+                      Save Service
+                    </Button>
                   </div>
                 </form>
               </div>
@@ -148,7 +150,7 @@ import { ref } from '@vue/reactivity'
 import { useRoute } from "vue-router";
 import { alert } from '../../alert.js'
 import store from "../../store";
-
+import  Button  from '../../components/Button.vue'
   const route = useRoute();
   const printDocsService = ref(false);
   const loadStatus = computed(() => store.state.ownerShopDetails.loading)

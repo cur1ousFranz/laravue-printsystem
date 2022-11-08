@@ -1,11 +1,11 @@
 <template>
-  <div class="mx-auto container px-2 py-6">
-    <form @submit.prevent="register" class="border rounded-md shadow-md py-2">
-      <h1 class="mt-4 ml-6 text-md text-lg font-bold">Register as Shop Owner</h1>
-      <div class="container mx-auto flex flex-col md:flex-row space-x-3">
+  <div class="mx-auto container px-2 py-1">
+    <form @submit.prevent="register" class="w-8/12 mx-auto border shadow-md py-2 bg-white">
+      <h1 class="mt-3 ml-6 text-md text-lg font-bold">Shop Registration</h1>
+      <div class="container mx-auto flex flex-col md:flex-row space-x-2">
         <!-- first row -->
-        <div class="container w-6/12 px-6 py-6">
-          <div class="mb-4 flex space-x-3">
+        <div class="container w-6/12 px-6 py-4">
+          <div class="mb-2 flex space-x-3">
             <div class="w-full">
               <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name
               </label>
@@ -17,7 +17,7 @@
               <input v-model="model.middle_name" type="text" id="middle_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Middle Name"/>
             </div>
           </div>
-          <div class="mb-4 flex space-x-3">
+          <div class="mb-2 flex space-x-3">
             <div class="w-full">
               <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name
               </label>
@@ -30,17 +30,17 @@
             </div>
           </div>
 
-          <div class="mb-4">
+          <div class="mb-2">
             <label for="contact_email" class="block mb-2 text-sm font-medium text-gray-900">Contact Email
             </label>
             <input v-model="model.contact_email" type="email" id="contact_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Contact Email"/>
           </div>
-          <div class="mb-4">
+          <div class="mb-2">
             <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Username
             </label>
             <input v-model="model.username" type="text" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Username"/>
           </div>
-          <div class="mb-4 flex space-x-3">
+          <div class="mb-2 flex space-x-3">
             <div class="w-full">
               <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password
               </label>
@@ -55,36 +55,38 @@
         </div>
 
         <!-- second row -->
-        <div class="container w-6/12 px-6 py-6">
-          <div class="mb-4">
+        <div class="container w-6/12 px-6 py-4">
+          <div class="mb-2">
             <label for="shop_name" class="block mb-2 text-sm font-medium text-gray-900">Shop Name
             </label>
             <input v-model="model.shop_name" type="text" id="shop_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Shop Name"/>
           </div>
-          <div class="mb-4">
+          <div class="mb-2">
           <label for="address" class="block mb-2 text-sm font-medium text-gray-900">Address
             </label>
             <input v-model="model.address" type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Address"/>
           </div>
-          <div class="mb-4">
+          <div class="mb-2">
           <label for="barangay" class="block mb-2 text-sm font-medium text-gray-900">Barangay
             </label>
             <input v-model="model.barangay" type="text" id="barangay" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Barangay"/>
           </div>
-          <div class="mb-4">
+          <div class="mb-2">
             <label for="city" class="block mb-2 text-sm font-medium text-gray-900">City
             </label>
             <input v-model="model.city" type="text" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg text:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="City"/>
           </div>
-          <div class="mb-4">
+          <div class="mb-2">
             <label for="zipcode" class="block mb-2 text-sm font-medium text-gray-900">Zip Code
             </label>
             <input v-model="model.zipcode" type="text" id="zipcode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Zip Code"/>
           </div>
         </div>
       </div>
-      <div class="flex justify-end px-6">
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Apply</button>
+      <div class="flex justify-end px-6 py-2">
+        <Button>
+          Apply
+        </Button>
       </div>
     </form>
   </div>
@@ -92,7 +94,9 @@
 <script>
 import store from '../../store'
 import { useRouter } from 'vue-router'
+import  Button  from '../../components/Button.vue'
 export default {
+  components : { Button },
   setup() {
 
     const router = useRouter()

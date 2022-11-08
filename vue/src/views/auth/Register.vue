@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto py-3 w-10/12 my-4 md:w-4/12">
-    <form @submit.prevent="register" class="border space-y-3 px-3 rounded-md py-6 shadow-md">
+    <form @submit.prevent="register" class="border space-y-3 px-6 py-6 shadow-md bg-white">
       <h1 class="font-bold text-2xl text-gray-900">Register</h1>
       <div class="mb-6">
         <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Username
@@ -27,7 +27,7 @@
       </div>
       <div class="flex justify-between">
         <router-link :to="{ name : 'RegisterOwner'}" class="text-sm text-blue-600 underline">Register as Shop Owner</router-link>
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button>
+        <Button>Register</Button>
       </div>
     </form>
   </div>
@@ -36,7 +36,9 @@
 <script>
 import store from '../../store'
 import { useRouter } from 'vue-router'
+import  Button  from '../../components/Button.vue'
 export default {
+  components : { Button },
   setup() {
 
     const router = useRouter()

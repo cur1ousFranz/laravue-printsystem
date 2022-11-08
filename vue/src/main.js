@@ -4,7 +4,6 @@ import store from './store'
 import router from './router'
 import App from './App.vue'
 import Swal from 'sweetalert2'
-import 'flowbite';
 
 window.Swal = Swal
 
