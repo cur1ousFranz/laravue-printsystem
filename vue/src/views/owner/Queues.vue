@@ -6,14 +6,13 @@
           Loading..
         </div>
         <div v-else>
-          <div v-if="shops.length" class="flex flex-col flex-justify-between px-3 md:flex-row md:space-x-3">
+          <div class="flex flex-col flex-justify-between px-3 md:flex-row md:space-x-3">
             <div v-if="shops.length" class="w-full h-full border shadow-md px-3 py-3 md:w-3/12">
               <h3 class="font-bold mb-3 text-gray-900">Shop Name</h3>
               <div v-for="shop in shops" :key="shop.id" @click="detail.id != shop.id ? shopQueue(shop.id) : ''" class="cursor-pointer py-3 text-center rounded-md bg-green-400 text-gray-900">
                 {{ shop.application.shop_name }}
               </div>
             </div>
-
             <div class="w-full h-full border shadow-md px-3 py-3 md:w-9/12">
               <h3 class="font-bold mb-3 text-gray-900">Shop Queue</h3>
               <table class="w-full mx-auto text-sm text-left">
@@ -43,7 +42,7 @@
                     </tr>
                 </thead>
                 <tbody v-for="service in detail.services" :key="service.id">
-                  <tr v-for="queue in service.queues" :key="queue.id">
+                  <tr v-for="queue in service.queues" :key="queue.id" class="hover:bg-gray-200">
                     <td class="py-4 px-6">
                       {{ queue.service.service_name === 'documents' ? 'Print Document' : 'Print Tarpaulin'}}
                     </td>
@@ -65,7 +64,8 @@
                         {{ capitalizeFirstLetter(queue.status) }}
                       </span>
                     </td>
-                    <td class="py-4 px-6 text-green-500 hover:text-green-700 hover:text-bold">
+                    <td @click="queue.status === 'pending' ? changeStatus(queue.id) : ''"
+                    class="py-4 px-6 text-green-500 hover:text-green-700 hover:text-bold cursor-pointer">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                       </svg>
@@ -74,10 +74,6 @@
                 </tbody>
               </table>
             </div>
-
-          </div>
-          <div v-else class="container w-full text-center py-44 text-gray-400 text-2xl font-bold">
-            Nothing to show
           </div>
         </div>
       </div>
@@ -86,6 +82,7 @@
 <script>
 import { computed, ref, watch } from '@vue/runtime-core';
 import store from '../../store';
+import { alert } from '../../alert'
 export default {
   setup(){
 
@@ -116,13 +113,25 @@ export default {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+    function changeStatus(id){
+      store.dispatch('updateQueueStatus', id)
+        .then((res) => {
+          store.dispatch('getOwnerQueue')
+            .then((res) => {
+              shopQueue(shops.value[shops.value.length -1].id);
+
+              alert('Queue updated!')
+          })
+        })
+    }
 
     return {
       shops,
       detail,
       loadStatus,
       shopQueue,
-      capitalizeFirstLetter
+      capitalizeFirstLetter,
+      changeStatus
     }
   }
 

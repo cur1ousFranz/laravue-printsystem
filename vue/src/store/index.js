@@ -92,6 +92,12 @@ const store = createStore({
     },
 
     /** BUSINESS OWNER */
+    updateQueueStatus({}, id){
+      return axiosClient.put(`/shop/queue/${id}`)
+        .then((res) => {
+          return res
+        })
+    },
     getOwnerQueue({commit}){
       commit('setOwnerQueueLoading', true)
       return axiosClient.get('/shop/queue')

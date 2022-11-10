@@ -21,8 +21,6 @@ class Queue extends Model
         'status',
     ];
 
-    protected $with = ['service'];
-
     public function service()
     {
         return $this->belongsTo(Service::class);

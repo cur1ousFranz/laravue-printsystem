@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen"
-    style="background-image : url('../public/img/bg-img2.jpg');
+    style="background-image : url('/img/bg-img2.jpg');
     background-repeat: no-repeat;
     background-size: contain;
     background-size: cover;

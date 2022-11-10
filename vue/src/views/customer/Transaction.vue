@@ -12,6 +12,9 @@
                       Date
                   </th>
                   <th scope="col" class="py-3 px-6">
+                      Shop
+                  </th>
+                  <th scope="col" class="py-3 px-6">
                       Document
                   </th>
                   <th scope="col" class="py-3 px-6">
@@ -30,9 +33,12 @@
           </thead>
           <tbody v-if="transactions.length">
               <tr v-for="transaction in transactions" :key="transaction.id" class="bg-white border-b text-gray-900">
-                  <th class="py-4 px-6">
+                  <td class="py-4 px-6">
                       {{ formatDateUS(transaction.created_at) }}
-                  </th>
+                  </td>
+                  <td class="py-4 px-6">
+                      {{ transaction.service.shop.application.shop_name }}
+                  </td>
                   <td class="py-4 px-6">
                       <a class="text-blue-500" :href="'http://127.0.0.1:8000/storage/' + transaction.document" target="_blank" >
                         Preview

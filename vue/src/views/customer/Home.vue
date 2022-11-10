@@ -6,8 +6,8 @@
           Loading..
         </div>
         <div v-else>
-          <div v-if="shops.length" class="grid grid-cols-3" >
-            <div v-for="shop in shops" :key="shop.id" class="max-w-xs bg-white border border-gray-200 shadow-md">
+          <div v-if="shops.length" class="grid grid-cols-1 place-items-center sm:grid-cols-2 sm:space-x-3 md:grid-cols-3" >
+            <div v-for="shop in shops" :key="shop.id" class="max-w-xs bg-white border border-gray-200 shadow-md my-3 hover:shadow-xl hover:border-gray-300">
                 <a href="#">
                     <img src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
                 </a>
@@ -16,8 +16,8 @@
                     <p class="mb-3 text-lg font-semibold text-gray-900" style="letter-spacing: 1px">
                       {{ shop.application.shop_name }}
                     </p>
-                    <p :class="[shop.status === 'close' ? 'my-1 text-sm font-bold border-2 px-2 py-1 rounded-md  border-red-500 text-red-500' :
-            'my-1 text-sm font-bold px-2 py-1 rounded-md border-2 text-green-500 border-green-500']">
+                    <p :class="[shop.status === 'close' ? 'my-1 text-sm h-fit font-bold border-2 px-2 py-1 rounded-md  border-red-500 text-red-500' :
+            'my-1 text-sm h-fit font-bold px-2 py-1 rounded-md border-2 text-green-500 border-green-500']">
                       {{ shop.status }}
                     </p>
                   </div>

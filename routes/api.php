@@ -10,6 +10,7 @@ use App\Http\Controllers\CustomerShopController;
 use App\Http\Controllers\ServicePriceController;
 use App\Http\Controllers\BusinessOwnerController;
 use App\Http\Controllers\CustomerTransactionController;
+use App\Http\Controllers\ShopQueueController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
@@ -25,7 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/customer/transaction', [CustomerTransactionController::class, 'index']);
 
     // Business Owner
-    Route::get('/shop/queue', [ShopController::class, 'index']);
+    Route::get('/shop/queue', [ShopQueueController::class, 'index']);
+    Route::put('/shop/queue/{queue}', [ShopQueueController::class, 'update']);
     Route::get('/shop/application', [BusinessOwnerController::class, 'index']);
     Route::get('/shop/{shop}', [ShopController::class, 'show']);
     Route::put('/shop/{shop}', [ShopController::class, 'update']);
