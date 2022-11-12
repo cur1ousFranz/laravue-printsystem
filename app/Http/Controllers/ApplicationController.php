@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Application;
 use App\Models\Shop;
+use App\Models\User;
+use App\Models\Application;
 use Illuminate\Http\Request;
+use App\Models\BusinessOwner;
+use App\Notifications\ApplicationNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class ApplicationController extends Controller
 {
@@ -52,6 +56,11 @@ class ApplicationController extends Controller
             'application_id' => $application->id,
             'status' => 'close'
         ]);
+
+        $owner = BusinessOwner::where('id', $application->business_owner_id)->first();
+        $user = User::where('id', $owner->user_id)->first();
+
+        Notification::send($user, new ApplicationNotification('Application Approved'));
 
         return response([
             'success' => 'Application updated'

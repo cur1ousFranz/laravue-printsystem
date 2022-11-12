@@ -46,26 +46,52 @@
                   </tr>
               </tbody>
           </table>
-          <div  class="h-full w-1/2 border rounded-md shadow-md">
+          <div  class="h-full w-1/2 border shadow-md">
             <div v-if="loadDetailStatus" class="flex justify-center my-12">
               Loading..
             </div>
-            <div v-else class="flex justify-around">
-              <div class="py-3 px-3 space-y-3 my-6">
-                <h1>Shop Information</h1>
-                <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Shop Name: <span class="font-normal" style="letter-spacing: 1px">{{ detail.shop_name }}</span></h1>
-                <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Address: <span class="font-normal " style="letter-spacing: 1px">{{ detail.address }}</span></h1>
-                <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Barangay: <span class="font-normal " style="letter-spacing: 1px">{{ detail.barangay }}</span></h1>
-                <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">City: <span class="font-normal " style="letter-spacing: 1px">{{ detail.city }}</span></h1>
-                <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Zipcode: <span class="font-normal " style="letter-spacing: 1px">{{ detail.zipcode }}</span></h1>
+            <div v-else>
+              <div class="flex justify-around">
+                <div class="py-3 px-3 space-y-3 mt-6">
+                  <h1 class="text-lg font-semibold">Shop Information</h1>
+                  <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Shop Name: <span class="font-normal" style="letter-spacing: 1px">{{ detail.shop_name }}</span></h1>
+                  <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Address: <span class="font-normal " style="letter-spacing: 1px">{{ detail.address }}</span></h1>
+                  <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Barangay: <span class="font-normal " style="letter-spacing: 1px">{{ detail.barangay }}</span></h1>
+                  <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">City: <span class="font-normal " style="letter-spacing: 1px">{{ detail.city }}</span></h1>
+                  <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Zipcode: <span class="font-normal " style="letter-spacing: 1px">{{ detail.zipcode }}</span></h1>
+                </div>
+                <div class="py-3 px-3 space-y-3 mt-6">
+                  <h1 class="text-lg font-semibold">Business Owner Information</h1>
+                  <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">First Name: <span class="font-normal " style="letter-spacing: 1px">{{ detail.business_owner.first_name }}</span></h1>
+                  <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Middle Name: <span class="font-normal " style="letter-spacing: 1px">{{ detail.business_owner.middle_name }}</span></h1>
+                  <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Last Name: <span class="font-normal " style="letter-spacing: 1px">{{ detail.business_owner.last_name }}</span></h1>
+                  <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Contact Number: <span class="font-normal " style="letter-spacing: 1px">{{ detail.business_owner.contact_number }}</span></h1>
+                  <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Contact Email: <span class="font-normal " style="letter-spacing: 1px">{{ detail.business_owner.contact_email }}</span></h1>
+                </div>
               </div>
-              <div class="py-3 px-3 space-y-3 my-6">
-                <h1>Business Owner Information</h1>
-                <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">First Name: <span class="font-normal " style="letter-spacing: 1px">{{ detail.business_owner.first_name }}</span></h1>
-                <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Middle Name: <span class="font-normal " style="letter-spacing: 1px">{{ detail.business_owner.middle_name }}</span></h1>
-                <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Last Name: <span class="font-normal " style="letter-spacing: 1px">{{ detail.business_owner.last_name }}</span></h1>
-                <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Contact Number: <span class="font-normal " style="letter-spacing: 1px">{{ detail.business_owner.contact_number }}</span></h1>
-                <h1 class="font-semibold border-b-2 shadow-sm py-2 text-gray-900">Contact Email: <span class="font-normal " style="letter-spacing: 1px">{{ detail.business_owner.contact_email }}</span></h1>
+
+              <div class="py-6 px-6 space-x-3 flex justify-between">
+
+                <div id="myModal" class="modal">
+                  <span @click="close" class="close">&times;</span>
+                  <img id="img01" alt="">
+                </div>
+
+                <div>
+                  <h1 class="font-semibold shadow-sm text-gray-900">Business Permit</h1>
+                  <img @click="enlargeImg(detail.permit_image)" :src="detail.permit_image" alt="" class="w-32 mt-2 cursor-pointer" style="max-height: 70px">
+                </div>
+
+                <div>
+                  <h1 class="font-semibold shadow-sm text-gray-900">Valid ID</h1>
+                  <img @click="enlargeImg(detail.valid_id_image)" :src="detail.valid_id_image" alt="" class="w-32 mt-2 cursor-pointer" style="max-height: 70px">
+                </div>
+
+                <div>
+                  <h1 class="font-semibold shadow-sm text-gray-900">Face Image</h1>
+                  <img @click="enlargeImg(detail.face_image)" :src="detail.face_image" alt="" class="w-32 mt-2 cursor-pointer" style="max-height: 70px">
+                </div>
+
               </div>
             </div>
           </div>
@@ -150,6 +176,22 @@ export default {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+    function enlargeImg(src){
+
+      // Get the modal
+      let modal = document.getElementById("myModal");
+      let modalImg = document.getElementById("img01");
+
+      modal.style.display = "block";
+      modalImg.src = src;
+    }
+
+    function close() {
+      // Get the modal
+      let modal = document.getElementById("myModal");
+      modal.style.display = "none";
+    }
+
     return {
       applications,
       loadStatus,
@@ -158,11 +200,81 @@ export default {
       formatDateUS,
       capitalizeFirstLetter,
       applicationDetails,
-      approveApplication
+      approveApplication,
+      enlargeImg,
+      close
     }
   }
 }
 </script>
-<style>
+<style scoped>
 
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 30px; /* Location of the box */
+  padding-bottom: 40px; /* Location of the box */
+  padding-left: 150px;
+  padding-right: 150px;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 80%;
+}
+
+/* Add Animation */
+.modal-content, #caption {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)}
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
 </style>

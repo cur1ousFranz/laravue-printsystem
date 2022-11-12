@@ -13,6 +13,12 @@
                 {{ shop.application.shop_name }}
               </div>
             </div>
+            <div v-else class="w-full h-full border shadow-md px-3 py-3 md:w-3/12">
+              <h3 class="font-bold mb-3 text-gray-900">Shop Name</h3>
+              <div  class="cursor-allowed py-3 text-center bg-gray-300 text-gray-700">
+                No available shop
+              </div>
+            </div>
             <div class="w-full h-full border shadow-md px-3 py-3 md:w-9/12">
               <h3 class="font-bold mb-3 text-gray-900">Shop Queue</h3>
               <table class="w-full mx-auto text-sm text-left">
@@ -93,7 +99,9 @@ export default {
 
     store.dispatch('getOwnerQueue')
       .then((res) => {
-          shopQueue(shops.value[shops.value.length -1].id);
+          if(shops.value.length){
+            shopQueue(shops.value[shops.value.length -1].id);
+          }
         })
 
     watch(

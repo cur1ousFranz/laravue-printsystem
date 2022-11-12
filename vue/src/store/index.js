@@ -160,6 +160,18 @@ const store = createStore({
           return res
         })
     },
+    getNotificationDetails({commit}, id ){
+      return axiosClient.get(`owner/notification/${id}`)
+        .then((res) => {
+          return res
+        })
+    },
+    getOwnerNotifications({}) {
+      return axiosClient.get('/owner/notification')
+      .then((res) => {
+        return res
+      })
+    },
 
     /** ADMIN */
     approveApplication({}, id) {

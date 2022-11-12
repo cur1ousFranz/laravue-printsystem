@@ -15,6 +15,7 @@ import Shop from '../views/owner/Shop.vue'
 import ShopApplication from '../views/owner/ShopApplication.vue'
 import Queues from '../views/owner/Queues.vue'
 import ShopView from '../views/owner/ShopView.vue'
+import Notification from '../views/owner/Notification.vue'
 // admin
 import Dashboard from '../views/admin/Dashboard.vue'
 import ShopList from '../views/admin/ShopList.vue'
@@ -50,6 +51,7 @@ const routes = [
       { path: '/owner/queue', name: 'Queues' , component: Queues },
       { path: '/owner/shop/application', name: 'ShopApplication' , component: ShopApplication },
       { path: '/owner/shop/:id', name: 'ShopView' , component: ShopView },
+      { path: '/notification/:id', name: 'Notification' , component: Notification },
     ]
   },
   {

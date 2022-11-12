@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -81,7 +82,20 @@ class AuthController extends Controller
             'barangay' => 'required',
             'city' => 'required',
             'zipcode' => 'required',
+
+            'permit_image' => 'required',
+            'valid_id_image' => 'required',
+            'face_image' => 'required',
         ]);
+
+
+        $permitPath = $validated['permit_image']->store('images', 's3');
+        $valid_id_image = $validated['valid_id_image']->store('images', 's3');
+        $face_image = $validated['face_image']->store('images', 's3');
+
+        $validated['permit_image'] = Storage::disk('s3')->url($permitPath);
+        $validated['valid_id_image'] = Storage::disk('s3')->url($valid_id_image);
+        $validated['face_image'] = Storage::disk('s3')->url($face_image);
 
         $user = User::create([
             'username' => $validated['username'],
@@ -104,6 +118,10 @@ class AuthController extends Controller
             'barangay' => $validated['barangay'],
             'city' => $validated['city'],
             'zipcode' => $validated['zipcode'],
+
+            'permit_image' => $validated['permit_image'],
+            'valid_id_image' => $validated['valid_id_image'],
+            'face_image' => $validated['face_image'],
         ]);
 
         $token = $user->createToken('main')->plainTextToken;

@@ -20,11 +20,60 @@
               </div>
             </div>
             <div class="hidden md:block">
-              <div class="ml-4 flex items-center md:ml-6">
-                <button type="button" class="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                  <span class="sr-only">View notifications</span>
-                  <BellIcon class="h-6 w-6" aria-hidden="true" />
-                </button>
+              <div v-if="notifications.notifications" class="ml-4 flex items-center md:ml-6">
+
+                <!-- Notifications -->
+                <Menu v-if="notifications.notifications.length != 0" as="div" class="relative ml-3">
+                    <MenuButton class="flex max-w-xs items-center rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <BellIcon class="h-6 w-6" aria-hidden="true"/>
+                        <span v-if="notifications.unread.length != 0" class="absolute inline-block top-0 right-0 p-1.5 text-xs bg-red-500 rounded-full z-10">
+                        </span>
+                    </MenuButton>
+
+                  <MenuItems>
+                    <MenuItem v-for="unread in notifications.unread" :key="unread.id" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-green-200 py-4 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none px-3">
+                      <router-link :to="{ name : 'Notification', params : { id: unread.id }}">
+                        <div v-if="unread.data.title">
+                          <p class="font-semibold text-gray-600">
+                            {{ unread.data.title }}
+                          </p>
+                          <div class="flex justify-end mt-2">
+                            <p class="text-xs">{{ formatDateUS(unread.created_at) }}</p>
+                          </div>
+                        </div>
+                      </router-link>
+                    </MenuItem>
+
+                    <MenuItem v-for="read in notifications.read" :key="read.id" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-100 py-4 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none px-3">
+                      <router-link :to="{ name : 'Notification', params : { id: read.id }}">
+                        <div v-if="read.data.title">
+                          <p class="font-semibold text-sm text-gray-600">
+                            {{ read.data.title }}
+                          </p>
+                          <div class="flex justify-end mt-2">
+                            <p class="text-xs">{{ formatDateUS(read.created_at) }}</p>
+                          </div>
+                        </div>
+                      </router-link>
+                    </MenuItem>
+                  </MenuItems>
+
+                </Menu>
+
+                <!-- Zero Notifications -->
+                <Menu v-if="notifications.notifications.length == 0" as="div" class="relative ml-3">
+                    <MenuButton class="flex max-w-xs items-center rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <span class="sr-only">View notifications</span>
+                      <BellIcon class="h-6 w-6" aria-hidden="true" />
+                    </MenuButton>
+
+                  <MenuItems>
+                      <MenuItem class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-4 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none px-3">
+                          <h2>Nothing to show</h2>
+                    </MenuItem>
+                  </MenuItems>
+
+                </Menu>
 
                 <!-- Profile dropdown -->
                 <Menu as="div" class="relative ml-3">
@@ -93,8 +142,10 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import store from '../store'
 import {useRouter} from 'vue-router'
+import { ref } from '@vue/reactivity'
 
 const router = useRouter()
+const notifications = ref({})
 
 const user = {
   name: 'Tom Cook',
@@ -109,11 +160,25 @@ const user = {
     { name: 'Shop Application', to : { name : 'ShopApplication'}},
   ]
 
+  store.dispatch('getOwnerNotifications')
+    .then((res) => {
+      notifications.value = res.data.data
+    })
+
   function logout(){
     store.dispatch('logout')
       .then((res) => {
         router.push({name : 'Login'})
       })
+  }
+
+  function toJson(data){
+    return JSON.parse(data)
+  }
+
+  function formatDateUS(date) {
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric'}
+    return new Date(date).toLocaleDateString('en-US', options)
   }
 
 </script>

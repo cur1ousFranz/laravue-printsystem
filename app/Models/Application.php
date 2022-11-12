@@ -12,6 +12,9 @@ class Application extends Model
 
     protected $fillable = [
         'business_owner_id',
+        'permit_image',
+        'valid_id_image',
+        'face_image',
         'status',
         'shop_name',
         'address',

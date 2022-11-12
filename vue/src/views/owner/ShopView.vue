@@ -1,7 +1,10 @@
 <template>
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-4">
       <h1 class="font-bold text-3xl text-gray-900 px-4 md:px-3">Shop Details</h1>
-      <div class="overflow-x-auto relative py-4 ">
+        <div v-if="loadStatus" class="flex justify-center py-44">
+          Loading..
+        </div>
+      <div v-else class="overflow-x-auto relative py-4 ">
         <div class="flex flex-col border  shadow-md py-6 px-8 space-x-6  md:flex-row md:px-4">
           <div class="w-full">
             <img class="w-full  hover:shadow-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
@@ -61,7 +64,7 @@
                         <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
                           Black and White
                         </label>
-                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                        <div class="px-5 border border-gray-800 flex align-items-center">
                           <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
                           <input v-model="price.a4_bnw" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
@@ -70,7 +73,7 @@
                         <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
                           Colored
                         </label>
-                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                        <div class=" px-5 border border-gray-800 flex align-items-center">
                           <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
                           <input v-model="price.a4_colored" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
@@ -87,7 +90,7 @@
                         <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
                           Black and White
                         </label>
-                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                        <div class=" px-5 border border-gray-800 flex align-items-center">
                           <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
                           <input v-model="price.long_bnw" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
@@ -96,7 +99,7 @@
                         <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
                           Colored
                         </label>
-                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                        <div class="px-5 border border-gray-800 flex align-items-center">
                           <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
                           <input v-model="price.long_colored" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
@@ -113,7 +116,7 @@
                         <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
                             Black and White
                         </label>
-                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                        <div class="px-5 border border-gray-800 flex align-items-center">
                           <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
                           <input v-model="price.short_bnw" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>
@@ -122,7 +125,7 @@
                         <label for="long_size" class="form-label inline-block text-sm mb-1 text-gray-700">
                           Colored
                         </label>
-                        <div class="rounded-full px-5 border border-gray-800 flex align-items-center">
+                        <div class="px-5 border border-gray-800 flex align-items-center">
                           <span class="my-2 font-semibold text-gray-600"><h1>₱</h1></span>
                           <input v-model="price.short_colored" v-on:keypress="numbersOnly" type="text" id="long_size" class="form-control-sm block w-full px-3 text-sm font-normal text-gray-700 bg-white bg-clip-padding border-0 border-gray-300 transition ease-in-out m-0 focus:ring-0" placeholder="0" maxlength="2"/>
                         </div>

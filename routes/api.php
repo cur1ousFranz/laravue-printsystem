@@ -10,6 +10,7 @@ use App\Http\Controllers\CustomerShopController;
 use App\Http\Controllers\ServicePriceController;
 use App\Http\Controllers\BusinessOwnerController;
 use App\Http\Controllers\CustomerTransactionController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ShopQueueController;
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -36,6 +37,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/shop/documents/{shop}', [ShopController::class, 'storeDocuments']);
     Route::delete('/shop/documents/{shop}', [ShopController::class, 'deleteDocuments']);
     Route::put('/shop/service/document/price/{shop}', [ServicePriceController::class, 'setDocumentsPrice']);
+    Route::get('/owner/notification', [NotificationController::class, 'ownerNotifications']);
+    Route::get('/owner/notification/{notification}', [NotificationController::class, 'ownerNotificationsDetails']);
+
 
     // Admin
     Route::get('/application', [ApplicationController::class, 'index']);

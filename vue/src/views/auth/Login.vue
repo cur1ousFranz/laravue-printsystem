@@ -9,21 +9,12 @@
     </div>
     <div class="container flex justify-center md:justify-end">
 
-      <form @submit.prevent="login" class="h-fit border space-y-4 px-3 py-6 shadow-md bg-white md:w-8/12">
+      <form @submit.prevent="login" class="h-fit border space-y-6 px-3 py-6 shadow-md bg-white md:w-8/12">
         <h1 class="font-bold text-2xl text-gray-900">Login</h1>
 
-        <div class="mb-6">
-          <label for="username" class="block mb-2 text-sm font-medium text-gray-900">
-            Username
-          </label>
-          <input v-model="model.username" type="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Username" required="">
-        </div>
-        <div class="mb-6">
-            <label for="pasword" class="block mb-2 text-sm font-medium text-gray-900">
-              Pasword
-            </label>
-            <input v-model="model.password" type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="********">
-        </div>
+        <input v-model="model.username" type="text" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Username" required="">
+
+        <input v-model="model.password" type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Password">
 
         <div class="flex items-start mb-6">
             <div class="flex items-center h-5">
@@ -33,6 +24,7 @@
               Remember me
             </label>
         </div>
+
         <div class="flex justify-end">
           <Button>
             Login

@@ -7,14 +7,14 @@
         <h1 class="text-2xl font-bold text-gray-800">Choose</h1>
         <div class="flex space-x-3">
           <div class="form-check">
-            <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
             <label class="form-check-label inline-block text-gray-800" for="flexRadioDefault1">
               Print Document
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-            <label class="form-check-label inline-block text-gray-800" for="flexRadioDefault2">
+            <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault2" disabled>
+            <label class="form-check-label line-through inline-block cursor-not-allowed text-gray-800" for="flexRadioDefault2">
               Print Tarpaulin
             </label>
           </div>
@@ -38,7 +38,7 @@
           <div class="mb-3 flex">
             <div class="w-full">
               <label for="select-size">Select Size</label>
-              <select @change="select" v-model="model.size" class="mt-1 form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300  rounded-full transition ase-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="select-size">
+              <select @change="select" v-model="model.size" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" id="select-size">
                   <option value="a4">A4</option>
                   <option value="long">Long</option>
                   <option value="short">Short</option>
@@ -49,7 +49,7 @@
           <div class="mb-3 flex">
             <div class="w-full">
               <label for="select-size">Select Color</label>
-              <select @change="select" v-model="model.color" class="mt-1 form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded-full transition ase-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="select-size">
+              <select @change="select" v-model="model.color" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" id="select-size">
                   <option value="bnw">Black and White</option>
                   <option value="colored">Colored</option>
               </select>
@@ -64,7 +64,6 @@
             <button type="submit" class="mt-3 rounded-full cursor-pointer">
               <img src="https://getpaid.gcash.com/assets/img/paynow.png">
             </button>
-            	<!-- <a data-amount="100" data-fee="0" data-expiry="6" data-description="Payment for services rendered" data-href="https://getpaid.gcash.com/paynow" data-public-key="pk_3bdc85a0dbe276bfa74375a1879935b4" onclick="this.href = this.getAttribute('data-href')+'?public_key='+this.getAttribute('data-public-key')+'&amp;amount='+this.getAttribute('data-amount')+'&amp;fee='+this.getAttribute('data-fee')+'&amp;expiry='+this.getAttribute('data-expiry')+'&amp;description='+this.getAttribute('data-description');" href="https://getpaid.gcash.com/paynow?public_key=pk_3bdc85a0dbe276bfa74375a1879935b4&amp;amount=100&amp;fee=0&amp;expiry=6&amp;description=Payment for services rendered" target="_blank" class="x-getpaid-button"><img src="https://getpaid.gcash.com/assets/img/paynow.png"></a> -->
           </div>
         </form>
       </div>
@@ -181,27 +180,9 @@ export default {
           model.value.pageCount = pdf.numPages
           select()
         })
-
-      //   pdfjsLib.getDocument('vue/public/1667620443_3mb.pdf').promise
-      //   .then((pdf) => {
-      //     pdf.getPage(1)
-      //       .then((page) => {
-      //         var myCanvas = document.getElementById('my-canvas')
-      //         var context = myCanvas.getContext('2d')
-
-      //         var viewport = page.getViewport(2, -90)
-      //         myCanvas.width = viewport.width;
-      //         myCanvas.height = viewport.height;
-
-      //         page.render({
-      //           canvasContext : context,
-      //           viewport : viewport
-      //         })
-      //     })
-      // })
       }
-      reader.readAsArrayBuffer(file)
 
+      reader.readAsArrayBuffer(file)
   }
 
   function submit(){

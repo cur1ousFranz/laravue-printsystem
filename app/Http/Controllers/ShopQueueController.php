@@ -14,7 +14,6 @@ class ShopQueueController extends Controller
     {
 
         $owner = BusinessOwner::where('user_id', Auth::user()->id)->first();
-
         $shops = Shop::with('application', 'services')
             ->where('business_owner_id', $owner->id)
             ->get();

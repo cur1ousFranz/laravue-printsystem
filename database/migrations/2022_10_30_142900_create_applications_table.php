@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('business_owner_id')->constrained()->cascadeOnDelete();
+            $table->string('permit_image');
+            $table->string('valid_id_image');
+            $table->string('face_image');
             $table->string('status');
             $table->string('shop_name');
             $table->string('address');

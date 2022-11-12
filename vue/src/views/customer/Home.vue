@@ -7,7 +7,7 @@
         </div>
         <div v-else>
           <div v-if="shops.length" class="grid grid-cols-1 place-items-center sm:grid-cols-2 sm:space-x-3 md:grid-cols-3" >
-            <div v-for="shop in shops" :key="shop.id" class="max-w-xs bg-white border border-gray-200 shadow-md my-3 hover:shadow-xl hover:border-gray-300">
+            <div v-for="shop in shops" :key="shop.id" class="max-w-xs bg-white border border-gray-200 shadow-md my-3 hover:shadow-2xl hover:border-gray-300">
                 <a href="#">
                     <img src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
                 </a>
