@@ -70,7 +70,7 @@ export default {
         }
 
         if(store.state.user.role === 'admin'){
-          router.push({ name : 'Dashboard'})
+          router.push({ name : 'ShopList'})
         }
       })
       .catch(() => {

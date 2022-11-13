@@ -24,11 +24,11 @@
 
                 <!-- Notifications -->
                 <Menu v-if="notifications.notifications.length != 0" as="div" class="relative ml-3">
-                    <MenuButton class="flex max-w-xs items-center rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <BellIcon class="h-6 w-6" aria-hidden="true"/>
-                        <span v-if="notifications.unread.length != 0" class="absolute inline-block top-0 right-0 p-1.5 text-xs bg-red-500 rounded-full z-10">
-                        </span>
-                    </MenuButton>
+                  <MenuButton class="flex max-w-xs items-center rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <BellIcon class="h-6 w-6" aria-hidden="true"/>
+                      <span v-if="notifications.unread.length != 0" class="absolute inline-block top-0 right-0 p-1.5 text-xs bg-red-500 rounded-full z-10">
+                      </span>
+                  </MenuButton>
 
                   <MenuItems>
                     <MenuItem v-for="unread in notifications.unread" :key="unread.id" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-green-200 py-4 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none px-3">

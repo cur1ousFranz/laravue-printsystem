@@ -6,7 +6,7 @@
       <div v-if="applications.length">
         <div class="flex flex-col md:flex-row space-x-3">
           <table class="h-full w-1/2 text-sm border shadow-md  text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-gray-900 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <thead class="text-xs text-gray-900 uppercase bg-gray-200 ">
                   <tr>
                       <th scope="col" class="py-3 px-6">
                           Shop name

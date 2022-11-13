@@ -90,6 +90,18 @@ const store = createStore({
           return res
         })
     },
+    getCustomerNotificationDetails({commit}, id){
+      return axiosClient.get(`customer/notification/${id}`)
+        .then((res) => {
+          return res
+      })
+    },
+    getOwnerNotifications({}){
+      return axiosClient.get('/customer/notification')
+      .then((res) => {
+        return res
+      })
+    },
 
     /** BUSINESS OWNER */
     updateQueueStatus({}, id){
@@ -116,6 +128,12 @@ const store = createStore({
         return res
       })
     },
+    setShopImage({commit}, data) {
+      return axiosClient.post(`/shop/image`, data)
+        .then((res) => {
+          return res
+        })
+    },
     setToggleShop({}, shop) {
       return axiosClient.put(`/shop/${shop.id}`, shop)
         .then((res) => {
@@ -130,7 +148,7 @@ const store = createStore({
         })
     },
     removeShopPrintDocsService({commit}, shop){
-      return axiosClient.delete(`/shop/documents/${shop.id}`)
+      return axiosClient.delete(`/shop/service/documents/${shop.id}`)
       .then((res) => {
         commit('deleteShopPrintDocsServiceDetails', res.data)
       })

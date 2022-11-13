@@ -7,7 +7,18 @@
       <div v-else class="overflow-x-auto relative py-4 ">
         <div class="flex flex-col border  shadow-md py-6 px-8 space-x-6  md:flex-row md:px-4">
           <div class="w-full">
-            <img class="w-full  hover:shadow-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+            <div class="flex justify-end py-2">
+              <label for="image" class="cursor-pointer px-3 py-2 z-1 my-2 absolute flex hover:bg-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                </svg>
+                <p class="text-sm font-bold">Change</p>
+                <form action="" enctype="multipart/form-data">
+                  <input @change="imgChoose" type="file" class="py-2 border rounded-md" id="image" style="display: none">
+                </form>
+              </label>
+            </div>
+            <img class="w-full  hover:shadow-lg" :src="shop.image ? shop.image  : '/img/default-shop-img.jpg'" alt="">
             <div class="flex justify-between my-2">
               <p v-if="shop.status" :class="[shop.status === 'close' ? 'my-3 w-fit text-lg font-bold text-red-500 px-2 py-1 ' :
               'my-3 w-fit text-lg font-bold text-green-500 px-2 py-1 ']">
@@ -133,7 +144,6 @@
                     </div>
                   </div>
                   <!-- END SHORT SIZE -->
-
                   <div class="flex justify-end">
                     <Button>
                       Save Service
@@ -233,7 +243,6 @@ import  Button  from '../../components/Button.vue'
 
   }
 
-  // function for input fields to allow only numbers
   function numbersOnly(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -246,7 +255,20 @@ import  Button  from '../../components/Button.vue'
 
   function toggleShop(){
     if(shop.value.status === 'close'){
-      shop.value.status = 'open'
+
+      if(shop.value.services.length){
+        const service = getService(shop.value.services, 'documents')
+        if(service[0].service_price.price != null){
+          shop.value.status = 'open'
+
+        }else{
+          alert('Please add service & prices', 'error')
+          return
+        }
+      }else{
+        alert('Please add service & prices', 'error')
+        return
+      }
     }else{
       shop.value.status = 'close'
     }
@@ -254,6 +276,19 @@ import  Button  from '../../components/Button.vue'
     store.dispatch('setToggleShop', shop.value)
       .then(() => {
         alert(`Shop ${shop.value.status} successfully!`)
+      })
+  }
+
+  function imgChoose(e){
+
+    const formData = new FormData()
+    formData.append('image', e.target.files[0])
+    formData.append('shop_id', shop.value.id)
+
+    store.dispatch('setShopImage', formData)
+      .then(() => {
+        store.dispatch("getShopDetails", route.params.id)
+        alert('Update banner image')
       })
   }
 

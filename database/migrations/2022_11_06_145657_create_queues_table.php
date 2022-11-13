@@ -17,10 +17,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('service_id')->constrained()->cascadeOnDelete();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
+            $table->string('control_number');
             $table->string('document');
             $table->string('size');
             $table->string('color');
             $table->string('pages');
+            $table->string('amount');
+            $table->string('pickup');
             $table->string('status');
             $table->timestamps();
         });

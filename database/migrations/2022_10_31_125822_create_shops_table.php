@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('business_owner_id')->constrained()->cascadeOnDelete();
             $table->foreignId('application_id')->constrained()->cascadeOnDelete();
+            $table->string('image')->nullable();
             $table->string('status');
             $table->timestamps();
         });

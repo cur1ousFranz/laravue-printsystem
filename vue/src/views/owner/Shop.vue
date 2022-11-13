@@ -1,7 +1,7 @@
 <template>
 
   <div class="mx-auto max-w-7xl sm:px-6 lg:px-4">
-    <h1 class="font-bold text-3xl text-gray-900 px-4 md:px-3">Shop</h1>
+    <h1 class="font-bold text-3xl text-gray-900 px-4 md:px-3">Your Shops</h1>
     <div class="px-4 py-4 sm:px-0">
       <div class="h-full rounded-lg border-4 border-dashed border-gray-200 px-6 py-6">
         <div v-if="loadStatus" class="flex justify-center py-44">
@@ -11,7 +11,7 @@
           <div v-if="shops.length" >
             <div v-for="shop in shops" :key="shop.id" class="max-w-xs bg-white border border-gray-200 hover:shadow-xl">
                 <a href="#">
-                    <img src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="" />
+                    <img :src="shop.image ? shop.image  : '/img/default-shop-img.jpg'" alt="" />
                 </a>
                 <div class="px-4 py-3">
                   <div class="flex justify-between">

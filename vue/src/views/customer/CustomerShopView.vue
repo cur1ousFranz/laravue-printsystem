@@ -56,6 +56,13 @@
             </div>
           </div>
 
+          <div class="mb-3 flex">
+            <div class="w-full">
+              <label for="pickup">Pickup Time</label>
+              <input v-model="model.pickup" class="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" type="time" name="" id="pickup">
+            </div>
+          </div>
+
           <div class="py-6 flex justify-between">
             <div class="mt-4">
               <h1 class="px-2 text-2xl">Total: ₱ {{ model.total }}.00</h1>
@@ -97,6 +104,7 @@ export default {
     size : 'a4',
     color : 'bnw',
     total : 0,
+    pickup : null,
     prices : null,
   })
 
@@ -194,6 +202,8 @@ export default {
     formData.append('size', model.value.size)
     formData.append('color', model.value.color)
     formData.append('pages', model.value.pageCount)
+    formData.append('pickup', model.value.pickup)
+    formData.append('total', model.value.total)
 
     store.dispatch('customerUploadFile', formData)
       .then((url) => {

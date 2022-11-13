@@ -1,7 +1,7 @@
-export function alert(string){
+export function alert(string, icon = 'success'){
   Swal.fire({
     title: string,
-    icon: 'success',
+    icon: icon,
     timer: 3000,
     toast: true,
     position: 'top-right',

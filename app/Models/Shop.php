@@ -15,7 +15,8 @@ class Shop extends Model
     protected $fillable = [
         'business_owner_id',
         'application_id',
-        'status'
+        'status',
+        'image',
     ];
 
     public function owner()

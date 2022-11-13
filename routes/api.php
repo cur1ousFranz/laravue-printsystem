@@ -25,6 +25,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/customer/shop/{shop}', [CustomerShopController::class, 'show']);
     Route::get('/customer/shop', [CustomerShopController::class, 'index']);
     Route::get('/customer/transaction', [CustomerTransactionController::class, 'index']);
+    Route::get('/customer/notification', [NotificationController::class, 'customerNotifications']);
+    Route::get('/customer/notification/{notification}', [NotificationController::class, 'customerNotificationsDetails']);
 
     // Business Owner
     Route::get('/shop/queue', [ShopQueueController::class, 'index']);
@@ -32,10 +34,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/shop/application', [BusinessOwnerController::class, 'index']);
     Route::get('/shop/{shop}', [ShopController::class, 'show']);
     Route::put('/shop/{shop}', [ShopController::class, 'update']);
+    Route::post('/shop/image', [ShopController::class, 'updateImage']);
     Route::get('/shop', [BusinessOwnerController::class, 'show']);
     Route::put('/service/{service}', [ServiceController::class, 'update']);
     Route::put('/shop/documents/{shop}', [ShopController::class, 'storeDocuments']);
-    Route::delete('/shop/documents/{shop}', [ShopController::class, 'deleteDocuments']);
+    Route::delete('/shop/service/documents/{shop}', [ShopController::class, 'deleteServiceDocuments']);
     Route::put('/shop/service/document/price/{shop}', [ServicePriceController::class, 'setDocumentsPrice']);
     Route::get('/owner/notification', [NotificationController::class, 'ownerNotifications']);
     Route::get('/owner/notification/{notification}', [NotificationController::class, 'ownerNotificationsDetails']);

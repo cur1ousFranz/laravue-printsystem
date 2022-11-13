@@ -42,6 +42,9 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'last_name' => 'required',
             'username' => 'required|unique:users,username',
             'contact_email' => 'required|email|unique:customers,contact_email',
             'password' => 'required|confirmed',
@@ -49,11 +52,15 @@ class AuthController extends Controller
 
         $user = User::create([
             'username' => $validated['username'],
+            'contact_email' => $validated['contact_email'],
             'password' => bcrypt($validated['password']),
             'role' => 'customer',
         ]);
 
         $user->customers()->create([
+            'first_name' => $validated['first_name'],
+            'middle_name' => $validated['middle_name'],
+            'last_name' => $validated['last_name'],
             'contact_email' => $validated['contact_email']
         ]);
 

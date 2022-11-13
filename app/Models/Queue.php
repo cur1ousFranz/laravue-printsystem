@@ -14,10 +14,13 @@ class Queue extends Model
     protected $fillable = [
         'service_id',
         'customer_id',
+        'control_number',
         'document',
         'size',
         'color',
         'pages',
+        'amount',
+        'pickup',
         'status',
     ];
 

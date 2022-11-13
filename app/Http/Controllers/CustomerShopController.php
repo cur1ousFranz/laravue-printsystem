@@ -6,19 +6,20 @@ use App\Models\Shop;
 use App\Models\Queue;
 use App\Models\Customer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerShopController extends Controller
 {
 
     public function index()
     {
-        if(Auth::user()->role !== 'customer'){
-            return response([
-                'error' => 'Unauthorized Action'
-            ], 403);
-        }
+        // if(Auth::user()->role !== 'customer'){
+        //     return response([
+        //         'error' => 'Unauthorized Action'
+        //     ], 403);
+        // }
 
         $shops = Shop::with('application')->latest()->get();
 
@@ -69,22 +70,25 @@ class CustomerShopController extends Controller
         // ]);
 
 
-
-        $file = $request->file('file');
-        $originalName =  $file->getClientOriginalName();
-        $newName = time() . '_' . $originalName;
-        $filePath = $request->file->storeAs('uploads', $newName, 'public');
+        $filePath = $request->file('file')->store('documents', 's3');
 
         $customer = Customer::where('user_id', Auth::user()->id)->first();
 
-        Queue::create([
+        $queue = Queue::create([
             'service_id' => $request->service_id,
             'customer_id' => $customer->id,
-            'document' => $filePath,
+            'control_number' => '',
+            'document' => Storage::disk('s3')->url($filePath),
             'size' => $request->size,
             'color' => $request->color,
             'pages' => $request->pages,
+            'amount' => $request->total,
+            'pickup' => $request->pickup,
             'status' => 'pending',
+        ]);
+
+        $queue->update([
+            'control_number' => '#'.str_pad($queue->id + 1, 8, "0", STR_PAD_LEFT)
         ]);
 
         // return response([

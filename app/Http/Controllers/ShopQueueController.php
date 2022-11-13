@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
+use App\Models\User;
 use App\Models\Queue;
+use App\Models\Customer;
 use App\Models\BusinessOwner;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\PrintNotification;
+use Illuminate\Support\Facades\Notification;
 
 class ShopQueueController extends Controller
 {
@@ -27,8 +31,12 @@ class ShopQueueController extends Controller
     {
 
         $queue->update([
-            'status' => 'done'
+            'status' => 'completed'
         ]);
+
+        $customer = Customer::where('id', $queue->customer_id)->first();
+        $user = User::where('id', $customer->user_id)->first();
+        Notification::send($user, new PrintNotification('Print Completed', $queue->id));
 
         return response([
             'success' => 'Status updated'

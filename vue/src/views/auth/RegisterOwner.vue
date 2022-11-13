@@ -141,7 +141,7 @@ export default {
     function register(){
       const formData = new FormData()
       formData.append('first_name', model.value.first_name)
-      formData.append('middle_name', model.middle_name)
+      formData.append('middle_name', model.value.middle_name)
       formData.append('last_name', model.value.last_name)
       formData.append('contact_number', model.value.contact_number)
       formData.append('contact_email', model.value.contact_email)

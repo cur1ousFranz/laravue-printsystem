@@ -15,6 +15,9 @@
                       Shop
                   </th>
                   <th scope="col" class="py-3 px-6">
+                      Control Number
+                  </th>
+                  <th scope="col" class="py-3 px-6">
                       Document
                   </th>
                   <th scope="col" class="py-3 px-6">
@@ -25,6 +28,9 @@
                   </th>
                   <th scope="col" class="py-3 px-6">
                       Total Pages
+                  </th>
+                  <th scope="col" class="py-3 px-6">
+                      Total Amount
                   </th>
                   <th scope="col" class="py-3 px-6">
                       Status
@@ -40,7 +46,10 @@
                       {{ transaction.service.shop.application.shop_name }}
                   </td>
                   <td class="py-4 px-6">
-                      <a class="text-blue-500" :href="'http://127.0.0.1:8000/storage/' + transaction.document" target="_blank" >
+                      {{ transaction.control_number }}
+                  </td>
+                  <td class="py-4 px-6">
+                      <a class="text-blue-500" :href="transaction.document" target="_blank" >
                         Preview
                       </a>
                   </td>
@@ -51,7 +60,10 @@
                       {{ transaction.color === 'bnw' ? 'Black and White' : capitalizeFirstLetter(transaction.color) }}
                   </td>
                   <td class="py-4 px-6">
-                      {{ capitalizeFirstLetter(transaction.pages) }}
+                      {{ transaction.pages }}
+                  </td>
+                  <td class="py-4 px-6">
+                      ₱ {{ transaction.amount }}.00
                   </td>
                   <td class="py-4 px-6">
                     <span :class="[transaction.status === 'pending' ? 'bg-yellow-300 py-1 px-2 rounded-full text-gray-900' : 'bg-green-300 py-1 px-2 rounded-full text-gray-900']">
