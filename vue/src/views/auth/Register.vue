@@ -16,7 +16,10 @@
 
       </div>
 
-      <input v-model="model.contact_email" type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Email" required="">
+      <div class="flex bg-gray-50 border border-gray-300 text-gray-900 text-sm w-full px-2 focus:border-current focus:ring-0">
+        <span class="my-3 font-semibold text-gray-600"><h1>+63</h1></span>
+        <input v-model="model.contact_number" v-on:keypress="numbersOnly" class="border-0 bg-gray-50 focus:ring-0 w-full" type="tel" placeholder="Mobile Number" maxlength="10">
+      </div>
 
       <input v-model="model.password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Password">
 
@@ -35,6 +38,7 @@ import store from '../../store'
 import { useRouter } from 'vue-router'
 import  Button  from '../../components/Button.vue'
 import { ref } from '@vue/reactivity'
+import { alert } from '../../alert.js'
 export default {
   components : { Button },
   setup() {
@@ -45,28 +49,46 @@ export default {
       middle_name : '',
       last_name : '',
       username : '',
-      contact_email : '',
+      contact_number : '',
       password : '',
       password_confirmation : '',
     })
 
     function register(){
-      const formData = new FormData()
-      formData.append('first_name', model.value.first_name)
-      formData.append('middle_name', model.value.middle_name)
-      formData.append('last_name', model.value.last_name)
-      formData.append('contact_email', model.value.contact_email)
-      formData.append('username', model.value.username)
-      formData.append('password', model.value.password)
-      formData.append('password_confirmation', model.value.password_confirmation)
 
-      store.dispatch('register', formData)
-        .then((res) => {
-          router.push({ name : 'Home'})
-        })
+        const formData = new FormData()
+        formData.append('first_name', model.value.first_name)
+        formData.append('middle_name', model.value.middle_name)
+        formData.append('last_name', model.value.last_name)
+        formData.append('contact_number', model.value.contact_number)
+        formData.append('username', model.value.username)
+        formData.append('password', model.value.password)
+        formData.append('password_confirmation', model.value.password_confirmation)
+
+        store.dispatch('register', formData)
+          .then((res) => {
+            router.push({ name : 'VerifyMobile'})
+          })
+          .catch((res) =>{
+            alert('Invalid mobile number', 'error')
+          })
     }
 
-    return { model, register }
+    function numbersOnly(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
+      }
+    }
+
+    return {
+      model,
+      register,
+      numbersOnly,
+    }
   }
 }
 </script>

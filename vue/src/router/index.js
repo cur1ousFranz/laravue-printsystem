@@ -6,6 +6,7 @@ import AdminLayout from '../components/AdminLayout.vue'
 import Login from '../views/auth/Login.vue'
 import Register from '../views/auth/Register.vue'
 import RegisterOwner from '../views/auth/RegisterOwner.vue'
+import VerifyMobile from '../views/auth/VerifyMobile.vue'
 // customer
 import Home from '../views/customer/Home.vue'
 import CustomerShopView from '../views/customer/CustomerShopView.vue'
@@ -80,6 +81,7 @@ const routes = [
     },
     component : AuthLayout,
     children : [
+      { path: '/verify', name: 'VerifyMobile', component : VerifyMobile, },
       { path: '/login', name: 'Login', component : Login },
       { path: '/register', name: 'Register', component : Register, },
       { path: '/register/owner', name: 'RegisterOwner', component : RegisterOwner, },

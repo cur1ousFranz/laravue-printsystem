@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/application/{application}', [ApplicationController::class, 'update']);
 });
 
+Route::post('/verify', [AuthController::class, 'verify']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/register/owner', [AuthController::class, 'registerOwner']);
 Route::post('/login', [AuthController::class, 'login']);

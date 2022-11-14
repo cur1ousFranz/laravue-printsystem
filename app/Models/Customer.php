@@ -16,7 +16,8 @@ class Customer extends Model
         'middle_name',
         'last_name',
         'contact_number',
-        'contact_email'
+        'verified',
+        'verify_code',
     ];
 
     public function user()

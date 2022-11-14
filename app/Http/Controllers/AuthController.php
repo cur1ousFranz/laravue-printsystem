@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Twilio\Rest\Client;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +26,6 @@ class AuthController extends Controller
         unset($credentials['remember']); // destroying variable
 
         if(Auth::attempt($credentials, $remember)){
-
             $user = Auth::user();
             $token = $user->createToken('main')->plainTextToken;
 
@@ -45,31 +46,77 @@ class AuthController extends Controller
             'first_name' => 'required',
             'middle_name' => 'required',
             'last_name' => 'required',
+            'contact_number' => 'required|unique:customers,contact_number',
             'username' => 'required|unique:users,username',
-            'contact_email' => 'required|email|unique:customers,contact_email',
             'password' => 'required|confirmed',
         ]);
+        $validated['contact_number'] = '+63' . $validated['contact_number'];
 
-        $user = User::create([
-            'username' => $validated['username'],
-            'contact_email' => $validated['contact_email'],
-            'password' => bcrypt($validated['password']),
-            'role' => 'customer',
-        ]);
+        try {
 
-        $user->customers()->create([
-            'first_name' => $validated['first_name'],
-            'middle_name' => $validated['middle_name'],
-            'last_name' => $validated['last_name'],
-            'contact_email' => $validated['contact_email']
-        ]);
+            $code = rand(124101, 999999);
 
-        $token = $user->createToken('main')->plainTextToken;
+            $receiverNumber = $validated['contact_number'];
+            $message = "Your verification code is: " . $code;
+
+            $account_sid = getenv("TWILIO_SID");
+            $auth_token = getenv("TWILIO_TOKEN");
+            $twilio_number = getenv("TWILIO_FROM");
+
+            $client = new Client($account_sid, $auth_token);
+            $client->messages->create($receiverNumber, [
+                'from' => $twilio_number,
+                'body' => $message]);
+
+            $user = User::create([
+                'username' => $validated['username'],
+                'password' => bcrypt($validated['password']),
+                'role' => 'customer',
+            ]);
+
+            $user->customers()->create([
+                'first_name' => $validated['first_name'],
+                'middle_name' => $validated['middle_name'],
+                'last_name' => $validated['last_name'],
+                'contact_number' => $validated['contact_number'],
+                'verified' => 0,
+                'verify_code' => $code
+            ]);
+
+        } catch (Exception $e) {
+            return response([
+                'error' => $e->getMessage(),
+            ]);
+        }
 
         return response([
-            'user' => $user,
-            'token' => $token,
+            'user_id' => $user->id,
         ]);
+
+    }
+
+    public function verify(Request $request)
+    {
+        $user = User::where('id', $request->user_id)->first();
+        $customer = Customer::where('user_id', $user->id)->first();
+
+        if($customer->verify_code === $request->code){
+            $customer->update([
+                'verified' => 1
+            ]);
+
+            $token = $user->createToken('main')->plainTextToken;
+            return response([
+                'user' => $user,
+                'token' => $token,
+            ]);
+
+        }
+
+        return response([
+            'message' => 'Invalid code',
+        ], 404);
+
     }
 
     public function registerOwner(Request $request)

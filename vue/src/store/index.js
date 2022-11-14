@@ -52,7 +52,6 @@ const store = createStore({
       data : []
     }
 
-
   },
   getters: {},
   actions: {
@@ -236,6 +235,13 @@ const store = createStore({
     },
     register({commit}, user) {
       return axiosClient.post('/register', user)
+        .then((res) => {
+          commit('setUserID', res.data)
+          return res
+        })
+    },
+    verifyCode({commit}, data) {
+      return axiosClient.post('/verify', data)
         .then(({data}) => {
           commit('setUser', data)
           return data
@@ -329,6 +335,13 @@ const store = createStore({
       state.user.role = userData.user.role
       sessionStorage.setItem('ROLE', userData.user.role)
       sessionStorage.setItem('TOKEN', userData.token)
+      sessionStorage.removeItem('USER_ID')
+    },
+    setUserID : (state, data) => {
+      sessionStorage.setItem('USER_ID', data.user_id)
+    },
+    removeAllowed : (state) => {
+      state.user.allowed = false
     },
     logoutUser : (state) => {
       state.user.token = null
