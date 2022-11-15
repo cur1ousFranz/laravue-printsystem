@@ -69,9 +69,11 @@ class CustomerShopController extends Controller
         //     'data' =>  $redirect
         // ]);
 
+        $validated = $request->validate([
+            'document' => 'required|mimes:pdf'
+        ]);
 
-        $filePath = $request->file('file')->store('documents', 's3');
-
+        $filePath = $validated['document']->store('documents', 's3');
         $customer = Customer::where('user_id', Auth::user()->id)->first();
 
         $queue = Queue::create([
@@ -83,6 +85,7 @@ class CustomerShopController extends Controller
             'color' => $request->color,
             'pages' => $request->pages,
             'amount' => $request->total,
+            'admin_commission' => $request->admin_commission,
             'pickup' => $request->pickup,
             'status' => 'pending',
         ]);

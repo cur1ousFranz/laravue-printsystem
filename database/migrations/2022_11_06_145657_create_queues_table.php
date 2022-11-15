@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('color');
             $table->string('pages');
             $table->string('amount');
+            $table->string('admin_commission');
             $table->string('pickup');
             $table->string('status');
             $table->timestamps();

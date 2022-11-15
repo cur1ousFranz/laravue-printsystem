@@ -20,6 +20,7 @@ class Queue extends Model
         'color',
         'pages',
         'amount',
+        'admin_commission',
         'pickup',
         'status',
     ];

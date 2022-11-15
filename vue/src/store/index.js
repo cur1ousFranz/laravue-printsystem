@@ -50,6 +50,9 @@ const store = createStore({
     customerTransactons : {
       loading : false,
       data : []
+    },
+    customerUpload : {
+      loading : false,
     }
 
   },
@@ -66,8 +69,10 @@ const store = createStore({
         })
     },
     customerUploadFile({commit}, data){
+      commit('customerUploadLoading', true)
       return axiosClient.post('/upload', data)
         .then((res) => {
+          commit('customerUploadLoading', false)
           return res.data
         })
     },
@@ -218,26 +223,35 @@ const store = createStore({
 
     /** AUTHENTCATION */
     registerOwner({commit}, data) {
+      commit('setUserLoading', true)
       return axiosClient.post('/register/owner', data)
-      .then(({data}) => {
-        commit('setUser', data)
+      .then((res) => {
+        commit('setUserLoading', false)
+        commit('setUserID', res.data)
         return data
       })
-    },
-    login({commit}, user) {
-      commit('setUserLoading', true)
-      return axiosClient.post('/login', user)
-        .then(({data}) => {
-          commit('setUserLoading', false)
-          commit('setUser', data)
-          return data
-        })
+      .catch(() => {
+        commit('setUserLoading', false)
+      })
     },
     register({commit}, user) {
       return axiosClient.post('/register', user)
         .then((res) => {
           commit('setUserID', res.data)
           return res
+        })
+    },
+    login({commit}, user) {
+      commit('setUserLoading', true)
+      return axiosClient.post('/login', user)
+        .then(({data}) => {
+          commit('setUserLoading', false)
+          if(data.user && data.token){
+            commit('setUser', data)
+          }else{
+            commit('setUserID', data)
+          }
+          return data
         })
     },
     verifyCode({commit}, data) {
@@ -258,6 +272,9 @@ const store = createStore({
   },
   mutations: {
     /** CUSTOMER */
+    customerUploadLoading : (state, loading) => {
+      state.customerUpload.loading = loading
+    },
     setCustomerTransactions : (state, transactions) => {
       state.customerTransactons.data = transactions.data
     },

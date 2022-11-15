@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="font-bold text-3xl text-gray-900 px-4 md:px-3">Notification</h1>
-    <div class="text-center py-4 px-12 my-6 w-1/2 border border-gray-700 shadow-sm mx-auto space-y-6">
+    <div class="text-center py-4 px-12 my-6 w-1/2 border-gray-900 border-t-2 border-b-2 shadow-sm mx-auto space-y-6">
       <h2 class="text-2xl font-mono">Printing Documents</h2>
       <div>
         <h2 v-if="details.service">{{ details.service.shop.application.shop_name }}</h2>

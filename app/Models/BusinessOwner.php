@@ -17,8 +17,9 @@ class BusinessOwner extends Model
         'first_name',
         'middle_name',
         'last_name',
-        'contact_email',
         'contact_number',
+        'verified',
+        'verify_code',
     ];
 
     public function user()

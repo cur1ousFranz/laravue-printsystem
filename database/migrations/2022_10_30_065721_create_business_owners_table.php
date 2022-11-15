@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
-            $table->string('contact_email');
             $table->string('contact_number');
+            $table->boolean('verified');
+            $table->string('verify_code');
             $table->timestamps();
         });
     }
