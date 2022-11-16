@@ -253,6 +253,10 @@ const store = createStore({
           }
           return data
         })
+        .catch((res) => {
+          commit('setUserLoading', false)
+          return res
+        })
     },
     verifyCode({commit}, data) {
       return axiosClient.post('/verify', data)
