@@ -19,6 +19,10 @@ const store = createStore({
       loading :false,
       data : {}
     },
+    shopTransactionDetails : {
+      loading : false,
+      data : {}
+    },
 
     /** BUSINESS OWNER */
     ownerQueue : {
@@ -196,6 +200,22 @@ const store = createStore({
     },
 
     /** ADMIN */
+    setShopTransactionDetails({commit}, id) {
+      return axiosClient.put(`/transaction/shop/${id}`)
+        .then((res) => {
+          commit('setAllShops', res.data)
+          return res
+      })
+    },
+    getShopTransactionDetails({commit}, id) {
+      commit('shopTransactionDetailsLoading', true)
+      return axiosClient.get(`/transaction/shop/${id}`)
+        .then((res) => {
+          commit('shopTransactionDetailsLoading', false)
+          commit('shopTransactionDetails', res.data)
+          return res
+      })
+    },
     approveApplication({}, id) {
       return axiosClient.put(`/application/${id}`)
         .then((res) => {
@@ -252,6 +272,10 @@ const store = createStore({
             commit('setUserID', data)
           }
           return data
+        })
+        .catch((res) => {
+          commit('setUserLoading', false)
+          return res
         })
     },
     verifyCode({commit}, data) {
@@ -330,6 +354,12 @@ const store = createStore({
     },
 
     /** ADMIN */
+    shopTransactionDetailsLoading : (state, loading) => {
+      state.shopTransactionDetails.loading = loading
+    },
+    shopTransactionDetails : (state, data) => {
+      state.shopTransactionDetails.data = data.data
+    },
     setApplicationDetailsLoading : (state, loading) =>  {
       state.applicationDetails.loading = loading
     },

@@ -86,7 +86,7 @@ export default {
         }
 
       })
-      .catch(() => {
+      .catch((res) => {
         loadStatus.value = false
       })
   }

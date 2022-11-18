@@ -40,6 +40,7 @@ class CustomerShopController extends Controller
 
     public function upload(Request $request)
     {
+
         /** GCASH API */
         // $curl = curl_init();
         // curl_setopt_array($curl, array(
@@ -69,11 +70,7 @@ class CustomerShopController extends Controller
         //     'data' =>  $redirect
         // ]);
 
-        $validated = $request->validate([
-            'document' => 'required|mimes:pdf'
-        ]);
-
-        $filePath = $validated['document']->store('documents', 's3');
+        $filePath = $request->file('file')->store('documents', 's3');
         $customer = Customer::where('user_id', Auth::user()->id)->first();
 
         $queue = Queue::create([
@@ -88,15 +85,16 @@ class CustomerShopController extends Controller
             'admin_commission' => $request->admin_commission,
             'pickup' => $request->pickup,
             'status' => 'pending',
+            'paid' => 'no',
         ]);
 
         $queue->update([
             'control_number' => '#'.str_pad($queue->id + 1, 8, "0", STR_PAD_LEFT)
         ]);
 
-        // return response([
-        //     'data' =>  $filePath
-        // ]);
+        return response([
+            'data' =>  $filePath
+        ]);
 
     }
 }

@@ -5,13 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ShopQueueController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CustomerShopController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ServicePriceController;
 use App\Http\Controllers\BusinessOwnerController;
 use App\Http\Controllers\CustomerTransactionController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\ShopQueueController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
@@ -48,6 +49,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/application', [ApplicationController::class, 'index']);
     Route::get('/application/{application}', [ApplicationController::class, 'show']);
     Route::put('/application/{application}', [ApplicationController::class, 'update']);
+    Route::get('/transaction/shop/{shop}', [TransactionController::class, 'show']);
+    Route::put('/transaction/shop/{shop}', [TransactionController::class, 'update']);
 });
 
 Route::post('/verify', [AuthController::class, 'verify']);

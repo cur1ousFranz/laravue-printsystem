@@ -36,20 +36,22 @@ class AuthController extends Controller
                         'token' => $token
                     ]);
                 }
-            }
-            // Update code and send again to verify
-            try {
-                $code = rand(124101, 999999);
-                $this->smsVerification($customer->contact_number, $code);
-                $customer->update(['verify_code' => $code]);
-            } catch (Exception $e) {
+            }else{
+
+                // Update code and send again to verify
+                try {
+                    $code = rand(124101, 999999);
+                    $this->smsVerification($customer->contact_number, $code);
+                    $customer->update(['verify_code' => $code]);
+                } catch (Exception $e) {
+                    return response([
+                        'error' => $e->getMessage(),
+                    ]);
+                }
                 return response([
-                    'error' => $e->getMessage(),
+                    'user_id' => $user->id,
                 ]);
             }
-            return response([
-                'user_id' => $user->id,
-            ]);
         }
 
         if($user->role === 'businessowner'){

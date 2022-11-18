@@ -15,15 +15,15 @@ class ShopController extends Controller
     public function show(Shop $shop)
     {
 
-        $owner = BusinessOwner::where('user_id', Auth::user()->id)->first();
+        // $owner = BusinessOwner::where('user_id', Auth::user()->id)->first();
 
-        if($shop->business_owner_id !== $owner->id){
-            return response([
-                'error' => 'Unauthorized Action'
-            ], 403);
-        }
+        // if($shop->business_owner_id !== $owner->id){
+        //     return response([
+        //         'error' => 'Unauthorized Action'
+        //     ], 403);
+        // }
 
-        $currentShop = Shop::with('application', 'services', 'services.queues', 'services.queues.service')
+        $currentShop = Shop::with('application.businessOwner', 'services', 'services.queues', 'services.queues.service')
         ->where('id', $shop->id)->first();
 
         return response()->json([

@@ -185,34 +185,33 @@ export default {
   );
 
   function onFileChoose(ev){
-      const file = ev.target.files[0];
-      if(file.type !== 'image/png' || file.type !== 'image/jpeg'){
-        model.value.file = file
-        model.value.pdfName = file.name
+      const file = ev.target.files[0]
 
-        // Count number of pages in pdf
-        const reader = new FileReader()
-        reader.onload = () => {
-          const typedArray = new Uint8Array(reader.result)
-          const task = pdfjsLib.getDocument(typedArray)
-          task.promise.then((pdf) => {
-            isValid.value = true
-            model.value.pageCount = pdf.numPages
-            select()
-          })
-          .catch(() => {
-            isValid.value = false
-            alert('Invalid file format!', 'error')
-          })
-        }
-        reader.readAsArrayBuffer(file)
+      model.value.file = file
+      model.value.pdfName = file.name
+
+      // Count number of pages in pdf
+      const reader = new FileReader()
+      reader.onload = () => {
+        const typedArray = new Uint8Array(reader.result)
+        const task = pdfjsLib.getDocument(typedArray)
+        task.promise.then((pdf) => {
+          isValid.value = true
+          model.value.pageCount = pdf.numPages
+          select()
+        })
+        .catch(() => {
+          isValid.value = false
+          alert('Invalid file format!', 'error')
+        })
       }
+      reader.readAsArrayBuffer(file)
   }
 
   function submit(){
     const service = getService(shop.value.services, 'documents')
     const formData = new FormData()
-    formData.append('document', model.value.file)
+    formData.append('file', model.value.file)
     formData.append('shop_id', shop.value.id)
     formData.append('service_id', service[0].id)
     formData.append('size', model.value.size)
@@ -222,14 +221,15 @@ export default {
     formData.append('total', model.value.total)
     formData.append('admin_commission', model.value.admin_commission)
 
+
     store.dispatch('customerUploadFile', formData)
-      .then((url) => {
+      .then((res) => {
         /** THis is for gcash redirect */
         // window.open(url.data)
 
 
          alert('Queue submitted!')
-      })
+    })
 
   }
 

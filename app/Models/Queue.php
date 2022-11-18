@@ -23,6 +23,7 @@ class Queue extends Model
         'admin_commission',
         'pickup',
         'status',
+        'paid',
     ];
 
     public function service()

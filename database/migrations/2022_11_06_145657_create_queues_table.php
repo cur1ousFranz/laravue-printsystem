@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('amount');
             $table->string('admin_commission');
             $table->string('pickup');
+            $table->string('paid');
             $table->string('status');
             $table->timestamps();
         });
