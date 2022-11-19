@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BusinessOwner;
+use App\Models\Shop;
 use Illuminate\Http\Request;
+use App\Models\BusinessOwner;
 use Illuminate\Support\Facades\Auth;
 
 class BusinessOwnerController extends Controller
@@ -21,7 +22,7 @@ class BusinessOwnerController extends Controller
     public function show()
     {
         $owner = BusinessOwner::where('user_id', Auth::user()->id)->first();
-        $shops = $owner->shops()->with('application')->latest()->get();
+        $shops = $owner->shops()->with('application', 'services.queues')->latest()->get();
 
         return response([
             'data' => $shops

@@ -18,9 +18,9 @@ import ShopApplication from '../views/owner/ShopApplication.vue'
 import Queues from '../views/owner/Queues.vue'
 import ShopView from '../views/owner/ShopView.vue'
 import Notification from '../views/owner/Notification.vue'
+import ShopReport from '../views/owner/ShopReport.vue'
 // admin
 import ShopList from '../views/admin/ShopList.vue'
-import ShopCreate from '../views/admin/ShopCreate.vue'
 import Application from '../views/admin/Application.vue'
 import TransactionReport from '../views/admin/TransactionReport.vue'
 import store from '../store'
@@ -55,6 +55,7 @@ const routes = [
       { path: '/owner/shop/application', name: 'ShopApplication' , component: ShopApplication },
       { path: '/owner/shop/:id', name: 'ShopView' , component: ShopView },
       { path: '/notification/:id', name: 'Notification' , component: Notification },
+      { path: '/report', name: 'ShopReport' , component: ShopReport },
     ]
   },
   {
@@ -67,7 +68,6 @@ const routes = [
     },
     children: [
       { path: '/shop/list', name: 'ShopList' , component: ShopList },
-      { path: '/shop/create', name: 'ShopCreate' , component: ShopCreate },
       { path: '/application', name: 'Application' , component: Application },
       { path: '/transactions', name: 'TransactionReport' , component: TransactionReport },
     ]

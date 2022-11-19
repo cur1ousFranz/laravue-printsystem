@@ -41,6 +41,10 @@ const store = createStore({
       loading : false,
       data : []
     },
+    ownerReportQueue : {
+      loading : false,
+      data : []
+    },
 
     /** CUSTOMER */
     allShops : {
@@ -112,6 +116,15 @@ const store = createStore({
     },
 
     /** BUSINESS OWNER */
+    getOwnerReportQueue({commit}){
+      commit('setOwnerReportQueueLoading', true)
+      return axiosClient.get('/shop/report/queue')
+        .then((res) => {
+          commit('setOwnerReportQueueLoading', false)
+          commit('setOwnerReportQueue', res.data)
+          return res
+        })
+    },
     updateQueueStatus({}, id){
       return axiosClient.put(`/shop/queue/${id}`)
         .then((res) => {
@@ -319,6 +332,12 @@ const store = createStore({
     },
 
     /** BUSINESS OWNER */
+    setOwnerReportQueue : (state, data) => {
+      state.ownerReportQueue.data = data.data
+    },
+    setOwnerReportQueueLoading : (state, loading) => {
+      state.ownerReportQueue.loading = loading
+    },
     setOwnerQueue : (state, data) => {
       state.ownerQueue.data = data.data
     },

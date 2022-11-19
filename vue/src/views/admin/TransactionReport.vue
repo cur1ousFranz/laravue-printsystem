@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <div v-if="loadStatus" class="flex justify-center py-44">
       <svg aria-hidden="true" class="ml-2 w-10 h-10 my-1 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -97,30 +96,6 @@
                 </div>
               </div>
             </div>
-=======
-    <div class="mx-auto max-w-7xl sm:px-6 lg:px-4">
-      <h1 class="font-bold text-3xl text-gray-900 px-4 md:px-3">Transaction Report</h1>
-      <div class="px-4 py-4 sm:px-0">
-
-        <div class="flex space-x-6">
-          <div class="w-3/12 h-fit border-gray-900 border-t-2 border-b-2 shadow-md py-3">
-            <h3 class="font-bold mb-3 text-gray-900 px-3">Shop Name</h3>
-            <div v-for="shop in shops" :key="shop.id" class="text-center py-2 cursor-pointer bg-blue-100">
-              <h1>{{ shop.application.shop_name }}</h1>
-            </div>
-          </div>
-
-          <div class="w-9/12 border-gray-900 border-t-2 border-b-2 shadow-md py-3">
-            <h3 class="font-bold mb-3 text-gray-900 px-3">Transactions</h3>
-            <div class="px-8">
-              <line-chart :data="chartData"></line-chart>
-            </div>
-
-            <div class="px-6 py-6">
-              qwdqwd
-            </div>
-
->>>>>>> 7949fc94600223f672685d05b9cd420d6f7c1e7e
           </div>
         </div>
 
@@ -128,7 +103,6 @@
     </div>
 </template>
 <script>
-<<<<<<< HEAD
 import { computed, ref, watch } from '@vue/runtime-core'
 import store from '../../store'
 import axiosClient from '../../axios'
@@ -162,34 +136,26 @@ export default {
     watch(
     () => store.state.ownerShopDetails.data,
     (newVal, oldVal) => {
-
         shopDetails.value = {
           ...JSON.parse(JSON.stringify(newVal)),
         }
-
       }
     )
 
     watch(
     () => store.state.shopTransactionDetails.data,
     (newVal, oldVal) => {
-
         detail.value = {
           ...JSON.parse(JSON.stringify(newVal)),
         }
-
       }
     )
 
     function countBalance(queues){
-
       let total = 0
       queues.forEach(queue => {
-        if(queue.paid === 'no'){
-          total += (queue.amount - queue.admin_commission)
-        }
+        if(queue.paid === 'no') total += (queue.amount - queue.admin_commission)
       });
-
       return total.toFixed(2)
     }
 
@@ -244,28 +210,6 @@ export default {
       countBalance,
       capitalizeFirstLetter,
     }
-=======
-import { computed } from '@vue/runtime-core'
-import store from '../../store'
-export default {
-  setup(){
-    store.dispatch('getAllShops')
-    const shops = computed(() => store.state.allShops.data)
-
-    const chartData = {
-      '2017-05-13': 2,
-      '2017-05-14': 5,
-      '2017-05-15': 10,
-      '2017-05-16': 3,
-      '2017-05-17': 3,
-      '2017-05-18': 3,
-      '2017-05-19': 4,
-      '2017-05-20': 5,
-
-    }
-
-    return { shops, chartData }
->>>>>>> 7949fc94600223f672685d05b9cd420d6f7c1e7e
   }
 }
 

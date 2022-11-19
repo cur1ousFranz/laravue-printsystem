@@ -49,9 +49,9 @@ import store from '../../store'
 export default {
   setup() {
 
-    const loadStatus = computed(() => store.state.ownerApplication.loading)
-    const applications = computed(() => store.state.ownerApplication.data)
-    store.dispatch('getShopOwnerApplications')
+  const loadStatus = computed(() => store.state.ownerApplication.loading)
+  const applications = computed(() => store.state.ownerApplication.data)
+  store.dispatch('getShopOwnerApplications')
 
   function formatDateUS(date) {
       const options = { year: 'numeric', month: 'numeric', day: 'numeric' }

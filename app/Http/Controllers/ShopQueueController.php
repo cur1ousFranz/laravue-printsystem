@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shop;
 use App\Models\User;
 use App\Models\Queue;
+use App\Models\Service;
 use App\Models\Customer;
 use App\Models\BusinessOwner;
 use Illuminate\Support\Facades\Auth;
@@ -41,5 +42,17 @@ class ShopQueueController extends Controller
         return response([
             'success' => 'Status updated'
         ], 200);
+    }
+
+    public function reportQueue()
+    {
+        $owner = BusinessOwner::where('user_id', Auth::user()->id)->first();
+        $shop = Shop::where('business_owner_id', $owner->id)->first();
+        $service = Service::where('shop_id', $shop->id)->first();
+        $queues = Queue::where('service_id', $service->id)->latest()->paginate(10);
+
+        return response()->json([
+            'data' => $queues
+        ]);
     }
 }

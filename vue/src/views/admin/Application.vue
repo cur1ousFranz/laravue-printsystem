@@ -81,7 +81,7 @@
 
                 <div id="myModal" class="modal">
                   <span @click="close" class="close">&times;</span>
-                  <img id="img01" alt="">
+                  <img id="img01" alt="" class="w-full h-fit">
                 </div>
 
                 <div>

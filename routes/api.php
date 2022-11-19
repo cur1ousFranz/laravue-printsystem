@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/customer/notification/{notification}', [NotificationController::class, 'customerNotificationsDetails']);
 
     // Business Owner
+    Route::get('/shop/report/queue', [ShopQueueController::class, 'reportQueue']);
     Route::get('/shop/queue', [ShopQueueController::class, 'index']);
     Route::put('/shop/queue/{queue}', [ShopQueueController::class, 'update']);
     Route::get('/shop/application', [BusinessOwnerController::class, 'index']);
