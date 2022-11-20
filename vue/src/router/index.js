@@ -12,6 +12,7 @@ import Home from '../views/customer/Home.vue'
 import CustomerShopView from '../views/customer/CustomerShopView.vue'
 import Transaction from '../views/customer/Transaction.vue'
 import CustomerNotification from '../views/customer/CustomerNotification.vue'
+import CheckOutSuccess from '../views/customer/CheckOutSuccess.vue'
 // owner
 import Shop from '../views/owner/Shop.vue'
 import ShopApplication from '../views/owner/ShopApplication.vue'
@@ -39,6 +40,7 @@ const routes = [
       { path: '/shop/:id', name: 'CustomerShopView' , component: CustomerShopView },
       { path: '/customer/transactions', name: 'Transaction' , component: Transaction },
       { path: '/customer/notification/:id', name: 'CustomerNotification' , component: CustomerNotification },
+      { path: '/checkout/success', name: 'CheckOutSuccess' , component: CheckOutSuccess },
     ]
   },
   {

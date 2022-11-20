@@ -106,7 +106,6 @@ export default {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-
   return {
     transactions,
     loadStatus,

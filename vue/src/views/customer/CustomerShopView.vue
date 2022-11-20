@@ -221,15 +221,10 @@ export default {
     formData.append('total', model.value.total)
     formData.append('admin_commission', model.value.admin_commission)
 
-
     store.dispatch('customerUploadFile', formData)
       .then((res) => {
-        /** THis is for gcash redirect */
-        // window.open(url.data)
-
-
-         alert('Queue submitted!')
-    })
+        location.replace(res.data)
+      })
 
   }
 

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
+use App\Models\User;
 use App\Models\Queue;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class CustomerShopController extends Controller
@@ -42,33 +43,31 @@ class CustomerShopController extends Controller
     {
 
         /** GCASH API */
-        // $curl = curl_init();
-        // curl_setopt_array($curl, array(
-        //     CURLOPT_URL => 'https://g.payx.ph/payment_request',
-        //     CURLOPT_RETURNTRANSFER => true,
-        //     CURLOPT_ENCODING => '',
-        //     CURLOPT_MAXREDIRS => 10,
-        //     CURLOPT_TIMEOUT => 0,
-        //     CURLOPT_FOLLOWLOCATION => true,
-        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        //     CURLOPT_CUSTOMREQUEST => 'POST',
-        //     CURLOPT_POSTFIELDS => array(
-        //         'x-public-key' => 'pk_3bdc85a0dbe276bfa74375a1879935b4',
-        //         'amount' => $request->total,
-        //         'description' => 'Payment for printing',
-        //         'merchantname' => 'Chungmi Loves Merchant'
-        //     ),
-        // ));
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://g.payx.ph/payment_request',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => array(
+                'x-public-key' => 'pk_3bdc85a0dbe276bfa74375a1879935b4',
+                'amount' => $request->total,
+                'description' => 'Payment for printing',
+                'merchantname' => 'Chungmi Cute Merchant',
+                'webhooksuccessurl' => 'https://9137-2001-4456-102-2400-a079-a639-bb7a-7eb1.ap.ngrok.io/api/success',
+                'redirectsuccessurl' => 'http://localhost:5173/checkout/success',
+            ),
+        ));
 
-        // $response = curl_exec($curl);
-        // curl_close($curl);
+        $response = curl_exec($curl);
+        curl_close($curl);
 
-        // $data = json_decode($response, true);
-        // $redirect = $data['data']['checkouturl'];
-
-        // return response([
-        //     'data' =>  $redirect
-        // ]);
+        $data = json_decode($response, true);
+        $redirect = $data['data']['checkouturl'];
 
         $filePath = $request->file('file')->store('documents', 's3');
         $customer = Customer::where('user_id', Auth::user()->id)->first();
@@ -85,6 +84,8 @@ class CustomerShopController extends Controller
             'admin_commission' => $request->admin_commission,
             'pickup' => $request->pickup,
             'status' => 'pending',
+            'request_id' => $data['data']['request_id'],
+            'payment_status' => 'pending',
             'paid' => 'no',
         ]);
 
@@ -93,8 +94,22 @@ class CustomerShopController extends Controller
         ]);
 
         return response([
-            'data' =>  $filePath
+            'data' =>  $redirect
         ]);
+
+    }
+
+    public function checkoutSuccess(Request $request)
+    {
+
+        Log::info(print_r($request->all(), true));
+        $queues = Queue::all();
+
+        foreach ($queues as $queue) {
+            if($request['request_id'] === $queue->request_id){
+                $queue->update(['payment_status' => 'paid']);
+            }
+        }
 
     }
 }

@@ -14,7 +14,7 @@ class TransactionController extends Controller
     {
         $shops = Shop::where('id', $shop->id)->first();
         $service = Service::where('shop_id', $shops->id)->first();
-        $queues = Queue::where('service_id', $service->id)->latest()->paginate(5);
+        $queues = Queue::where(['service_id' => $service->id, 'payment_status' => 'paid'])->latest()->paginate(5);
 
         return response()->json([
             'data' => $queues
@@ -25,7 +25,7 @@ class TransactionController extends Controller
     {
         $shops = Shop::where('id', $shop->id)->first();
         $service = Service::where('shop_id', $shops->id)->first();
-        $queues = Queue::where('service_id', $service->id)->get();
+        $queues = Queue::where(['service_id' => $service->id, 'payment_status' => 'paid'])->get();
 
         foreach($queues as $queue){
             $queue->update(['paid' => 'yes']);

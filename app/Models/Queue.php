@@ -23,6 +23,8 @@ class Queue extends Model
         'admin_commission',
         'pickup',
         'status',
+        'request_id',
+        'payment_status',
         'paid',
     ];
 

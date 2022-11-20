@@ -36,6 +36,9 @@
             </div>
         </div>
       </div>
+      <div v-else class="text-2xl font-bold mx-auto py-44 w-full text-center text-gray-400 shadow-sm bg-gray-100">
+        No shops to show.
+      </div>
     </div>
   </div>
 </template>

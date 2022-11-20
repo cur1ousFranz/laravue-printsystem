@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // Customer
+
     Route::post('/upload', [CustomerShopController::class, 'upload']);
     Route::get('/customer/shop/{shop}', [CustomerShopController::class, 'show']);
     Route::get('/customer/shop', [CustomerShopController::class, 'index']);
@@ -54,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/transaction/shop/{shop}', [TransactionController::class, 'update']);
 });
 
+Route::post('/success', [CustomerShopController::class, 'checkoutSuccess']);
 Route::post('/verify', [AuthController::class, 'verify']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/register/owner', [AuthController::class, 'registerOwner']);

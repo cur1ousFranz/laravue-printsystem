@@ -13,7 +13,7 @@ class CustomerTransactionController extends Controller
     {
         $customer = Customer::where('user_id', Auth::user()->id)->first();
         $queues = Queue::with('service.shop.application')
-            ->where('customer_id', $customer->id)->get();
+            ->where(['customer_id' => $customer->id, 'payment_status' => 'paid'])->get();
 
         return response()->json([
             'data' => $queues
