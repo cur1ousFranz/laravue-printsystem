@@ -71,10 +71,9 @@
             </tbody>
           </table>
           <div class="flex justify-between my-6 px-10">
-            <h3 class="font-bold my-3 text-gray-900 text-2xl">Current Balance: ₱ {{ countBalance(shops.data) }}</h3>
+            <h3 class="font-bold my-3 text-gray-900 text-2xl">Exist Funds for Payout: ₱ {{ countBalance(shops.data) }}</h3>
             <Pagination :pagination="shops" @paginate="view" :offset="4"></Pagination>
           </div>
-
         </div>
       </div>
     </div>

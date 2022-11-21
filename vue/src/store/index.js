@@ -265,6 +265,7 @@ const store = createStore({
       })
       .catch(() => {
         commit('setUserLoading', false)
+        return res
       })
     },
     register({commit}, user) {
@@ -288,7 +289,7 @@ const store = createStore({
         })
         .catch((res) => {
           commit('setUserLoading', false)
-          return res
+          return data
         })
     },
     verifyCode({commit}, data) {

@@ -3,9 +3,11 @@
     <h1 class="font-bold text-3xl text-gray-900 px-4 md:px-3">Notification</h1>
     <div class="text-center py-6 px-6 my-6 border-gray-900 border-t-2 border-b-2 shadow-sm w-2/3 mx-auto space-y-6">
       <h2 class="text-2xl font-mono">Greetings, your shop application has been approved.</h2>
-      <p class="text-lg font-mono">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi, esse consequatur eaque ducimus voluptatibus nostrum distinctio est vero cum perspiciatis illum dolorum dolor cupiditate quae qui sint adipisci facilis culpa iusto temporibus voluptate odit vel ipsam nisi. Rerum voluptate, aliquam ea beatae rem voluptatem asperiores. Maiores nostrum corporis error ipsum. Iste repellendus ipsum beatae sint voluptatum sequi, at aliquid enim nisi aut reiciendis dolorem quae quo facere dignissimos sunt odit. Tempora animi et dolorem aut incidunt nobis dolor, accusamus totam provident, blanditiis ad architecto molestias itaque nam odio, quasi aspernatur. Labore quisquam consectetur laudantium iusto soluta eveniet voluptates veritatis quod!
-      </p>
+      <div class="px-12">
+        <p class="text-lg font-mono py-12 border bg-gray-300">
+          You can now setup your shop to add services.
+        </p>
+      </div>
     </div>
   </div>
 </template>

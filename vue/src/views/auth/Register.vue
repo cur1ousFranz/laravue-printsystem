@@ -4,26 +4,26 @@
       <h1 class="font-bold text-2xl text-gray-900">Register</h1>
 
       <div class="flex space-x-3">
-        <input v-model="model.first_name" id="first_name" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="First Name"/>
+        <input v-model="model.first_name" id="first_name" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="First Name" required/>
 
-        <input v-model="model.middle_name" id="middle_name" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Middle Name"/>
+        <input v-model="model.middle_name" id="middle_name" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Middle Name" required/>
       </div>
 
       <div class="flex space-x-3">
-        <input v-model="model.last_name"  id="last_name" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Last Name"/>
+        <input v-model="model.last_name"  id="last_name" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Last Name" required/>
 
-        <input v-model="model.username" id="username" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Username"/>
+        <input v-model="model.username" id="username" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Username" required/>
 
       </div>
 
       <div class="flex bg-gray-50 border border-gray-300 text-gray-900 h-10 text-sm w-full px-2 focus:border-current focus:ring-0">
         <span class="my-2.5 font-semibold text-gray-600"><h1>+63</h1></span>
-        <input v-model="model.contact_number" v-on:keypress="numbersOnly" class="border-0 bg-gray-50 focus:ring-0 w-full" type="tel" placeholder="Mobile Number (ex. 9xxxxxxxxx)" maxlength="10">
+        <input v-model="model.contact_number" v-on:keypress="numbersOnly" class="border-0 bg-gray-50 focus:ring-0 w-full" type="tel" placeholder="Mobile Number (ex. 9xxxxxxxxx)" maxlength="10" required>
       </div>
 
       <input v-model="model.password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Password">
 
-      <input v-model="model.password_confirmation" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Confirm Password">
+      <input v-model="model.password_confirmation" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Confirm Password" required>
 
       <div class="flex justify-between">
         <router-link :to="{ name : 'RegisterOwner'}" class="text-sm text-blue-600 underline">Register as Shop Owner</router-link>

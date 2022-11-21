@@ -10,7 +10,7 @@
                 <div class="ml-10 flex items-baseline space-x-4">
                   <router-link v-for="item in navigation"
                   :key="item.name" :to="item.to"
-                  :class="[this.$route.name === item.to.name ? 'bg-gray-900 text-white' :
+                  :class="[$route.name === item.to.name ? 'bg-gray-900 text-white' :
                   'text-gray-300 hover:bg-gray-700 hover:text-white',
                   'px-3 py-2 rounded-md text-sm font-medium']"
                   :aria-current="item.current ? 'page' :
@@ -54,7 +54,6 @@
 
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import store from '../store'
 import {useRouter} from 'vue-router'
 

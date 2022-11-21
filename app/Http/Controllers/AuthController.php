@@ -148,7 +148,7 @@ class AuthController extends Controller
             'first_name' => 'required|string',
             'middle_name' => 'nullable|string',
             'last_name' => 'required|string',
-            'contact_number' => 'required|unique:business_owners,contact_number',
+            'contact_number' => 'required',
 
             'username' => 'required|unique:users,username',
             'password' => 'required|confirmed',
@@ -159,9 +159,9 @@ class AuthController extends Controller
             'city' => 'required',
             'zipcode' => 'required',
 
-            'permit_image' => 'required',
-            'valid_id_image' => 'required',
-            'face_image' => 'required',
+            'permit_image' => 'required|mimes:jpg,jpeg,png,bmp,tiff',
+            'valid_id_image' => 'required|mimes:jpg,jpeg,png,bmp,tiff',
+            'face_image' => 'required|mimes:jpg,jpeg,png,bmp,tiff',
         ]);
         $validated['contact_number'] = '+63' . $validated['contact_number'];
 

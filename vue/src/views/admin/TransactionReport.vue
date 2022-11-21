@@ -86,7 +86,7 @@
                   <span class="font-normal">{{ shopDetails.application.business_owner.contact_number }}</span>
                 </h1>
                 <div class="flex justify-between">
-                  <h1 class="font-semibold">Available Balance: ₱
+                  <h1 class="font-semibold">Exist Funds for Payout: ₱
                     <span class="font-normal">{{ countBalance(shopDetails.services[0].queues) }}</span>
                   </h1>
                   <!-- <Button class="p-2 h-fit">Paid</Button> -->

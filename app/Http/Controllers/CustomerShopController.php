@@ -54,12 +54,12 @@ class CustomerShopController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => array(
-                'x-public-key' => 'pk_3bdc85a0dbe276bfa74375a1879935b4',
+                'x-public-key' => 'pk_e3eb47a615e259898cb61c2be3dc41e3',
                 'amount' => $request->total,
                 'description' => 'Payment for printing',
-                'merchantname' => 'Chungmi Cute Merchant',
-                'webhooksuccessurl' => 'https://9137-2001-4456-102-2400-a079-a639-bb7a-7eb1.ap.ngrok.io/api/success',
-                'redirectsuccessurl' => 'http://localhost:5173/checkout/success',
+                'merchantname' => 'Near Printer',
+                'webhooksuccessurl' => 'http://nearprinter-env-1.eba-zympgiwr.us-east-1.elasticbeanstalk.com/api/success',
+                'redirectsuccessurl' => 'http://near-printer-vuejs.s3-website-ap-southeast-1.amazonaws.com/checkout/success',
             ),
         ));
 
@@ -102,8 +102,8 @@ class CustomerShopController extends Controller
     public function checkoutSuccess(Request $request)
     {
 
-        Log::info(print_r($request->all(), true));
-        $queues = Queue::all();
+        // Log::info(print_r($request->all(), true));
+        $queues = Queue::where('payment_status', 'pending')->get();
 
         foreach ($queues as $queue) {
             if($request['request_id'] === $queue->request_id){

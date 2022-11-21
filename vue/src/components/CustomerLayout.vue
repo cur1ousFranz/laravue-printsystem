@@ -10,7 +10,7 @@
                 <div class="ml-10 flex items-baseline space-x-4">
                   <router-link v-for="item in navigation"
                   :key="item.name" :to="item.to"
-                  :class="[this.$route.name === item.to.name ? 'bg-gray-900 text-white' :
+                  :class="[$route.name === item.to.name ? 'bg-gray-900 text-white' :
                   'text-gray-300 hover:bg-gray-700 hover:text-white',
                   'px-3 py-2 rounded-md text-sm font-medium']"
                   :aria-current="item.current ? 'page' :
@@ -78,9 +78,9 @@
                 <!-- Profile dropdown -->
                 <Menu as="div" class="relative ml-3">
                   <div>
-                    <MenuButton class="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <MenuButton class="flex max-w-xs items-center rounded-full text-white bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span class="sr-only">Open user menu</span>
-                      <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt="" />
+                      CUSTOMER
                     </MenuButton>
                   </div>
                   <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
@@ -114,13 +114,6 @@ import { ref } from '@vue/reactivity'
 
 const router = useRouter()
 const notifications = ref({})
-
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  }
 
   const navigation = [
     { name: 'Home', to : { name : 'Home'}},

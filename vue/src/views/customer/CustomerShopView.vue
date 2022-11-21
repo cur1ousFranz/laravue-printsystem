@@ -1,9 +1,9 @@
 <template>
 
   <div class="mx-auto max-w-7xl  sm:px-6 lg:px-4 flex">
-      <div class="w-8/12 bg-slate-200 border-gray-900 border-t-2 border-b-2">
-      </div>
-      <div class="w-4/12 px-3 py-4 space-y-4 border-gray-900 border-t-2 border-b-2 shadow-md bg-gray-100 relative">
+      <!-- <div class="w-8/12 bg-slate-200 border-gray-900 border-t-2 border-b-2">
+      </div> -->
+      <div class="w-6/12 mx-auto px-3 py-4 space-y-4 border-gray-900 border-t-2 border-b-2 shadow-md bg-gray-100 relative">
           <div v-if="loadStatus" class="absolute mx-auto left-0 right-0 py-64 bg-transparent flex justify-center">
             <svg aria-hidden="true" class="ml-2 w-16 h-16 my-1 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -15,13 +15,13 @@
           <div class="form-check">
             <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
             <label class="form-check-label inline-block text-gray-800" for="flexRadioDefault1">
-              Print Document
+              Printing Files
             </label>
           </div>
           <div class="form-check">
             <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault2" disabled>
             <label class="form-check-label line-through inline-block cursor-not-allowed text-gray-800" for="flexRadioDefault2">
-              Print Tarpaulin
+              Printing Tarpaulins
             </label>
           </div>
         </div>
@@ -69,7 +69,7 @@
             </div>
           </div>
 
-          <div class="py-6 flex justify-between">
+          <div class=" flex justify-between">
             <div class="mt-4">
               <h1 class="px-2 text-2xl">Total: ₱ {{ model.total }}.00</h1>
             </div>

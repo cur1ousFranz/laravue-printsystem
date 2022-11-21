@@ -8,7 +8,7 @@
           <div class="mb-2 flex space-x-3 ">
 
             <div class="w-full">
-              <input v-model="model.first_name" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="First Name"/>
+              <input v-model="model.first_name" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="First Name" required/>
             </div>
 
             <div class="w-full">
@@ -18,26 +18,26 @@
           </div>
 
           <div class="mb-2">
-            <input v-model="model.last_name" type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Last Name"/>
+            <input v-model="model.last_name" type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Last Name" required/>
           </div>
 
         <div class="flex bg-gray-50 border h-10 border-gray-300 text-gray-900 text-sm w-full px-2 focus:border-current focus:ring-0">
           <span class="my-2.5 font-semibold text-gray-600"><h1>+63</h1></span>
-          <input v-model="model.contact_number" v-on:keypress="numbersOnly" class="border-0 bg-gray-50 focus:ring-0 w-full" type="tel" placeholder="Mobile Number (ex. 9xxxxxxxxx)" maxlength="10">
+          <input v-model="model.contact_number" v-on:keypress="numbersOnly" class="border-0 bg-gray-50 focus:ring-0 w-full" type="tel" placeholder="Mobile Number (ex. 9xxxxxxxxx)" maxlength="10" required>
         </div>
 
           <div class="mb-2">
-            <input v-model="model.username" type="text" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Username"/>
+            <input v-model="model.username" type="text" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Username" required/>
           </div>
 
           <div class="mb-2 flex space-x-3">
 
             <div class="w-full">
-              <input v-model="model.password" type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Password"/>
+              <input v-model="model.password" type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Password" required/>
             </div>
 
             <div class="w-full">
-              <input v-model="model.password_confirmation" type="password" id="password_confirmation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Confirm Password"/>
+              <input v-model="model.password_confirmation" type="password" id="password_confirmation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Confirm Password" required/>
             </div>
 
           </div>
@@ -47,23 +47,23 @@
         <div class="container w-6/12 px-6 py-4 space-y-6">
 
           <div class="mb-2">
-            <input v-model="model.shop_name" type="text" id="shop_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Shop Name"/>
+            <input v-model="model.shop_name" type="text" id="shop_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Shop Name" required/>
           </div>
 
           <div class="mb-2">
-            <input v-model="model.address" type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Address"/>
+            <input v-model="model.address" type="text" id="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Address" required/>
           </div>
 
           <div class="mb-2">
-            <input v-model="model.barangay" type="text" id="barangay" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Barangay"/>
+            <input v-model="model.barangay" type="text" id="barangay" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Barangay" required/>
           </div>
 
           <div class="mb-2">
-            <input v-model="model.city" type="text" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="City"/>
+            <input v-model="model.city" type="text" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="City" required/>
           </div>
 
           <div class="mb-2">
-            <input v-model="model.zipcode" type="text" id="zipcode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Zip Code"/>
+            <input v-model="model.zipcode" type="text" id="zipcode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Zip Code" required/>
           </div>
 
         </div>
@@ -75,21 +75,21 @@
           <label for="file" class="cursor-pointer flex">
             Business Permit
           </label>
-          <input @change="permitChoose" type="file" id="file" class="w-full">
+          <input @change="permitChoose" type="file" id="file" accept="image/*" class="w-full" required>
         </div>
 
         <div>
           <label for="file" class="cursor-pointer flex">
             Valid ID
           </label>
-          <input @change="validIdChoose" type="file" id="file" class="w-full">
+          <input @change="validIdChoose" type="file" id="file" accept="image/*" class="w-full" required>
         </div>
 
         <div>
           <label for="file" class="cursor-pointer flex">
            Photo of Face
           </label>
-          <input @change="faceChoose" type="file" id="file" class="w-full">
+          <input @change="faceChoose" type="file" id="file" accept="image/*" class="w-full" required>
         </div>
 
       </div>
@@ -114,6 +114,7 @@ import { useRouter } from 'vue-router'
 import  Button  from '../../components/Button.vue'
 import { ref } from '@vue/reactivity'
 import { computed } from '@vue/runtime-core'
+import { alert } from '../../alert.js'
 export default {
   components : { Button },
   setup() {
@@ -160,6 +161,9 @@ export default {
       store.dispatch('registerOwner', formData)
         .then((res) => {
           router.push({ name : 'VerifyMobile'})
+        })
+        .catch((res) => {
+          alert('Invalid fields', 'error')
         })
     }
 

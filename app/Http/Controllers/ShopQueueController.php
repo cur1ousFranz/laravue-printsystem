@@ -49,7 +49,7 @@ class ShopQueueController extends Controller
         $owner = BusinessOwner::where('user_id', Auth::user()->id)->first();
         $shop = Shop::where('business_owner_id', $owner->id)->first();
         $service = Service::where('shop_id', $shop->id)->first();
-        $queues = Queue::where('service_id', $service->id)->latest()->paginate(10);
+        $queues = Queue::where(['service_id' => $service->id, 'payment_status' => 'paid'])->latest()->paginate(10);
 
         return response()->json([
             'data' => $queues
