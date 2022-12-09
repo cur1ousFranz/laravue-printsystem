@@ -19,6 +19,7 @@
 <h2>Features</h2>
 <p>-Customer Registration, Business Owner Registration (CRUD)</p>
 <p>-SMS Verification (API)</p>
+<p>-Customer recieve notification when queue is complete, Business Owner can recieve notification once application is approved</p>
 <p>-Add, Edit Shop printing prices for different sizes of documents (CRUD)</p>
 <p>-Online Payment with G-cash E-wallet (API)</p>
 <p>-Read, Update Queues of customers (CRUD)</p>
