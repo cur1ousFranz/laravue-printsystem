@@ -21,6 +21,8 @@
 <p>-SMS Verification (API)</p>
 <p>-Display all shops available in customer (CRUD)</p>
 <p>-Customer recieve notification when queue is complete, Business Owner can recieve notification once application is approved</p>
+<p>-Customer can submit a reviews to shop when the queue has been completed</p>
+<p>-Display all the customer's reviews to selected shops</p>
 <p>-Add, Edit Shop printing prices for different sizes of documents (CRUD)</p>
 <p>-Online Payment with G-cash E-wallet (API)</p>
 <p>-Read, Update Queues of customers (CRUD)</p>
