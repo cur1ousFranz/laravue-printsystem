@@ -6,7 +6,7 @@
       <div class="flex space-x-3">
         <input v-model="model.first_name" id="first_name" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="First Name" required/>
 
-        <input v-model="model.middle_name" id="middle_name" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Middle Name" required/>
+        <input v-model="model.middle_name" id="middle_name" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Middle Name (Optional)"/>
       </div>
 
       <div class="flex space-x-3">
@@ -21,9 +21,20 @@
         <input v-model="model.contact_number" v-on:keypress="numbersOnly" class="border-0 bg-gray-50 focus:ring-0 w-full" type="tel" placeholder="Mobile Number (ex. 9xxxxxxxxx)" maxlength="10" required>
       </div>
 
-      <input v-model="model.password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Password">
+      <div>
+        <input v-model="model.password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Password" maxlength="16">
+        <p class="text-sm text-red-500 absolute">{{ password }}</p>
+      </div>
 
-      <input v-model="model.password_confirmation" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Confirm Password" required>
+      <div>
+        <input v-model="model.password_confirmation" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 focus:border-current focus:ring-0" placeholder="Confirm Password" required maxlength="16">
+        <p class="text-sm text-red-500 absolute">{{ confirmPassword }}</p>
+      </div>
+
+      <div class="flex space-x-3">
+        <input type="checkbox" class="bg-gray-50 border  border-gray-300 text-gray-900 text-sm block focus:border-current focus:ring-0" required>
+        <button @click="showModal" type="button" class="text-sm underline">Terms & Condition</button>
+      </div>
 
       <div class="flex justify-between">
         <router-link :to="{ name : 'RegisterOwner'}" class="text-sm text-blue-600 underline">Register as Shop Owner</router-link>
@@ -38,6 +49,100 @@
         </Button>
       </div>
     </form>
+
+    <PlainModal v-show="isModalVisible" @close="closeModal" @some-event="confirm" >
+        <template v-slot:header>
+          Terms & Condition
+        </template>
+
+        <template v-slot:body>
+          <p>
+            Please read these terms and conditions (“Terms” , “Terms and Conditions”) carefully before using the website link, website operate by Near Printer (“us”, “we”, or “our”). Please read the terms carefully.
+          </p>
+
+          <p class="mt-3">
+           By accessing and using the platforms, agree that you have read, understood and accepted on the platform. If you do not agree within the terms and conditions, please do not use the website. The website may be and by (i) persons who have reached eighteen (18) years of age. Users below eighteen (18) must obtain consent from parents or guardian, Who by accepting these terms shall agree to take responsibility for your actions associated with your use of the website. If you do not have consent from your parents or guardian, you must stop using/accessing the website.
+          </p>
+
+          <h1 class="text-xl mt-6 font-semibold">
+            1. Near Printer
+          </h1>
+          <h1 class="text-lg ml-5 mt-2">
+            1.1 Who we are
+          </h1>
+          <p class="ml-12">
+            Near Printer is an online platform established to provide an innovative printing service system.
+          </p>
+
+          <h1 class="text-lg ml-5">
+            1.2 What we do
+          </h1>
+          <p class="ml-12">
+           Through our website (platform), Near printer links you to the printing shops for you to conveniently files to be printed. This platform provides a more efficient and simple approach to print files.
+          </p>
+
+          <h1 class="text-lg ml-5">
+            1.3 How to contact us
+          </h1>
+          <p class="ml-12">
+            For customers support, you may reach out to us via email or (email address).
+          </p>
+
+          <h1 class="text-xl mt-6 font-semibold">
+            2. Use of the website and Near Printer Account.
+          </h1>
+          <p class="ml-5 mt-2">
+            2.1 You will need to register for an account for you to use the platform. When you register for an account, you are asked to provide personal information which included your full name, valid email address, phone number, and a unique password. We reserve the rights to request further information or documentation to comply with our legal obligations. To request printing your files, depending on which payment method you opt for you may need to provide us with your (Gcash) Details. Your password should not be shared with anyone.
+          </p>
+
+          <p class="ml-5 mt-2">
+            2.2 You are obliged to provide complete, accurate and truthful information for the proper processing of your print request.
+          </p>
+
+          <h1 class="text-xl mt-6 font-semibold">
+            3. Intellectual Property
+          </h1>
+          <p class="ml-5 mt-2">
+            All trademarks, logos, images are the intellectual property of Near Printer. You may not use, copy, distribute or modify the trademarks without consent.
+          </p>
+
+          <h1 class="text-xl mt-6 font-semibold">
+            4. Print Request
+          </h1>
+          <p class="ml-5 mt-2">
+            You will browse for available printing shops of your choice for you to select and request to print your files. When you place a request to print your files, Near printer will confirm your request by sending you a notification containing the receipt.
+          </p>
+
+          <p class="ml-5 mt-2">
+            To complete the process, you may require to provide additional details. You are required to review the details and confirm that the information provided including the amount, pick-up time details, personal details and payment an accurate and complete before you place a request.
+          </p>
+
+          <h1 class="text-xl mt-6 font-semibold">
+            5. Price and Payments
+          </h1>
+
+          <p class="ml-5 mt-2">
+           5.1 Prices and displayed and may vary number and size of pages, color, type of paper, and the prices of your selected printing shops.
+          </p>
+
+          <p class="ml-5 mt-2">
+           5.2 You can pay for your printing request using the Gcash payment method. Once you paid the amount, you are required to save/download the receipt to be presented (or submitted) to your chose printing shop.
+          </p>
+
+         <p class="ml-5 mt-2">
+           5.3 After printing request is successful placed, you will receive a notification that container a confirmation details of your request and the pick-up time of your printed files.
+          </p>
+
+          <p class="ml-5 mt-2">
+            The platform may container third party apps to complete the process of printing your request. Near Printer does not control the third-party app and shall not be liable or responsible for any loss in relation to your access and use.
+          </p>
+
+        </template>
+
+        <template v-slot:footer>
+          This is a new modal footer.
+        </template>
+      </PlainModal>
   </div>
 </template>
 
@@ -48,10 +153,14 @@ import  Button  from '../../components/Button.vue'
 import { ref } from '@vue/reactivity'
 import { alert } from '../../alert.js'
 import { computed } from '@vue/runtime-core'
+import PlainModal from '../../components/PlainModal.vue'
 export default {
-  components : { Button },
+  components : { Button, PlainModal },
   setup() {
 
+    const password = ref('')
+    const confirmPassword = ref('')
+    const isModalVisible = ref(false)
     let loadStatus = computed(() => store.state.user.loading)
     const router = useRouter()
     const model = ref({
@@ -69,7 +178,8 @@ export default {
     }
 
     function register(){
-
+      password.value = ''
+      confirmPassword.value = ''
       const formData = new FormData()
       formData.append('first_name', model.value.first_name)
       formData.append('middle_name', model.value.middle_name)
@@ -84,7 +194,15 @@ export default {
           router.push({ name : 'VerifyMobile'})
         })
         .catch((res) =>{
-          alert('Invalid mobile number', 'error')
+          res.response.data.errors.password.forEach(element => {
+            if(element === 'The password must be at least 8 characters.'){
+              password.value = element
+            }
+
+            if(element === 'The password confirmation does not match.'){
+              confirmPassword.value = element
+            }
+          });
         })
     }
 
@@ -98,11 +216,28 @@ export default {
       }
     }
 
+    function showModal(){
+      isModalVisible.value = true
+    }
+
+    function confirm(){
+    }
+
+    function closeModal(){
+      isModalVisible.value = false
+    }
+
     return {
       model,
       loadStatus,
       register,
       numbersOnly,
+      showModal,
+      confirm,
+      closeModal,
+      isModalVisible,
+      password,
+      confirmPassword
     }
   }
 }

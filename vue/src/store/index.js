@@ -47,6 +47,13 @@ const store = createStore({
     },
 
     /** CUSTOMER */
+    customerDetails : {
+      data : []
+    },
+    shopReviews : {
+      loading : false,
+      data : []
+    },
     allShops : {
       loading : false,
       data : []
@@ -67,6 +74,29 @@ const store = createStore({
   getters: {},
   actions: {
     /** CUSTOMER */
+    getCustomerDatails({commit}){
+      return axiosClient.get(`/customer`)
+        .then((res) => {
+          commit('setCustomerDetails', res.data)
+          return res.data
+        })
+    },
+    getShopReviews({commit}, id){
+      commit('setShopReviewsLoading', true)
+      return axiosClient.get(`/review/shop/${id}`)
+        .then((res) => {
+          commit('setShopReviewsLoading', false)
+          commit('setShopReviews', res.data)
+          return res.data
+        })
+    },
+    customerShopReview({commit}, data){
+      return axiosClient.post('/review', data)
+        .then((res) => {
+          commit('setShopReviews', res.data)
+          return res.data
+        })
+    },
     customerAllTransaction({commit}){
       commit('setCustomerTransactionsLoading', true)
       return axiosClient.get('/customer/transaction')
@@ -256,17 +286,17 @@ const store = createStore({
 
     /** AUTHENTCATION */
     registerOwner({commit}, data) {
-      commit('setUserLoading', true)
+      // commit('setUserLoading', true)
       return axiosClient.post('/register/owner', data)
       .then((res) => {
-        commit('setUserLoading', false)
+        // commit('setUserLoading', false)
         commit('setUserID', res.data)
-        return data
-      })
-      .catch(() => {
-        commit('setUserLoading', false)
         return res
       })
+      // .catch((res) => {
+      //   commit('setUserLoading', false)
+      //   return res
+      // })
     },
     register({commit}, user) {
       return axiosClient.post('/register', user)
@@ -310,6 +340,15 @@ const store = createStore({
   },
   mutations: {
     /** CUSTOMER */
+    setCustomerDetails : (state, customer) => {
+      state.customerDetails.data = customer.data
+    },
+    setShopReviews : (state, reviews) => {
+      state.shopReviews.data = reviews.data
+    },
+    setShopReviewsLoading : (state, loading) => {
+      state.shopReviews.loading = loading
+    },
     customerUploadLoading : (state, loading) => {
       state.customerUpload.loading = loading
     },

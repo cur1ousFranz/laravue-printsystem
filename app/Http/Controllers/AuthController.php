@@ -56,7 +56,7 @@ class AuthController extends Controller
 
         if($user->role === 'businessowner'){
             $owner = BusinessOwner::where('user_id', $user->id)->first();
-            if($owner->verified == 1){
+            if($owner['verified'] == 1){
                 if(Auth::attempt($credentials, $remember)){
                     $user = Auth::user();
                     $token = $user->createToken('main')->plainTextToken;
@@ -65,20 +65,21 @@ class AuthController extends Controller
                         'token' => $token
                     ]);
                 }
-            }
-            // Update code and send again to verify
-            try {
-                $code = rand(124101, 999999);
-                $this->smsVerification($owner->contact_number, $code);
-                $owner->update(['verify_code' => $code]);
-            } catch (Exception $e) {
+            } else {
+                // Update code and send again to verify
+                try {
+                    $code = rand(124101, 999999);
+                    $this->smsVerification($owner->contact_number, $code);
+                    $owner->update(['verify_code' => $code]);
+                } catch (Exception $e) {
+                    return response([
+                        'error' => $e->getMessage(),
+                    ]);
+                }
                 return response([
-                    'error' => $e->getMessage(),
+                    'user_id' => $user->id,
                 ]);
             }
-            return response([
-                'user_id' => $user->id,
-            ]);
         }
 
         if($user->role === 'admin'){
@@ -101,11 +102,11 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'first_name' => 'required',
-            'middle_name' => 'required',
+            'middle_name' => 'nullable|string',
             'last_name' => 'required',
             'contact_number' => 'required|unique:customers,contact_number',
             'username' => 'required|unique:users,username',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:8',
         ]);
         $validated['contact_number'] = '+63' . $validated['contact_number'];
 
@@ -151,7 +152,7 @@ class AuthController extends Controller
             'contact_number' => 'required',
 
             'username' => 'required|unique:users,username',
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:8',
 
             'shop_name' => 'required',
             'address' => 'required',

@@ -90,7 +90,7 @@
                     <span class="font-normal">{{ countBalance(shopDetails.services[0].queues) }}</span>
                   </h1>
                   <!-- <Button class="p-2 h-fit">Paid</Button> -->
-                  <button @click="paid()" class="flex border px-3 py-3 shadow-sm bg-gray-800 border-gray-900 text-white hover:bg-gray-900" :disabled="countBalance(shopDetails.services[0].queues) == 0 ? true : false">
+                  <button @click="showModal()" class="flex border px-3 py-3 shadow-sm bg-gray-800 border-gray-900 text-white hover:bg-gray-900" :disabled="countBalance(shopDetails.services[0].queues) == 0 ? true : false">
                     Paid
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -105,6 +105,21 @@
           No transactions to show.
         </div>
       </div>
+
+      <Modal v-show="isModalVisible" @close="closeModal" @some-event="confirm" >
+        <template v-slot:header>
+          Are you sure you want to proceed?
+        </template>
+
+        <!-- <template v-slot:body>
+          Are you sure you want to proceed?
+        </template> -->
+
+        <template v-slot:footer>
+          This is a new modal footer.
+        </template>
+      </Modal>
+
     </div>
 </template>
 <script>
@@ -114,10 +129,12 @@ import axiosClient from '../../axios'
 import Pagination from '../../components/Pagination.vue';
 import  Button  from '../../components/Button.vue'
 import { alert } from '../../alert'
+import Modal from '../../components/Modal.vue'
 export default {
-  components : { Pagination, Button },
+  components : { Pagination, Button, Modal },
   setup(){
 
+    const isModalVisible = ref(false)
     const detail = ref({})
     const currentShop = ref()
     const shopDetails = ref({})
@@ -202,6 +219,18 @@ export default {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+    function showModal(){
+      isModalVisible.value = true
+    }
+
+    function confirm(){
+      paid()
+    }
+
+    function closeModal(){
+      isModalVisible.value = false
+    }
+
     return {
       shops,
       detail,
@@ -214,6 +243,10 @@ export default {
       view,
       countBalance,
       capitalizeFirstLetter,
+      showModal,
+      confirm,
+      closeModal,
+      isModalVisible
     }
   }
 }

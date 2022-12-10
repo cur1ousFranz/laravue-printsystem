@@ -1,6 +1,6 @@
 <template>
 
-  <div class="mx-auto max-w-7xl  sm:px-6 lg:px-4 flex">
+  <div class="mx-auto max-w-7xl sm:px-6 lg:px-4">
       <!-- <div class="w-8/12 bg-slate-200 border-gray-900 border-t-2 border-b-2">
       </div> -->
       <div class="w-6/12 mx-auto px-3 py-4 space-y-4 border-gray-900 border-t-2 border-b-2 shadow-md bg-gray-100 relative">
@@ -18,12 +18,12 @@
               Printing Files
             </label>
           </div>
-          <div class="form-check">
+          <!-- <div class="form-check">
             <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault2" disabled>
             <label class="form-check-label line-through inline-block cursor-not-allowed text-gray-800" for="flexRadioDefault2">
               Printing Tarpaulins
             </label>
-          </div>
+          </div> -->
         </div>
         <form @submit.prevent="submit" class="py-6 space-y-3" enctype="multipart/form-data">
           <div class="flex align-items-center">
@@ -80,6 +80,36 @@
           </div>
         </form>
       </div>
+      <div class="w-10/12 mx-auto px-3 mt-16 py-4 space-y-4 border-gray-900 border-t-2 border-b-2 shadow-md relative">
+        <h1 class="text-2xl font-bold text-gray-800 my-3">Shop Reviews</h1>
+        <div style="min-height: 200px">
+          <div v-if="reviewLoadStatus" class="flex justify-center mt-12">
+            <svg aria-hidden="true" class="ml-2 w-16 h-16 my-1 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+              <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+            </svg>
+          </div>
+          <div v-else>
+            <div v-if="reviews.length">
+              <div v-for="review in reviews" :key="review.id" class="flex space-x-3 my-6 border-b">
+                <div>
+                  <img class="w-10" src="/img/default-profile.png" alt="">
+                </div>
+                <div class="w-full hover:bg-gray-200">
+                  <h2 class="px-3 font-bold text-gray-700">{{ customer.first_name }} {{ customer.middle_name ?? ''  }} {{ customer.last_name }} | <span class="text-sm font-normal">
+                    {{ formatDateUS(review.created_at) }}
+                  </span>
+                  </h2>
+                  <h2 class="px-3 py-2 rounded-md w-full">{{ review.body }}</h2>
+                </div>
+              </div>
+            </div>
+            <div v-else class="py-12">
+              <h1 class="text-gray-500 text-2xl font-bold text-center">No reviews yet.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 <script>
@@ -87,22 +117,29 @@ import store from '../../store'
 import { useRoute } from "vue-router";
 import { ref } from '@vue/reactivity';
 import * as pdfjsLib from 'pdfjs-dist';
-import { computed, watch } from '@vue/runtime-dom';
+import { computed, onMounted, watch } from '@vue/runtime-dom';
 import { alert } from '../../alert.js'
+
 const pdfjs = await import('pdfjs-dist/build/pdf');
 const pdfjsWorker = await import('pdfjs-dist/build/pdf.worker.entry');
 pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 export default {
+
   setup(){
 
+  const customer = computed(() => store.state.customerDetails.data)
   const loadStatus = computed(() => store.state.customerUpload.loading)
+  const reviewLoadStatus = computed(() => store.state.shopReviews.loading)
   const isValid = ref(false)
   const route = useRoute()
+  const reviews = computed(() => store.state.shopReviews.data)
   const shop = ref({
     status : null,
     application : {},
     services : []
   })
+
+  store.dispatch('getCustomerDatails')
 
   const model = ref({
     file : null,
@@ -130,6 +167,8 @@ export default {
         }
       return res
     })
+
+    store.dispatch('getShopReviews', route.params.id)
   }
 
   function select(){
@@ -225,7 +264,11 @@ export default {
       .then((res) => {
         location.replace(res.data)
       })
+  }
 
+  function formatDateUS(date) {
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric'}
+    return new Date(date).toLocaleDateString('en-US', options)
   }
 
     return {
@@ -235,7 +278,11 @@ export default {
       shop,
       onFileChoose,
       select,
-      submit
+      submit,
+      reviews,
+      customer,
+      formatDateUS,
+      reviewLoadStatus
     }
   }
 }

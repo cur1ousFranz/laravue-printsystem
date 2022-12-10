@@ -26,14 +26,26 @@
         </div>
       </div>
     </div>
+    <div class="w-1/2 mx-auto px-6 my-6 border shadow-xl">
+        <h2 class="text-2xl my-3 font-semibold">Submit shop reviews?</h2>
+        <form @submit.prevent="reviewSubmit">
+            <textarea v-model="message" type="text" id="message" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full rounded-md focus:border-current focus:ring-0" placeholder="Comment your review" required></textarea>
+            <div class="flex justify-end">
+              <button class="px-3 py-2 bg-gray-900 text-white my-2" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
   </div>
 </template>
 <script>
 import { ref } from '@vue/reactivity';
 import { useRoute } from "vue-router";
 import store from '../../store';
+import { alert } from '../../alert.js'
 export default {
   setup(){
+    const message = ref('')
     const route = useRoute()
     const details = ref({})
     if(route.params.id){
@@ -52,10 +64,24 @@ export default {
       return new Date(date).toLocaleDateString('en-US', options)
     }
 
+    function reviewSubmit(){
+      const formData = new FormData()
+      formData.append('shop_id', details.value.service.shop.id)
+      formData.append('message', message.value)
+
+      store.dispatch('customerShopReview', formData)
+        .then((res) => {
+          message.value = ''
+          alert('Review submitted')
+        })
+    }
+
     return {
       details,
       capitalizeFirstLetter,
-      formatDateUS
+      formatDateUS,
+      reviewSubmit,
+      message
     }
   }
 }

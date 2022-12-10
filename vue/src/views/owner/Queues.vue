@@ -86,7 +86,7 @@
                         {{ capitalizeFirstLetter(queue.status) }}
                       </span>
                     </td>
-                    <td v-if="queue.status === 'pending'" @click="queue.status === 'pending' ? changeStatus(queue.id) : ''"
+                    <td v-if="queue.status === 'pending'" @click="queue.status === 'pending' ? showModal(queue.id) : ''"
                     class="py-4 px-6 text-green-500 hover:text-green-700 hover:text-bold cursor-pointer">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -153,6 +153,21 @@
             </div>
           </div>
         </div>
+
+        <Modal v-show="isModalVisible" @close="closeModal" @some-event="confirm" >
+          <template v-slot:header>
+            Are you sure you want to proceed?
+          </template>
+
+          <!-- <template v-slot:body>
+            Are you sure you want to proceed?
+          </template> -->
+
+          <template v-slot:footer>
+            This is a new modal footer.
+          </template>
+        </Modal>
+
       </div>
     </div>
 </template>
@@ -160,9 +175,13 @@
 import { computed, ref, watch } from '@vue/runtime-core';
 import store from '../../store';
 import { alert } from '../../alert'
+import Modal from '../../components/Modal.vue'
 export default {
+  components : { Modal },
   setup(){
 
+    let queue_id
+    const isModalVisible = ref(false)
     const detail = ref({})
     const pendingTable = ref(true)
     const loadStatus = computed(() => store.state.ownerQueue.loading)
@@ -229,6 +248,19 @@ export default {
       return timeValue
     }
 
+    function showModal(id){
+      isModalVisible.value = true
+      queue_id = id
+    }
+
+    function confirm(){
+        changeStatus(queue_id)
+    }
+
+    function closeModal(){
+      isModalVisible.value = false
+    }
+
     return {
       shops,
       detail,
@@ -239,6 +271,10 @@ export default {
       changeStatus,
       toggleTable,
       formatTime,
+      showModal,
+      closeModal,
+      isModalVisible,
+      confirm
     }
   }
 

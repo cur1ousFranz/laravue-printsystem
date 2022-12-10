@@ -42,7 +42,7 @@
                           {{ capitalizeFirstLetter(application.status) }}
                         </span>
                       </td>
-                      <td @click="application.status !== 'approved' ? approveApplication(application.id) : ''" class="py-4 px-6 text-green-500 hover:text-green-700 hover:text-bold">
+                      <td @click="application.status !== 'approved' ? showModal(application.id) : ''" class="py-4 px-6 text-green-500 hover:text-green-700 hover:text-bold">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
@@ -107,6 +107,20 @@
       <div v-else class="text-2xl font-bold mx-auto py-44 w-full text-center text-gray-400 shadow-sm bg-gray-100">
         No applications yet.
       </div>
+
+      <Modal v-show="isModalVisible" @close="closeModal" @some-event="confirm" >
+        <template v-slot:header>
+          Are you sure you want to proceed?
+        </template>
+
+        <!-- <template v-slot:body>
+          Are you sure you want to proceed?
+        </template> -->
+
+        <template v-slot:footer>
+          This is a new modal footer.
+        </template>
+      </Modal>
     </div>
 </template>
 
@@ -114,9 +128,13 @@
 import { computed, onMounted, ref, watch } from '@vue/runtime-core'
 import store from '../../store'
 import { alert } from '../../alert'
+import Modal from '../../components/Modal.vue'
 export default {
+  components : { Modal },
   setup(){
 
+    let applicationID
+    const isModalVisible = ref(false)
     const detail = ref({
       shop_name : '',
       address : '',
@@ -199,6 +217,19 @@ export default {
       modal.style.display = "none";
     }
 
+    function showModal(id){
+      isModalVisible.value = true
+      applicationID = id
+    }
+
+    function confirm(){
+      approveApplication(applicationID)
+    }
+
+    function closeModal(){
+      isModalVisible.value = false
+    }
+
     return {
       applications,
       loadStatus,
@@ -209,7 +240,12 @@ export default {
       applicationDetails,
       approveApplication,
       enlargeImg,
-      close
+      close,
+      confirm,
+      showModal,
+      closeModal,
+      isModalVisible,
+
     }
   }
 }

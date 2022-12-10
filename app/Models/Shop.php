@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Service;
+use App\Models\Feedback;
 use App\Models\Application;
 use App\Models\BusinessOwner;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +33,11 @@ class Shop extends Model
     public function services()
     {
         return $this->hasMany(Service::class);
+    }
+
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class);
     }
 
 }

@@ -28,7 +28,7 @@
                 {{ capitalizeFirstLetter(shop.status)  }}
               </p>
               <div class="my-3">
-                <Button @click="toggleShop()" class="px-2">
+                <Button @click="showModal('toggleshop')" class="px-2">
                   <p v-if="shop.status === 'close'">Open Shop</p>
                   <p v-else>Close Shop</p>
                 </Button>
@@ -54,7 +54,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                   </svg>
                 </span>
-                <span v-if="inArray(shop.services, 'documents')" @click="deletePrintService" class="cursor-pointer">
+                <span v-if="inArray(shop.services, 'documents')" @click="showModal('service')" class="cursor-pointer">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 border-2 text-red-500 border-red-500 mr-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -158,6 +158,21 @@
           </div>
         </div>
       </div>
+
+      <Modal v-show="isModalVisible" @close="closeModal" @some-event="confirm" >
+        <template v-slot:header>
+          Are you sure you want to proceed?
+        </template>
+
+        <!-- <template v-slot:body>
+          Are you sure you want to proceed?
+        </template> -->
+
+        <template v-slot:footer>
+          This is a new modal footer.
+        </template>
+      </Modal>
+
     </div>
 </template>
 <script setup>
@@ -167,16 +182,19 @@ import { useRoute } from "vue-router";
 import { alert } from '../../alert.js'
 import store from "../../store";
 import  Button  from '../../components/Button.vue'
+import Modal from '../../components/Modal.vue'
+
+  const isModalVisible = ref(false)
   const route = useRoute();
   const printDocsService = ref(false);
   const loadStatus = computed(() => store.state.ownerShopDetails.loading)
 
+  let button
   const shop = ref({
     status : null,
     application : {},
     services : []
   })
-
   const price = ref({
     a4_bnw : null,
     a4_colored : null,
@@ -297,6 +315,23 @@ import  Button  from '../../components/Button.vue'
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function showModal(from){
+    button = from
+    isModalVisible.value = true
+  }
+
+  function confirm(){
+    if(button === 'service'){
+      deletePrintService()
+    }else{
+      toggleShop()
+    }
+  }
+
+  function closeModal(){
+    isModalVisible.value = false
   }
 
 </script>
