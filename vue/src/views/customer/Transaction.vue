@@ -77,7 +77,7 @@
           </tbody>
           <tbody v-else>
             <tr>
-              <td class="py-4 px-6">
+              <td colspan="9" class="py-12 px-6 text-center text-2xl">
                 Nothing to show
               </td>
             </tr>

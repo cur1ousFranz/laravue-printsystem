@@ -74,13 +74,6 @@ const store = createStore({
   getters: {},
   actions: {
     /** CUSTOMER */
-    getCustomerDatails({commit}){
-      return axiosClient.get(`/customer`)
-        .then((res) => {
-          commit('setCustomerDetails', res.data)
-          return res.data
-        })
-    },
     getShopReviews({commit}, id){
       commit('setShopReviewsLoading', true)
       return axiosClient.get(`/review/shop/${id}`)

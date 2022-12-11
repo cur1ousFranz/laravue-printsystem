@@ -35,7 +35,7 @@ class ReviewController extends Controller
     public function show(Shop $shop)
     {
 
-        $reviews = Feedback::where('shop_id', $shop->id)->get();
+        $reviews = Feedback::with('customer')->where('shop_id', $shop->id)->get();
 
         return response()->json([
             'data' => $reviews

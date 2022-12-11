@@ -91,16 +91,16 @@
           </div>
           <div v-else>
             <div v-if="reviews.length">
-              <div v-for="review in reviews" :key="review.id" class="flex space-x-3 my-6 border-b">
+              <div v-for="review in reviews" :key="review.id" class="flex space-x-3 py-2 my-3 border-b">
                 <div>
                   <img class="w-10" src="/img/default-profile.png" alt="">
                 </div>
-                <div class="w-full hover:bg-gray-200">
-                  <h2 class="px-3 font-bold text-gray-700">{{ customer.first_name }} {{ customer.middle_name ?? ''  }} {{ customer.last_name }} | <span class="text-sm font-normal">
+                <div class="w-full hover:bg-gray-200 hover:rounded-lg">
+                  <h2 class="px-3 font-bold text-gray-700">{{ review.customer.first_name }} {{ review.customer.middle_name ?? ''  }} {{ review.customer.last_name }} | <span class="text-sm font-normal">
                     {{ formatDateUS(review.created_at) }}
                   </span>
                   </h2>
-                  <h2 class="px-3 py-2 rounded-md w-full">{{ review.body }}</h2>
+                  <h2 class="px-3 py-1 rounded-md w-full">{{ review.body }}</h2>
                 </div>
               </div>
             </div>
@@ -127,7 +127,6 @@ export default {
 
   setup(){
 
-  const customer = computed(() => store.state.customerDetails.data)
   const loadStatus = computed(() => store.state.customerUpload.loading)
   const reviewLoadStatus = computed(() => store.state.shopReviews.loading)
   const isValid = ref(false)
@@ -138,8 +137,6 @@ export default {
     application : {},
     services : []
   })
-
-  store.dispatch('getCustomerDatails')
 
   const model = ref({
     file : null,
@@ -280,7 +277,6 @@ export default {
       select,
       submit,
       reviews,
-      customer,
       formatDateUS,
       reviewLoadStatus
     }
