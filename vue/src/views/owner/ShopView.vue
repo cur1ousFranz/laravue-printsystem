@@ -8,7 +8,7 @@
           </svg>
         </div>
       <div v-else class="overflow-x-auto relative py-4 ">
-        <div class="flex flex-col border-gray-900 border-t-2 border-b-2 shadow-md py-6 px-8 space-x-6  md:flex-row md:px-4">
+        <div class="flex flex-col border-gray-900 border-t-2 py-6 px-8 space-x-6  md:flex-row md:px-4">
           <div class="w-full">
             <div class="flex justify-end py-2">
               <label for="image" class="cursor-pointer px-3 py-2 z-1 my-2 absolute flex hover:bg-gray-300">
