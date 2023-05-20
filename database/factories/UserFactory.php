@@ -20,7 +20,7 @@ class UserFactory extends Factory
         return [
             'username' => $this->faker->unique()->userName,
             'password' => bcrypt('password'),
-            'role' => '',
+            'role' => 'customer',
             'created_at' => now(),
         ];
     }
