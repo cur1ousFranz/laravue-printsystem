@@ -111,6 +111,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import store from '../store'
 import {useRouter} from 'vue-router'
 import { ref } from '@vue/reactivity'
+import { onMounted } from '@vue/runtime-core'
 
 const router = useRouter()
 const notifications = ref({})
@@ -136,6 +137,11 @@ const notifications = ref({})
     const options = { year: 'numeric', month: 'numeric', day: 'numeric'}
     return new Date(date).toLocaleDateString('en-US', options)
   }
+
+  onMounted(async () => {
+    const data = await store.dispatch('isUserAuth')
+    console.log(data);
+  })
 
 </script>
 

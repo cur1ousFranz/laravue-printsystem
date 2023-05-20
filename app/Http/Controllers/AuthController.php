@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BusinessOwner;
+use Exception;
 use App\Models\User;
 use Twilio\Rest\Client;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Models\BusinessOwner;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -280,5 +281,11 @@ class AuthController extends Controller
         $client->messages->create($receiverNumber, [
             'from' => $twilio_number,
             'body' => $message]);
+    }
+
+    public function checkAuth()
+    {
+        $user = User::where('id', Auth::user()->id)->first();
+        return response()->json(['data' => Auth::check()]);
     }
 }

@@ -328,7 +328,11 @@ const store = createStore({
           commit('logoutUser')
           return res
         })
-    }
+    },
+    async isUserAuth() {
+      const res = await axiosClient.get(`/user/auth`);
+      return res
+  },
 
   },
   mutations: {
